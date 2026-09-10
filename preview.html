@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luyện Hiragana - 18 chữ cuối</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 520px;
+      background: white;
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: #f8f9fa;
+      border-radius: 18px;
+      padding: 32px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hiragana {
+      font-size: 100px;
+      font-weight: bold;
+      line-height: 1;
+      margin-bottom: 15px;
+    }
+
+    .question {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 18px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #555;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .check-btn {
+      background: #222;
+      color: white;
+      white-space: nowrap;
+    }
+
+    .show-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: #e9ecef;
+    }
+
+    .next-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: #dbeafe;
+    }
+
+    .feedback {
+      min-height: 32px;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .wrong {
+      color: crimson;
+    }
+
+    .stats {
+      display: flex;
+      margin-top: 20px;
+      border-top: 1px solid #eee;
+      padding-top: 18px;
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+    }
+
+    .stat-label {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .stat-number {
+      display: block;
+      margin-top: 5px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .remaining {
+      margin-top: 20px;
+      padding: 14px;
+      background: #fafafa;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .remaining-title {
+      color: #666;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .remaining-kana {
+      font-size: 24px;
+      line-height: 1.7;
+      word-spacing: 5px;
+    }
+
+    .hint {
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      margin-top: 15px;
+    }
+
+    .reset-btn {
+      width: 100%;
+      margin-top: 12px;
+      background: #f1f1f1;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <h1>Luyện Hiragana</h1>
+
+    <div class="subtitle">
+      Chỉ luyện 18 chữ chưa thuộc
+    </div>
+
+    <div class="card">
+
+      <div id="hiragana" class="hiragana">
+        ぬ
+      </div>
+
+      <div class="question">
+        Chữ này đọc là gì?
+      </div>
+
+    </div>
+
+    <div class="input-row">
+
+      <input
+        id="answerInput"
+        type="text"
+        placeholder="Nhập romaji..."
+        autocomplete="off"
+        autofocus
+      />
+
+      <button
+        class="check-btn"
+        onclick="checkAnswer()"
+      >
+        Kiểm tra
+      </button>
+
+    </div>
+
+    <button
+      class="show-btn"
+      onclick="showAnswer()"
+    >
+      Hiện đáp án
+    </button>
+
+    <div
+      id="feedback"
+      class="feedback"
+    ></div>
+
+    <button
+      class="next-btn"
+      onclick="nextQuestion()"
+    >
+      Câu tiếp theo
+    </button>
+
+    <div class="stats">
+
+      <div class="stat">
+        <span class="stat-label">
+          Đúng
+        </span>
+
+        <span
+          id="correctCount"
+          class="stat-number"
+        >
+          0
+        </span>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          Sai
+        </span>
+
+        <span
+          id="wrongCount"
+          class="stat-number"
+        >
+          0
+        </span>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          Tổng
+        </span>
+
+        <span
+          id="totalCount"
+          class="stat-number"
+        >
+          0
+        </span>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">
+          Chính xác
+        </span>
+
+        <span
+          id="accuracy"
+          class="stat-number"
+        >
+          0%
+        </span>
+      </div>
+
+    </div>
+
+    <div class="remaining">
+
+      <div class="remaining-title">
+        Các chữ đang luyện
+      </div>
+
+      <div class="remaining-kana">
+        ぬ ね は ふ ほ
+        み む め
+        や ゆ よ
+        ら り る れ ろ
+        わ を
+      </div>
+
+    </div>
+
+    <button
+      class="reset-btn"
+      onclick="resetStats()"
+    >
+      Reset thống kê
+    </button>
+
+    <div class="hint">
+      Enter lần 1 = kiểm tra • Enter lần 2 = câu tiếp theo
+    </div>
+
+  </div>
+
+
+  <script>
+
+    const hiraganaList = [
+
+      {
+        kana: "ぬ",
+        romaji: "nu"
+      },
+
+      {
+        kana: "ね",
+        romaji: "ne"
+      },
+
+      {
+        kana: "は",
+        romaji: "ha"
+      },
+
+      {
+        kana: "ふ",
+        romaji: "fu",
+        alt: ["hu"]
+      },
+
+      {
+        kana: "ほ",
+        romaji: "ho"
+      },
+
+      {
+        kana: "み",
+        romaji: "mi"
+      },
+
+      {
+        kana: "む",
+        romaji: "mu"
+      },
+
+      {
+        kana: "め",
+        romaji: "me"
+      },
+
+      {
+        kana: "や",
+        romaji: "ya"
+      },
+
+      {
+        kana: "ゆ",
+        romaji: "yu"
+      },
+
+      {
+        kana: "よ",
+        romaji: "yo"
+      },
+
+      {
+        kana: "ら",
+        romaji: "ra"
+      },
+
+      {
+        kana: "り",
+        romaji: "ri"
+      },
+
+      {
+        kana: "る",
+        romaji: "ru"
+      },
+
+      {
+        kana: "れ",
+        romaji: "re"
+      },
+
+      {
+        kana: "ろ",
+        romaji: "ro"
+      },
+
+      {
+        kana: "わ",
+        romaji: "wa"
+      },
+
+      {
+        kana: "を",
+        romaji: "wo",
+        alt: ["o"]
+      }
+
+    ];
+
+
+    let currentQuestion = null;
+
+    let previousKana = null;
+
+    let answered = false;
+
+    let correctCount = 0;
+
+    let wrongCount = 0;
+
+
+    const hiraganaElement =
+      document.getElementById("hiragana");
+
+    const answerInput =
+      document.getElementById("answerInput");
+
+    const feedbackElement =
+      document.getElementById("feedback");
+
+
+    function nextQuestion() {
+
+      let randomQuestion;
+
+      do {
+
+        const randomIndex =
+          Math.floor(
+            Math.random() *
+            hiraganaList.length
+          );
+
+        randomQuestion =
+          hiraganaList[randomIndex];
+
+      } while (
+        randomQuestion.kana === previousKana &&
+        hiraganaList.length > 1
+      );
+
+
+      currentQuestion = randomQuestion;
+
+      previousKana =
+        currentQuestion.kana;
+
+
+      hiraganaElement.textContent =
+        currentQuestion.kana;
+
+
+      answerInput.value = "";
+
+      feedbackElement.textContent = "";
+
+      feedbackElement.className =
+        "feedback";
+
+
+      answered = false;
+
+      answerInput.focus();
+
+    }
+
+
+    function checkAnswer() {
+
+      if (answered) {
+
+        nextQuestion();
+
+        return;
+
+      }
+
+
+      const userAnswer =
+        answerInput
+          .value
+          .trim()
+          .toLowerCase();
+
+
+      if (!userAnswer) {
+
+        feedbackElement.textContent =
+          "Bạn chưa nhập đáp án.";
+
+        feedbackElement.className =
+          "feedback wrong";
+
+        return;
+
+      }
+
+
+      const validAnswers = [
+
+        currentQuestion.romaji,
+
+        ...(currentQuestion.alt || [])
+
+      ];
+
+
+      if (
+        validAnswers.includes(userAnswer)
+      ) {
+
+        feedbackElement.textContent =
+          "✓ Đúng!";
+
+        feedbackElement.className =
+          "feedback correct";
+
+        correctCount++;
+
+      } else {
+
+        feedbackElement.textContent =
+          "✗ Sai — đáp án: " +
+          currentQuestion.romaji;
+
+        feedbackElement.className =
+          "feedback wrong";
+
+        wrongCount++;
+
+      }
+
+
+      answered = true;
+
+      updateStats();
+
+    }
+
+
+    function showAnswer() {
+
+      feedbackElement.textContent =
+        currentQuestion.kana +
+        " = " +
+        currentQuestion.romaji;
+
+      feedbackElement.className =
+        "feedback";
+
+      answerInput.focus();
+
+    }
+
+
+    function updateStats() {
+
+      const total =
+        correctCount +
+        wrongCount;
+
+
+      const accuracy =
+        total === 0
+          ? 0
+          : Math.round(
+              correctCount /
+              total *
+              100
+            );
+
+
+      document.getElementById(
+        "correctCount"
+      ).textContent =
+        correctCount;
+
+
+      document.getElementById(
+        "wrongCount"
+      ).textContent =
+        wrongCount;
+
+
+      document.getElementById(
+        "totalCount"
+      ).textContent =
+        total;
+
+
+      document.getElementById(
+        "accuracy"
+      ).textContent =
+        accuracy + "%";
+
+    }
+
+
+    function resetStats() {
+
+      correctCount = 0;
+
+      wrongCount = 0;
+
+      updateStats();
+
+      nextQuestion();
+
+    }
+
+
+    answerInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          if (!answered) {
+
+            checkAnswer();
+
+          } else {
+
+            nextQuestion();
+
+          }
+
+        }
+
+      }
+    );
+
+
+    nextQuestion();
+
+  </script>
+
+</body>
+</html>
