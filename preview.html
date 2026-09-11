@@ -94,18 +94,24 @@
 
     /* Practice Mode Selector */
     .mode-bar {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       background: #f1f5f9;
-      padding: 4px;
+      padding: 5px;
       border-radius: var(--radius-md);
-      gap: 4px;
-      margin-bottom: 20px;
+      gap: 5px;
+      margin-bottom: 14px;
+    }
+
+    @media (min-width: 520px) {
+      .mode-bar {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .mode-btn {
-      flex: 1;
-      padding: 8px 10px;
-      font-size: 13px;
+      padding: 8px 6px;
+      font-size: 12.5px;
       font-weight: 600;
       border: none;
       background: transparent;
@@ -114,12 +120,42 @@
       cursor: pointer;
       transition: all 0.2s ease;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .mode-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--text);
     }
 
     .mode-btn.active {
       background: white;
       color: var(--primary);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .badge-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 999px;
+      background: #e0e7ff;
+      color: var(--primary);
+      transition: all 0.2s ease;
+    }
+
+    .mode-btn.active .badge-count {
+      background: var(--primary);
+      color: white;
     }
 
     /* Question Card */
@@ -155,6 +191,7 @@
     }
 
     .kana-tile {
+      position: relative;
       flex: 1;
       max-width: 96px;
       min-width: 58px;
@@ -543,6 +580,488 @@
       font-weight: 700;
     }
 
+    /* Custom Selection Manager Toggle Bar */
+    .custom-toggle-bar {
+      margin-bottom: 14px;
+    }
+
+    .custom-toggle-btn {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #334155;
+    }
+
+    .custom-toggle-btn:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+    }
+
+    .custom-toggle-btn.panel-open {
+      border-style: solid;
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .toggle-summary {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .custom-toggle-btn.panel-open .toggle-summary {
+      background: white;
+      color: var(--primary);
+    }
+
+    .toggle-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .toggle-arrow {
+      font-size: 10px;
+      transition: transform 0.25s ease;
+    }
+
+    .custom-toggle-btn.panel-open .toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Custom Manager Panel */
+    .custom-manager-panel {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 18px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quick-actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .quick-pill-btn {
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: white;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .quick-pill-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .quick-pill-btn.primary {
+      background: var(--primary-light);
+      border-color: #c7d2fe;
+      color: var(--primary);
+    }
+
+    .quick-pill-btn.primary:hover {
+      background: #e0e7ff;
+    }
+
+    /* Interactive Kana Grid Picker */
+    .kana-picker-scroll {
+      max-height: 250px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 14px;
+    }
+
+    .kana-picker-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .kana-picker-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+
+    .picker-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .picker-row:last-child {
+      border-bottom: none;
+    }
+
+    .picker-row-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      min-width: 65px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .picker-row-name:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .picker-row-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      flex: 1;
+    }
+
+    .picker-chip {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 44px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .picker-chip:hover {
+      border-color: #94a3b8;
+      transform: translateY(-1px);
+    }
+
+    .picker-chip-kana {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #1e293b;
+    }
+
+    .picker-chip-romaji {
+      font-size: 10px;
+      color: #94a3b8;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .picker-chip.selected {
+      background: #eef2ff;
+      border-color: var(--primary);
+      box-shadow: 0 1px 4px rgba(79, 70, 229, 0.2);
+    }
+
+    .picker-chip.selected .picker-chip-kana {
+      color: var(--primary);
+    }
+
+    .picker-chip.selected .picker-chip-romaji {
+      color: var(--primary-hover);
+    }
+
+    .picker-chip.selected::after {
+      content: "★";
+      position: absolute;
+      top: 1px;
+      right: 2px;
+      font-size: 8px;
+      color: #f59e0b;
+    }
+
+    /* Custom Vocabulary Form */
+    .vocab-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+    }
+
+    .vocab-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .vocab-input-row input {
+      flex: 1;
+      padding: 8px 12px;
+      font-size: 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .btn-add-vocab {
+      background: #f1f5f9;
+      color: #334155;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .btn-add-vocab:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .vocab-tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      min-height: 24px;
+    }
+
+    .vocab-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .vocab-tag .tag-kana {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .vocab-tag .tag-romaji {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .vocab-tag .tag-remove {
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1;
+      padding: 0 2px;
+    }
+    .vocab-tag .tag-remove:hover {
+      color: #ef4444;
+    }
+
+    /* Loop Settings */
+    .loop-settings-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .loop-setting-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: #334155;
+      flex-wrap: wrap;
+    }
+
+    .loop-setting-item label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .loop-setting-item input[type="radio"],
+    .loop-setting-item input[type="checkbox"] {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .btn-apply-practice {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+    .btn-apply-practice:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Star button on card tiles */
+    .tile-star-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      color: #94a3b8;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: all 0.18s ease;
+      z-index: 2;
+    }
+
+    .tile-star-btn:hover {
+      transform: scale(1.18);
+      color: #f59e0b;
+    }
+
+    .tile-star-btn.active {
+      color: #f59e0b;
+      background: #fef3c7;
+      box-shadow: 0 1px 4px rgba(245, 158, 11, 0.25);
+    }
+
+    /* Empty state */
+    .empty-state-box {
+      padding: 24px 12px;
+      text-align: center;
+    }
+
+    .empty-state-icon {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .empty-state-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .empty-state-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .empty-state-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .empty-btn {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .empty-btn.primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .empty-btn.secondary {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid var(--border);
+    }
+
+    /* Toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
     @media (max-width: 480px) {
       .app-container {
         padding: 20px 16px;
@@ -589,13 +1108,101 @@
     <!-- Selection Modes -->
     <div class="mode-bar">
       <button class="mode-btn active" id="modeRandom5" onclick="setMode('random5')">
-        Cụm 5 chữ ngẫu nhiên
+        Cụm 5 ngẫu nhiên
       </button>
       <button class="mode-btn" id="modeRow5" onclick="setMode('row5')">
-        Cụm 5 chữ theo hàng
+        Cụm theo hàng
       </button>
       <button class="mode-btn" id="modeSingle" onclick="setMode('single')">
         Từng chữ (1 chữ)
+      </button>
+      <button class="mode-btn" id="modeCustom" onclick="setMode('custom')">
+        ⭐ Chữ đã chọn <span class="badge-count" id="customCountBadge">5</span>
+      </button>
+    </div>
+
+    <!-- Toggle Bar for Custom Selection Manager -->
+    <div class="custom-toggle-bar">
+      <button class="custom-toggle-btn" id="toggleManagerBtn" onclick="toggleCustomManager()">
+        <div class="toggle-left">
+          <span>🎯</span>
+          <span>Bảng chọn chữ & từ luyện tập</span>
+          <span class="toggle-summary" id="selectedSummaryBadge">5 chữ đã lưu</span>
+        </div>
+        <div class="toggle-right">
+          <span id="toggleActionText">Mở bảng chọn</span>
+          <span class="toggle-arrow" id="toggleArrow">▼</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Collapsible Custom Manager Panel -->
+    <div class="custom-manager-panel" id="customManagerPanel" style="display: none;">
+      <!-- Quick selection toolbar -->
+      <div class="panel-section-title">
+        <span>Bảng chọn chữ cái Hiragana</span>
+        <span style="font-size: 11.5px; font-weight: 600; color: var(--primary);" id="pickerCountText">Đang chọn: 5 chữ</span>
+      </div>
+      <div class="quick-actions-bar">
+        <button class="quick-pill-btn primary" onclick="selectAllKana()">Chọn tất cả</button>
+        <button class="quick-pill-btn" onclick="clearAllKana()">Bỏ chọn hết</button>
+        <button class="quick-pill-btn" onclick="selectQuickRowGroup('vowels')">Hàng A (5 nguyên âm)</button>
+        <button class="quick-pill-btn" onclick="selectQuickRowGroup('top3')">Hàng A - Ka - Sa</button>
+        <button class="quick-pill-btn" onclick="selectRandomKana(5)">Chọn 5 chữ ngẫu nhiên</button>
+        <button class="quick-pill-btn" onclick="selectMistakeKana()" id="btnPickMistakes" style="display: none;">Chữ hay làm sai</button>
+      </div>
+
+      <!-- Interactive Kana Grid -->
+      <div class="kana-picker-scroll" id="pickerGridContainer">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Custom Vocabulary -->
+      <div class="vocab-box">
+        <div class="panel-section-title">
+          <span>📝 Thêm từ vựng Hiragana tùy chỉnh</span>
+          <span style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Tự động nhận diện romaji</span>
+        </div>
+        <div class="vocab-input-row">
+          <input
+            type="text"
+            id="customWordInput"
+            placeholder="Nhập từ (vd: わたし, さくら, ねこ)..."
+            onkeydown="if(event.key === 'Enter'){ event.stopPropagation(); addCustomWord(); }"
+          />
+          <button class="btn-add-vocab" onclick="addCustomWord()">+ Thêm</button>
+        </div>
+        <div class="vocab-tags-container" id="customWordsList">
+          <!-- Rendered custom words tags -->
+        </div>
+      </div>
+
+      <!-- Loop Options -->
+      <div class="loop-settings-box">
+        <div class="panel-section-title">
+          <span>🔄 Cài đặt vòng lặp luyện tập</span>
+        </div>
+        <div class="loop-setting-item">
+          <span style="font-weight: 600; font-size: 12px; color: #475569;">Kiểu đề bài:</span>
+          <label>
+            <input type="radio" name="loopType" value="single" id="loopRadioSingle" checked onchange="updateLoopConfig()" />
+            <span>Từng chữ một (luyện sâu)</span>
+          </label>
+          <label>
+            <input type="radio" name="loopType" value="cluster" id="loopRadioCluster" onchange="updateLoopConfig()" />
+            <span>Ghép cụm ngẫu nhiên (luyện phản xạ chuỗi)</span>
+          </label>
+        </div>
+        <div class="loop-setting-item">
+          <label>
+            <input type="checkbox" id="smartMistakesCheckbox" checked onchange="updateLoopConfig()" />
+            <span>⚡ Ưu tiên lặp lại nhiều hơn các chữ tôi vừa gõ sai (Smart Mistake Loop)</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="btn-apply-practice" onclick="startCustomPractice()">
+        🚀 Bắt đầu luyện lặp lại các chữ đã chọn
       </button>
     </div>
 
@@ -692,6 +1299,9 @@
       </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div id="toastMsg" class="toast-msg"></div>
+
   </div>
 
   <script>
@@ -770,7 +1380,7 @@
         romajiDesc: "ma - mi - mu - me - mo",
         items: [
           { kana: "ま", romaji: "ma" },
-          { kana: "mô", romaji: "mi", kana: "み" },
+          { kana: "み", romaji: "mi" },
           { kana: "む", romaji: "mu" },
           { kana: "め", romaji: "me" },
           { kana: "も", romaji: "mo" }
@@ -807,8 +1417,6 @@
       }
     ];
 
-    BASIC_ROWS[6].items[1] = { kana: "み", romaji: "mi" };
-
     const DAKUTEN_ROWS = [
       {
         name: "Hàng Ga (Đục Ka)",
@@ -839,7 +1447,7 @@
           { kana: "だ", romaji: "da" },
           { kana: "ぢ", romaji: "ji", alt: ["dji", "di"] },
           { kana: "づ", romaji: "zu", alt: ["dzu", "du"] },
-          { kana: "đề", romaji: "de", kana: "で" },
+          { kana: "で", romaji: "de" },
           { kana: "ど", romaji: "do" }
         ]
       },
@@ -867,18 +1475,39 @@
       }
     ];
 
-    DAKUTEN_ROWS[2].items[3] = { kana: "で", romaji: "de" };
+    // Tạo từ điển tra cứu nhanh ký tự
+    const KANA_LOOKUP = {};
+    [...BASIC_ROWS, ...DAKUTEN_ROWS].forEach(row => {
+      row.items.forEach(item => {
+        KANA_LOOKUP[item.kana] = item;
+      });
+    });
 
     // ==========================================
-    // 2. STATE & VARIABLES
+    // 2. LOCALSTORAGE KEYS & STATE
     // ==========================================
-    let currentMode = "random5"; // "random5" | "row5" | "single"
+    const STORAGE_KEYS = {
+      SELECTED_KANA: "hiragana_selected_kana",
+      CUSTOM_WORDS: "hiragana_custom_words",
+      CUSTOM_CONFIG: "hiragana_custom_config",
+      MISTAKES: "hiragana_mistakes",
+      STATS: "hiragana_stats",
+      MODE: "hiragana_mode"
+    };
+
+    let currentMode = "random5"; // "random5" | "row5" | "single" | "custom"
     let includeDakuten = false;
     let currentCluster = [];
     let answered = false;
     let correctCount = 0;
     let wrongCount = 0;
     let totalRounds = 0;
+
+    let selectedKanaSet = new Set();
+    let customWords = [];
+    let loopConfig = { loopType: "single", smartMistakes: true };
+    let mistakeFrequency = {};
+    let mistakeQueue = [];
 
     // DOM Elements
     const clusterContainer = document.getElementById("clusterContainer");
@@ -888,23 +1517,413 @@
     const questionLabel = document.getElementById("questionLabel");
     const formatHint = document.getElementById("formatHint");
     const rowsContainer = document.getElementById("rowsContainer");
+    const pickerGridContainer = document.getElementById("pickerGridContainer");
+    const customManagerPanel = document.getElementById("customManagerPanel");
+    const toggleManagerBtn = document.getElementById("toggleManagerBtn");
+    const selectedSummaryBadge = document.getElementById("selectedSummaryBadge");
+    const customCountBadge = document.getElementById("customCountBadge");
+    const pickerCountText = document.getElementById("pickerCountText");
+    const customWordsList = document.getElementById("customWordsList");
+    const toastMsg = document.getElementById("toastMsg");
+
+    // ==========================================
+    // 3. LOCALSTORAGE PERSISTENCE
+    // ==========================================
+    function saveToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.SELECTED_KANA, JSON.stringify([...selectedKanaSet]));
+        localStorage.setItem(STORAGE_KEYS.CUSTOM_WORDS, JSON.stringify(customWords));
+        localStorage.setItem(STORAGE_KEYS.CUSTOM_CONFIG, JSON.stringify(loopConfig));
+        localStorage.setItem(STORAGE_KEYS.MISTAKES, JSON.stringify(mistakeFrequency));
+        localStorage.setItem(STORAGE_KEYS.MODE, currentMode);
+        localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify({ correctCount, wrongCount, totalRounds }));
+      } catch (err) {
+        console.warn("Không thể lưu localStorage:", err);
+      }
+    }
+
+    function loadFromStorage() {
+      try {
+        const savedKana = localStorage.getItem(STORAGE_KEYS.SELECTED_KANA);
+        if (savedKana) {
+          selectedKanaSet = new Set(JSON.parse(savedKana));
+        } else {
+          // Mẫu ban đầu: Hàng A
+          selectedKanaSet = new Set(["あ", "い", "う", "え", "お"]);
+          saveToStorage();
+        }
+
+        const savedWords = localStorage.getItem(STORAGE_KEYS.CUSTOM_WORDS);
+        if (savedWords) {
+          customWords = JSON.parse(savedWords);
+        }
+
+        const savedConfig = localStorage.getItem(STORAGE_KEYS.CUSTOM_CONFIG);
+        if (savedConfig) {
+          loopConfig = { ...loopConfig, ...JSON.parse(savedConfig) };
+        }
+
+        const savedMistakes = localStorage.getItem(STORAGE_KEYS.MISTAKES);
+        if (savedMistakes) {
+          mistakeFrequency = JSON.parse(savedMistakes);
+          mistakeQueue = Object.keys(mistakeFrequency).filter(k => mistakeFrequency[k] > 0);
+        }
+
+        const savedMode = localStorage.getItem(STORAGE_KEYS.MODE);
+        if (savedMode && ["random5", "row5", "single", "custom"].includes(savedMode)) {
+          currentMode = savedMode;
+        }
+
+        const savedStats = localStorage.getItem(STORAGE_KEYS.STATS);
+        if (savedStats) {
+          const st = JSON.parse(savedStats);
+          correctCount = st.correctCount || 0;
+          wrongCount = st.wrongCount || 0;
+          totalRounds = st.totalRounds || 0;
+        }
+      } catch (err) {
+        console.warn("Lỗi đọc localStorage:", err);
+        selectedKanaSet = new Set(["あ", "い", "う", "え", "お"]);
+      }
+    }
 
     function getActiveRows() {
       return includeDakuten ? [...BASIC_ROWS, ...DAKUTEN_ROWS] : BASIC_ROWS;
     }
 
     function getAllActiveKana() {
-      const rows = getActiveRows();
-      return rows.flatMap(row => row.items);
+      return getActiveRows().flatMap(row => row.items);
     }
 
     // ==========================================
-    // 3. GENERATE QUESTION (CỤM 5 CHỮ HOẶC 1 CHỮ)
+    // 4. TOAST NOTIFICATION
+    // ==========================================
+    let toastTimer = null;
+    function showToast(text) {
+      if (!toastMsg) return;
+      toastMsg.textContent = text;
+      toastMsg.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastMsg.classList.remove("show");
+      }, 2000);
+    }
+
+    // ==========================================
+    // 5. QUẢN LÝ BẢNG CHỌN CHỮ (CUSTOM PICKER)
+    // ==========================================
+    function toggleCustomManager(forceOpen) {
+      const isCurrentlyOpen = customManagerPanel.style.display !== "none";
+      const willOpen = (forceOpen !== undefined) ? forceOpen : !isCurrentlyOpen;
+
+      customManagerPanel.style.display = willOpen ? "block" : "none";
+      toggleManagerBtn.classList.toggle("panel-open", willOpen);
+      document.getElementById("toggleActionText").textContent = willOpen ? "Thu gọn bảng chọn" : "Mở bảng chọn";
+      
+      if (willOpen) {
+        renderPickerGrid();
+        renderCustomWordsList();
+      }
+    }
+
+    function renderPickerGrid() {
+      pickerGridContainer.innerHTML = "";
+      const rows = [...BASIC_ROWS, ...DAKUTEN_ROWS];
+
+      rows.forEach(row => {
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "picker-row";
+
+        const nameLabel = document.createElement("div");
+        nameLabel.className = "picker-row-name";
+        nameLabel.textContent = row.name;
+        nameLabel.title = "Click để chọn/bỏ chọn cả hàng";
+        nameLabel.onclick = () => toggleEntireRow(row.items);
+
+        const chipsDiv = document.createElement("div");
+        chipsDiv.className = "picker-row-chips";
+
+        row.items.forEach(item => {
+          const chip = document.createElement("div");
+          const isSelected = selectedKanaSet.has(item.kana);
+          chip.className = `picker-chip ${isSelected ? 'selected' : ''}`;
+          chip.id = `chip-${item.kana}`;
+          chip.title = `${item.kana} (${item.romaji}) - Click để chọn`;
+          chip.onclick = () => toggleKanaSelection(item.kana);
+
+          const kanaSpan = document.createElement("span");
+          kanaSpan.className = "picker-chip-kana";
+          kanaSpan.textContent = item.kana;
+
+          const romajiSpan = document.createElement("span");
+          romajiSpan.className = "picker-chip-romaji";
+          romajiSpan.textContent = item.romaji;
+
+          chip.appendChild(kanaSpan);
+          chip.appendChild(romajiSpan);
+          chipsDiv.appendChild(chip);
+        });
+
+        rowDiv.appendChild(nameLabel);
+        rowDiv.appendChild(chipsDiv);
+        pickerGridContainer.appendChild(rowDiv);
+      });
+
+      updateCustomCountUI();
+    }
+
+    function toggleKanaSelection(kanaChar) {
+      if (selectedKanaSet.has(kanaChar)) {
+        selectedKanaSet.delete(kanaChar);
+        showToast(`Đã bỏ chữ [${kanaChar}] khỏi danh sách`);
+      } else {
+        selectedKanaSet.add(kanaChar);
+        showToast(`⭐ Đã thêm chữ [${kanaChar}] vào danh sách`);
+      }
+      saveToStorage();
+      updateCustomCountUI();
+      updateTileStarStates();
+      updatePickerChipState(kanaChar);
+
+      // Nếu đang ở chế độ custom và màn hình rỗng hoặc câu hỏi cũ không còn trong danh sách
+      if (currentMode === "custom") {
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion();
+        }
+      }
+    }
+
+    function updatePickerChipState(kanaChar) {
+      const chip = document.getElementById(`chip-${kanaChar}`);
+      if (chip) {
+        chip.classList.toggle("selected", selectedKanaSet.has(kanaChar));
+      }
+    }
+
+    function toggleEntireRow(items) {
+      const allSelected = items.every(i => selectedKanaSet.has(i.kana));
+      if (allSelected) {
+        items.forEach(i => selectedKanaSet.delete(i.kana));
+        showToast(`Đã bỏ chọn hàng này`);
+      } else {
+        items.forEach(i => selectedKanaSet.add(i.kana));
+        showToast(`⭐ Đã chọn cả hàng (${items.map(i => i.kana).join(" ")})`);
+      }
+      saveToStorage();
+      renderPickerGrid();
+      updateTileStarStates();
+      if (currentMode === "custom") nextQuestion();
+    }
+
+    function selectAllKana() {
+      const allActive = getAllActiveKana();
+      allActive.forEach(i => selectedKanaSet.add(i.kana));
+      saveToStorage();
+      renderPickerGrid();
+      updateTileStarStates();
+      showToast(`⭐ Đã chọn tất cả ${allActive.length} chữ cái!`);
+      if (currentMode === "custom") nextQuestion();
+    }
+
+    function clearAllKana() {
+      selectedKanaSet.clear();
+      saveToStorage();
+      renderPickerGrid();
+      updateTileStarStates();
+      showToast(`Đã bỏ chọn toàn bộ chữ cái.`);
+      if (currentMode === "custom") nextQuestion();
+    }
+
+    function selectQuickRowGroup(type) {
+      if (type === "vowels") {
+        ["あ", "い", "う", "え", "お"].forEach(k => selectedKanaSet.add(k));
+        showToast(`⭐ Đã thêm 5 nguyên âm hàng A (A, I, U, E, O)`);
+      } else if (type === "top3") {
+        const top3Rows = [BASIC_ROWS[0], BASIC_ROWS[1], BASIC_ROWS[2]];
+        top3Rows.forEach(r => r.items.forEach(i => selectedKanaSet.add(i.kana)));
+        showToast(`⭐ Đã thêm các hàng: A - Ka - Sa`);
+      }
+      saveToStorage();
+      renderPickerGrid();
+      updateTileStarStates();
+      if (currentMode === "custom") nextQuestion();
+    }
+
+    function selectRandomKana(count) {
+      const all = getAllActiveKana();
+      const shuffled = [...all].sort(() => 0.5 - Math.random());
+      const picked = shuffled.slice(0, count);
+      picked.forEach(i => selectedKanaSet.add(i.kana));
+      saveToStorage();
+      renderPickerGrid();
+      updateTileStarStates();
+      showToast(`⭐ Đã thêm ${count} chữ ngẫu nhiên: ${picked.map(p => p.kana).join(" ")}`);
+      if (currentMode === "custom") nextQuestion();
+    }
+
+    function selectMistakeKana() {
+      const mistakes = Object.keys(mistakeFrequency).filter(k => mistakeFrequency[k] > 0);
+      if (mistakes.length === 0) {
+        showToast(`Chưa có chữ nào trong danh sách làm sai!`);
+        return;
+      }
+      mistakes.forEach(k => selectedKanaSet.add(k));
+      saveToStorage();
+      renderPickerGrid();
+      updateTileStarStates();
+      showToast(`⭐ Đã thêm ${mistakes.length} chữ bạn từng làm sai vào danh sách!`);
+      if (currentMode === "custom") nextQuestion();
+    }
+
+    function updateCustomCountUI() {
+      const totalCount = selectedKanaSet.size + customWords.length;
+      if (customCountBadge) customCountBadge.textContent = totalCount;
+      if (selectedSummaryBadge) selectedSummaryBadge.textContent = `${totalCount} mục đã lưu`;
+      if (pickerCountText) pickerCountText.textContent = `Đang chọn: ${selectedKanaSet.size} chữ (${customWords.length} từ)`;
+
+      const mistakeCount = Object.keys(mistakeFrequency).filter(k => mistakeFrequency[k] > 0).length;
+      const btnPickMistakes = document.getElementById("btnPickMistakes");
+      if (btnPickMistakes) {
+        if (mistakeCount > 0) {
+          btnPickMistakes.style.display = "inline-flex";
+          btnPickMistakes.textContent = `Chữ hay sai (${mistakeCount})`;
+        } else {
+          btnPickMistakes.style.display = "none";
+        }
+      }
+    }
+
+    // ==========================================
+    // 6. TỪ VỰNG TÙY CHỌN (CUSTOM VOCAB)
+    // ==========================================
+    function addCustomWord() {
+      const input = document.getElementById("customWordInput");
+      if (!input) return;
+      const rawWord = input.value.trim();
+      if (!rawWord) return;
+
+      const items = [];
+      const autoRomaji = [];
+      for (const ch of rawWord) {
+        if (KANA_LOOKUP[ch]) {
+          items.push(KANA_LOOKUP[ch]);
+          autoRomaji.push(KANA_LOOKUP[ch].romaji);
+        } else {
+          showToast(`Ký tự "${ch}" không nằm trong bảng chữ cái Hiragana.`);
+          return;
+        }
+      }
+
+      if (customWords.some(w => w.word === rawWord)) {
+        showToast(`Từ "${rawWord}" đã tồn tại trong danh sách!`);
+        return;
+      }
+
+      customWords.push({
+        word: rawWord,
+        romaji: autoRomaji.join(" ")
+      });
+
+      input.value = "";
+      saveToStorage();
+      renderCustomWordsList();
+      updateCustomCountUI();
+      showToast(`⭐ Đã thêm từ vựng: "${rawWord}" (${autoRomaji.join("")})`);
+
+      if (currentMode === "custom") {
+        nextQuestion();
+      }
+    }
+
+    function removeCustomWord(idx) {
+      if (idx < 0 || idx >= customWords.length) return;
+      const removed = customWords.splice(idx, 1);
+      saveToStorage();
+      renderCustomWordsList();
+      updateCustomCountUI();
+      if (removed.length > 0) {
+        showToast(`Đã xóa từ "${removed[0].word}"`);
+      }
+      if (currentMode === "custom") {
+        nextQuestion();
+      }
+    }
+
+    function renderCustomWordsList() {
+      if (!customWordsList) return;
+      customWordsList.innerHTML = "";
+      if (customWords.length === 0) {
+        customWordsList.innerHTML = `<span style="font-size: 12px; color: #94a3b8; font-style: italic;">Chưa có từ vựng nào được thêm</span>`;
+        return;
+      }
+
+      customWords.forEach((item, index) => {
+        const tag = document.createElement("div");
+        tag.className = "vocab-tag";
+
+        const kanaSpan = document.createElement("span");
+        kanaSpan.className = "tag-kana";
+        kanaSpan.textContent = item.word;
+
+        const romajiSpan = document.createElement("span");
+        romajiSpan.className = "tag-romaji";
+        romajiSpan.textContent = item.romaji;
+
+        const removeBtn = document.createElement("span");
+        removeBtn.className = "tag-remove";
+        removeBtn.textContent = "×";
+        removeBtn.title = "Xóa từ này";
+        removeBtn.onclick = () => removeCustomWord(index);
+
+        tag.appendChild(kanaSpan);
+        tag.appendChild(romajiSpan);
+        tag.appendChild(removeBtn);
+        customWordsList.appendChild(tag);
+      });
+    }
+
+    // ==========================================
+    // 7. CÀI ĐẶT VÒNG LẶP & BẮT ĐẦU LUYỆN
+    // ==========================================
+    function updateLoopConfig() {
+      const singleRadio = document.getElementById("loopRadioSingle");
+      const smartCheck = document.getElementById("smartMistakesCheckbox");
+
+      loopConfig.loopType = (singleRadio && singleRadio.checked) ? "single" : "cluster";
+      loopConfig.smartMistakes = smartCheck ? smartCheck.checked : true;
+
+      saveToStorage();
+      if (currentMode === "custom") {
+        nextQuestion();
+      }
+    }
+
+    function startCustomPractice() {
+      toggleCustomManager(false);
+      setMode("custom");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function updateTileStarStates() {
+      currentCluster.forEach((item, index) => {
+        const starBtn = document.getElementById(`star-tile-${index}`);
+        if (starBtn) {
+          const isSelected = selectedKanaSet.has(item.kana);
+          starBtn.className = `tile-star-btn ${isSelected ? 'active' : ''}`;
+          starBtn.innerHTML = isSelected ? "★" : "☆";
+          starBtn.title = isSelected ? "Bỏ khỏi danh sách luyện tập" : "Lưu vào danh sách luyện tập";
+        }
+      });
+    }
+
+    // ==========================================
+    // 8. GENERATE QUESTION (HỖ TRỢ CHẾ ĐỘ CUSTOM LOOP)
     // ==========================================
     function nextQuestion() {
       answered = false;
       feedbackElement.textContent = "";
       feedbackElement.className = "feedback";
+      answerInput.disabled = false;
       answerInput.value = "";
       answerInput.focus();
 
@@ -927,8 +1946,92 @@
         formatHint.innerHTML = `💡 Nhập romaji cách nhau (vd: <code>a ka sa ta na</code>) hoặc viết liền`;
         answerInput.placeholder = "Nhập romaji cho cụm trên...";
       } 
+      else if (currentMode === "custom") {
+        // CHẾ ĐỘ ⭐ CHỮ ĐÃ CHỌN (LẶP VÔ TẬN)
+        const selectedList = [...selectedKanaSet].map(k => KANA_LOOKUP[k]).filter(Boolean);
+        const hasWords = customWords.length > 0;
+        const totalItems = selectedList.length + customWords.length;
+
+        if (totalItems === 0) {
+          // Màn hình rỗng nếu chưa chọn gì
+          cardBox.classList.remove("single-mode");
+          questionLabel.innerHTML = `<span>⭐ Danh sách luyện tập của bạn</span>`;
+          currentCluster = [];
+          clusterContainer.innerHTML = `
+            <div class="empty-state-box">
+              <div class="empty-state-icon">📂</div>
+              <div class="empty-state-title">Chưa có chữ hoặc từ nào trong danh sách!</div>
+              <div class="empty-state-desc">Hãy bấm nút chọn nhanh bên dưới hoặc mở bảng chọn để thêm các chữ bạn muốn luyện tập lặp đi lặp lại.</div>
+              <div class="empty-state-actions">
+                <button class="empty-btn primary" onclick="selectQuickRowGroup('vowels')">+ Thêm hàng A (5 nguyên âm)</button>
+                <button class="empty-btn secondary" onclick="toggleCustomManager(true)">🎯 Mở bảng chọn chữ</button>
+              </div>
+            </div>
+          `;
+          formatHint.innerHTML = `💡 Chọn các chữ Hiragana bạn muốn ghi nhớ để bắt đầu vòng lặp`;
+          answerInput.disabled = true;
+          answerInput.placeholder = "Hãy chọn chữ để bắt đầu...";
+          return;
+        }
+
+        // Ưu tiên lặp các chữ gõ sai (Smart Mistake Loop)
+        const mistakeList = mistakeQueue.map(k => KANA_LOOKUP[k]).filter(Boolean);
+        const shouldPickMistake = loopConfig.smartMistakes && mistakeList.length > 0 && (Math.random() < 0.6);
+
+        if (loopConfig.loopType === "single") {
+          cardBox.classList.add("single-mode");
+          
+          // Có thể chọn từ vựng nếu có
+          const pickWord = hasWords && (selectedList.length === 0 || Math.random() < 0.35);
+          if (pickWord) {
+            const wordObj = customWords[Math.floor(Math.random() * customWords.length)];
+            const wordKanaItems = [];
+            for (const ch of wordObj.word) {
+              if (KANA_LOOKUP[ch]) wordKanaItems.push(KANA_LOOKUP[ch]);
+            }
+            currentCluster = wordKanaItems;
+            cardBox.classList.remove("single-mode");
+            questionLabel.innerHTML = `<span>⭐ Luyện từ vựng đã chọn: <strong>${wordObj.word}</strong></span>`;
+            formatHint.innerHTML = `💡 Nhập romaji cho từ vựng này (vd: <code>${wordObj.romaji.replace(/\s+/g, '')}</code>)`;
+            answerInput.placeholder = `Nhập romaji cho "${wordObj.word}"...`;
+          } else {
+            let pickedItem;
+            if (shouldPickMistake) {
+              pickedItem = mistakeList[Math.floor(Math.random() * mistakeList.length)];
+              questionLabel.innerHTML = `<span>⚡ Luyện lại chữ hay sai:</span>`;
+            } else {
+              pickedItem = selectedList[Math.floor(Math.random() * selectedList.length)];
+              questionLabel.innerHTML = `<span>⭐ Luyện chữ đã chọn (Lặp vô tận):</span>`;
+            }
+            currentCluster = [pickedItem];
+            formatHint.innerHTML = `💡 Nhập romaji cho chữ hiragana bên trên`;
+            answerInput.placeholder = "Nhập romaji...";
+          }
+        } 
+        else {
+          // Luyện cụm từ danh sách đã chọn
+          cardBox.classList.remove("single-mode");
+          const clusterSize = Math.min(5, Math.max(1, selectedList.length));
+          const newCluster = [];
+
+          // Nếu có chữ sai, đảm bảo chữ sai xuất hiện trong cụm
+          if (shouldPickMistake && mistakeList.length > 0) {
+            newCluster.push(mistakeList[Math.floor(Math.random() * mistakeList.length)]);
+          }
+
+          while (newCluster.length < clusterSize) {
+            const randItem = selectedList[Math.floor(Math.random() * selectedList.length)];
+            newCluster.push(randItem);
+          }
+
+          currentCluster = newCluster;
+          questionLabel.innerHTML = `<span>⭐ Cụm lặp từ danh sách của bạn (${clusterSize} chữ):</span>`;
+          formatHint.innerHTML = `💡 Nhập romaji cách nhau hoặc viết liền`;
+          answerInput.placeholder = "Nhập romaji cho cụm trên...";
+        }
+      } 
       else {
-        // MẶC ĐỊNH: Cụm 5 chữ ngẫu nhiên ("không nghĩa cũng được")
+        // MẶC ĐỊNH: Cụm 5 chữ ngẫu nhiên
         cardBox.classList.remove("single-mode");
         const clusterSize = 5;
         const newCluster = [];
@@ -945,6 +2048,7 @@
       renderClusterTiles();
     }
 
+    // Hiển thị các ô chữ Hiragana trên Card kèm nút Sao ⭐
     function renderClusterTiles() {
       clusterContainer.innerHTML = "";
       currentCluster.forEach((item, index) => {
@@ -952,7 +2056,24 @@
         tile.className = "kana-tile";
         tile.id = `tile-${index}`;
         tile.title = "Click để nghe phát âm";
-        tile.onclick = () => speakKana(item.kana);
+        tile.onclick = (e) => {
+          if (e.target.closest('.tile-star-btn')) return;
+          speakKana(item.kana);
+        };
+
+        // Nút ngôi sao trực tiếp trên ô
+        const isSelected = selectedKanaSet.has(item.kana);
+        const starBtn = document.createElement("button");
+        starBtn.type = "button";
+        starBtn.id = `star-tile-${index}`;
+        starBtn.className = `tile-star-btn ${isSelected ? 'active' : ''}`;
+        starBtn.innerHTML = isSelected ? "★" : "☆";
+        starBtn.title = isSelected ? "Bỏ khỏi danh sách luyện tập" : "Lưu chữ này vào danh sách luyện";
+        starBtn.onclick = (e) => {
+          e.stopPropagation();
+          toggleKanaSelection(item.kana);
+        };
+        tile.appendChild(starBtn);
 
         const charSpan = document.createElement("span");
         charSpan.className = "kana-char";
@@ -969,7 +2090,7 @@
     }
 
     // ==========================================
-    // 4. KIỂM TRA ĐÁP ÁN (THÔNG MINH)
+    // 9. KIỂM TRA ĐÁP ÁN (GHI NHẬN LỖI ĐỂ LẶP LẠI)
     // ==========================================
     function checkAnswer() {
       if (answered) {
@@ -994,7 +2115,8 @@
           index: 0,
           correct: isOk,
           userRomaji: rawInput,
-          expectedRomaji: item.romaji
+          expectedRomaji: item.romaji,
+          item: item
         });
       } else {
         const tokens = rawInput.split(/[\s,.-]+/).filter(t => t.length > 0);
@@ -1009,17 +2131,20 @@
               index: i,
               correct: isOk,
               userRomaji: userVal,
-              expectedRomaji: item.romaji
+              expectedRomaji: item.romaji,
+              item: item
             });
           }
         } else {
+          // Người dùng viết liền (vd: "akasatana")
           const continuousMatch = matchContinuous(rawInput, currentCluster);
           if (continuousMatch) {
             matchResults = continuousMatch.map((val, idx) => ({
               index: idx,
               correct: true,
               userRomaji: val,
-              expectedRomaji: currentCluster[idx].romaji
+              expectedRomaji: currentCluster[idx].romaji,
+              item: currentCluster[idx]
             }));
           } else {
             matchResults = greedyMatch(rawInput, currentCluster);
@@ -1027,17 +2152,36 @@
         }
       }
 
+      // Đánh dấu kết quả trên từng ô gạch và ghi nhận lỗi để lặp lại
       let correctInCluster = 0;
       matchResults.forEach(res => {
         const tile = document.getElementById(`tile-${res.index}`);
+        const kanaChar = res.item ? res.item.kana : (currentCluster[res.index] ? currentCluster[res.index].kana : null);
+
         if (tile) {
           tile.classList.remove("correct", "wrong");
           if (res.correct) {
             tile.classList.add("correct");
             correctInCluster++;
+            // Nếu đúng, giảm hoặc bỏ khỏi mistakeQueue
+            if (kanaChar) {
+              if (mistakeFrequency[kanaChar]) {
+                mistakeFrequency[kanaChar] = Math.max(0, mistakeFrequency[kanaChar] - 1);
+              }
+              const qIdx = mistakeQueue.indexOf(kanaChar);
+              if (qIdx > -1) mistakeQueue.splice(qIdx, 1);
+            }
           } else {
             tile.classList.add("wrong");
+            // Nếu sai, tăng tần suất lỗi để ưu tiên lặp lại
+            if (kanaChar) {
+              mistakeFrequency[kanaChar] = (mistakeFrequency[kanaChar] || 0) + 1;
+              if (!mistakeQueue.includes(kanaChar)) {
+                mistakeQueue.push(kanaChar);
+              }
+            }
           }
+
           const romajiSpan = tile.querySelector(".kana-romaji");
           if (romajiSpan) {
             romajiSpan.textContent = res.correct 
@@ -1071,8 +2215,11 @@
       totalRounds++;
       answered = true;
       updateStats();
+      saveToStorage();
+      updateCustomCountUI();
     }
 
+    // Hàm phân tích chuỗi romaji viết liền (vd: "kasatana")
     function matchContinuous(inputStr, cluster) {
       function helper(remainingStr, idx, matchedTokens) {
         if (idx === cluster.length) {
@@ -1095,6 +2242,7 @@
       return helper(inputStr, 0, []);
     }
 
+    // Phân tích tham lam khi chuỗi viết liền có lỗi
     function greedyMatch(inputStr, cluster) {
       let remaining = inputStr;
       const results = [];
@@ -1108,7 +2256,8 @@
               index: i,
               correct: true,
               userRomaji: candidate,
-              expectedRomaji: item.romaji
+              expectedRomaji: item.romaji,
+              item: item
             });
             remaining = remaining.slice(candidate.length);
             found = true;
@@ -1120,7 +2269,8 @@
             index: i,
             correct: false,
             userRomaji: remaining.slice(0, 2),
-            expectedRomaji: item.romaji
+            expectedRomaji: item.romaji,
+            item: item
           });
           remaining = remaining.slice(2);
         }
@@ -1129,7 +2279,7 @@
     }
 
     // ==========================================
-    // 5. HIỆN ĐÁP ÁN & ÂM THANH
+    // 10. HIỆN ĐÁP ÁN & ÂM THANH
     // ==========================================
     function showAnswer() {
       currentCluster.forEach((item, index) => {
@@ -1156,12 +2306,13 @@
     }
 
     function speakCurrentCluster() {
+      if (currentCluster.length === 0) return;
       const clusterText = currentCluster.map(c => c.kana).join("");
       speakKana(clusterText);
     }
 
     // ==========================================
-    // 6. THỐNG KÊ & CHẾ ĐỘ
+    // 11. THỐNG KÊ & CHUYỂN ĐỔI CHẾ ĐỘ
     // ==========================================
     function updateStats() {
       const totalAttempted = correctCount + wrongCount;
@@ -1180,25 +2331,30 @@
       wrongCount = 0;
       totalRounds = 0;
       updateStats();
+      saveToStorage();
+      showToast("Đã thiết lập lại thống kê!");
       nextQuestion();
     }
 
     function setMode(mode) {
       currentMode = mode;
+      saveToStorage();
       document.getElementById("modeRandom5").classList.toggle("active", mode === "random5");
       document.getElementById("modeRow5").classList.toggle("active", mode === "row5");
       document.getElementById("modeSingle").classList.toggle("active", mode === "single");
+      document.getElementById("modeCustom").classList.toggle("active", mode === "custom");
       nextQuestion();
     }
 
     function toggleDakuten() {
       includeDakuten = document.getElementById("dakutenCheckbox").checked;
       renderReferenceTable();
+      renderPickerGrid();
       nextQuestion();
     }
 
     // ==========================================
-    // 7. BẢNG THAM KHẢO CHỮ CÁI THEO CỤM 5
+    // 12. BẢNG THAM KHẢO CHỮ CÁI THEO CỤM 5
     // ==========================================
     function renderReferenceTable() {
       rowsContainer.innerHTML = "";
@@ -1228,7 +2384,7 @@
     }
 
     // ==========================================
-    // 8. PHÍM TẮT & KHỞI TẠO
+    // 13. PHÍM TẮT & KHỞI TẠO ỨNG DỤNG
     // ==========================================
     answerInput.addEventListener("keydown", function(event) {
       if (event.key === "Enter") {
@@ -1240,8 +2396,33 @@
       }
     });
 
+    // Khởi chạy ứng dụng
+    loadFromStorage();
+    
+    // Đồng bộ trạng thái cấu hình vòng lặp lên UI
+    if (loopConfig.loopType === "cluster") {
+      const radCluster = document.getElementById("loopRadioCluster");
+      if (radCluster) radCluster.checked = true;
+    } else {
+      const radSingle = document.getElementById("loopRadioSingle");
+      if (radSingle) radSingle.checked = true;
+    }
+    const checkSmart = document.getElementById("smartMistakesCheckbox");
+    if (checkSmart) checkSmart.checked = !!loopConfig.smartMistakes;
+
+    // Đánh dấu active mode
+    document.getElementById("modeRandom5").classList.toggle("active", currentMode === "random5");
+    document.getElementById("modeRow5").classList.toggle("active", currentMode === "row5");
+    document.getElementById("modeSingle").classList.toggle("active", currentMode === "single");
+    document.getElementById("modeCustom").classList.toggle("active", currentMode === "custom");
+
+    updateStats();
+    updateCustomCountUI();
+    renderPickerGrid();
+    renderCustomWordsList();
     renderReferenceTable();
     nextQuestion();
+
   </script>
 
 </body>
