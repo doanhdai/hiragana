@@ -92,6 +92,82 @@
       font-size: 14px;
     }
 
+    /* Script Selector (Hiragana / Katakana / Mixed) */
+    .script-selector-bar {
+      display: flex;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 999px;
+      gap: 4px;
+      margin: 14px auto 0;
+      max-width: 390px;
+      border: 1px solid var(--border);
+    }
+
+    .script-btn {
+      flex: 1;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .script-btn .script-kana-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.06);
+      font-size: 12.5px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 800;
+      transition: all 0.2s ease;
+    }
+
+    .script-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--text);
+    }
+
+    .script-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 3px 10px rgba(79, 70, 229, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .script-btn.active .script-kana-icon {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .picker-section-header {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      padding: 6px 12px;
+      background: var(--primary-light);
+      border-radius: 8px;
+      margin: 14px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* Practice Mode Selector */
     .mode-bar {
       display: grid;
@@ -353,12 +429,58 @@
       background: var(--primary);
       color: white;
       white-space: nowrap;
-      min-width: 110px;
+      min-width: 125px;
       box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
     }
 
     .check-btn:hover {
       background: var(--primary-hover);
+    }
+
+    .check-btn.next-ready {
+      background: #059669;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+      animation: pulseNext 1.6s infinite ease-in-out;
+    }
+
+    .check-btn.next-ready:hover {
+      background: #047857;
+    }
+
+    @keyframes pulseNext {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+
+    .btn-kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+      padding: 1px 6px;
+      margin-left: 6px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    @keyframes shakeInput {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .shake-input {
+      animation: shakeInput 0.35s ease-in-out !important;
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+    }
+
+    #answerInput.answered-state {
+      background: #f8fafc;
+      border-color: #cbd5e1;
     }
 
     .btn-group-2 {
@@ -1095,13 +1217,29 @@
   <div class="app-container">
 
     <header>
-      <div class="badge-tag">
+      <div class="badge-tag" id="scriptBadgeTag">
         <span>🇯🇵</span>
-        <span>Bảng chữ cái Hiragana đầy đủ</span>
+        <span id="scriptBadgeText">Bảng chữ cái Hiragana đầy đủ</span>
       </div>
-      <h1>Luyện Phản Xạ Hiragana</h1>
-      <div class="subtitle">
+      <h1 id="appTitle">Luyện Phản Xạ Hiragana</h1>
+      <div class="subtitle" id="appSubtitle">
         Luyện theo cụm 5 chữ liên tiếp (không cần nghĩa từ điển)
+      </div>
+
+      <!-- Script Switcher (Hiragana / Katakana / Cả hai) -->
+      <div class="script-selector-bar">
+        <button class="script-btn active" id="scriptBtnHira" onclick="setScript('hiragana')">
+          <span class="script-kana-icon">あ</span>
+          <span>Hiragana</span>
+        </button>
+        <button class="script-btn" id="scriptBtnKata" onclick="setScript('katakana')">
+          <span class="script-kana-icon">ア</span>
+          <span>Katakana</span>
+        </button>
+        <button class="script-btn" id="scriptBtnMixed" onclick="setScript('mixed')">
+          <span class="script-kana-icon">🔀</span>
+          <span>Cả hai</span>
+        </button>
       </div>
     </header>
 
@@ -1140,7 +1278,7 @@
     <div class="custom-manager-panel" id="customManagerPanel" style="display: none;">
       <!-- Quick selection toolbar -->
       <div class="panel-section-title">
-        <span>Bảng chọn chữ cái Hiragana</span>
+        <span id="pickerTitleText">Bảng chọn chữ cái Hiragana</span>
         <span style="font-size: 11.5px; font-weight: 600; color: var(--primary);" id="pickerCountText">Đang chọn: 5 chữ</span>
       </div>
       <div class="quick-actions-bar">
@@ -1160,7 +1298,7 @@
       <!-- Custom Vocabulary -->
       <div class="vocab-box">
         <div class="panel-section-title">
-          <span>📝 Thêm từ vựng Hiragana tùy chỉnh</span>
+          <span id="vocabTitleText">📝 Thêm từ vựng tùy chỉnh (Hiragana / Katakana)</span>
           <span style="font-size: 11px; font-weight: 500; color: var(--text-muted);">Tự động nhận diện romaji</span>
         </div>
         <div class="vocab-input-row">
@@ -1235,8 +1373,8 @@
         autocomplete="off"
         autofocus
       />
-      <button class="check-btn" onclick="checkAnswer()">
-        Kiểm tra
+      <button class="check-btn" id="checkBtn" onclick="checkAnswer()">
+        <span>Kiểm tra</span> <kbd class="btn-kbd">↵ Enter</kbd>
       </button>
     </div>
 
@@ -1273,15 +1411,15 @@
       </div>
     </div>
 
-    <!-- Hiragana Reference Table Grouped in 5s -->
+    <!-- Reference Table Grouped in 5s -->
     <div class="reference-section">
       <div class="reference-header">
-        <div class="reference-title">
+        <div class="reference-title" id="referenceTitleText">
           Bảng 46 chữ cái Hiragana (chia theo cụm 5)
         </div>
         <label class="dakuten-toggle">
           <input type="checkbox" id="dakutenCheckbox" onchange="toggleDakuten()" />
-          <span>Thêm âm đục (が, ざ, だ, ば, ぱ)</span>
+          <span id="dakutenLabelText">Thêm âm đục (が, ざ, だ, ば, ぱ)</span>
         </label>
       </div>
 
@@ -1294,8 +1432,8 @@
       <button class="reset-link" onclick="resetStats()">
         Reset thống kê
       </button>
-      <div class="shortcut-hint">
-        <kbd>Enter</kbd> 1: Kiểm tra • <kbd>Enter</kbd> 2: Câu kế
+      <div class="shortcut-hint" id="shortcutHint">
+        <span class="active-step"><kbd>Enter</kbd> 1: Kiểm tra</span> • <span><kbd>Enter</kbd> 2: Câu kế</span>
       </div>
     </div>
 
@@ -1306,9 +1444,9 @@
 
   <script>
     // ==========================================
-    // 1. DATA: ĐẦY ĐỦ 46 CHỮ HIRAGANA & ÂM ĐỤC
+    // 1. DATA: ĐẦY ĐỦ HIRAGANA & KATAKANA (46 CHỮ CƠ BẢN + ÂM ĐỤC)
     // ==========================================
-    const BASIC_ROWS = [
+    const HIRAGANA_BASIC_ROWS = [
       {
         name: "Hàng A",
         romajiDesc: "a - i - u - e - o",
@@ -1417,7 +1555,7 @@
       }
     ];
 
-    const DAKUTEN_ROWS = [
+    const HIRAGANA_DAKUTEN_ROWS = [
       {
         name: "Hàng Ga (Đục Ka)",
         romajiDesc: "ga - gi - gu - ge - go",
@@ -1475,9 +1613,187 @@
       }
     ];
 
-    // Tạo từ điển tra cứu nhanh ký tự
-    const KANA_LOOKUP = {};
-    [...BASIC_ROWS, ...DAKUTEN_ROWS].forEach(row => {
+    const KATAKANA_BASIC_ROWS = [
+      {
+        name: "Hàng A",
+        romajiDesc: "a - i - u - e - o",
+        items: [
+          { kana: "ア", romaji: "a" },
+          { kana: "イ", romaji: "i" },
+          { kana: "ウ", romaji: "u" },
+          { kana: "エ", romaji: "e" },
+          { kana: "オ", romaji: "o" }
+        ]
+      },
+      {
+        name: "Hàng Ka",
+        romajiDesc: "ka - ki - ku - ke - ko",
+        items: [
+          { kana: "カ", romaji: "ka" },
+          { kana: "キ", romaji: "ki" },
+          { kana: "ク", romaji: "ku" },
+          { kana: "ケ", romaji: "ke" },
+          { kana: "コ", romaji: "ko" }
+        ]
+      },
+      {
+        name: "Hàng Sa",
+        romajiDesc: "sa - shi - su - se - so",
+        items: [
+          { kana: "サ", romaji: "sa" },
+          { kana: "シ", romaji: "shi", alt: ["si"] },
+          { kana: "ス", romaji: "su" },
+          { kana: "セ", romaji: "se" },
+          { kana: "ソ", romaji: "so" }
+        ]
+      },
+      {
+        name: "Hàng Ta",
+        romajiDesc: "ta - chi - tsu - te - to",
+        items: [
+          { kana: "タ", romaji: "ta" },
+          { kana: "チ", romaji: "chi", alt: ["ti"] },
+          { kana: "ツ", romaji: "tsu", alt: ["tu"] },
+          { kana: "テ", romaji: "te" },
+          { kana: "ト", romaji: "to" }
+        ]
+      },
+      {
+        name: "Hàng Na",
+        romajiDesc: "na - ni - nu - ne - no",
+        items: [
+          { kana: "ナ", romaji: "na" },
+          { kana: "ニ", romaji: "ni" },
+          { kana: "ヌ", romaji: "nu" },
+          { kana: "ネ", romaji: "ne" },
+          { kana: "ノ", romaji: "no" }
+        ]
+      },
+      {
+        name: "Hàng Ha",
+        romajiDesc: "ha - hi - fu - he - ho",
+        items: [
+          { kana: "ハ", romaji: "ha" },
+          { kana: "ヒ", romaji: "hi" },
+          { kana: "フ", romaji: "fu", alt: ["hu"] },
+          { kana: "ヘ", romaji: "he" },
+          { kana: "ホ", romaji: "ho" }
+        ]
+      },
+      {
+        name: "Hàng Ma",
+        romajiDesc: "ma - mi - mu - me - mo",
+        items: [
+          { kana: "マ", romaji: "ma" },
+          { kana: "ミ", romaji: "mi" },
+          { kana: "ム", romaji: "mu" },
+          { kana: "メ", romaji: "me" },
+          { kana: "モ", romaji: "mo" }
+        ]
+      },
+      {
+        name: "Hàng Ya",
+        romajiDesc: "ya - (i) - yu - (e) - yo",
+        items: [
+          { kana: "ヤ", romaji: "ya" },
+          { kana: "ユ", romaji: "yu" },
+          { kana: "ヨ", romaji: "yo" }
+        ]
+      },
+      {
+        name: "Hàng Ra",
+        romajiDesc: "ra - ri - ru - re - ro",
+        items: [
+          { kana: "ラ", romaji: "ra" },
+          { kana: "リ", romaji: "ri" },
+          { kana: "ル", romaji: "ru" },
+          { kana: "レ", romaji: "re" },
+          { kana: "ロ", romaji: "ro" }
+        ]
+      },
+      {
+        name: "Hàng Wa / N",
+        romajiDesc: "wa - wo - n",
+        items: [
+          { kana: "ワ", romaji: "wa" },
+          { kana: "ヲ", romaji: "wo", alt: ["o"] },
+          { kana: "ン", romaji: "n", alt: ["nn"] }
+        ]
+      }
+    ];
+
+    const KATAKANA_DAKUTEN_ROWS = [
+      {
+        name: "Hàng Ga (Đục Ka)",
+        romajiDesc: "ga - gi - gu - ge - go",
+        items: [
+          { kana: "ガ", romaji: "ga" },
+          { kana: "ギ", romaji: "gi" },
+          { kana: "グ", romaji: "gu" },
+          { kana: "ゲ", romaji: "ge" },
+          { kana: "ゴ", romaji: "go" }
+        ]
+      },
+      {
+        name: "Hàng Za (Đục Sa)",
+        romajiDesc: "za - ji - zu - ze - zo",
+        items: [
+          { kana: "ザ", romaji: "za" },
+          { kana: "ジ", romaji: "ji", alt: ["zi"] },
+          { kana: "ズ", romaji: "zu" },
+          { kana: "ゼ", romaji: "ze" },
+          { kana: "ゾ", romaji: "zo" }
+        ]
+      },
+      {
+        name: "Hàng Da (Đục Ta)",
+        romajiDesc: "da - ji - zu - de - do",
+        items: [
+          { kana: "ダ", romaji: "da" },
+          { kana: "ヂ", romaji: "ji", alt: ["dji", "di"] },
+          { kana: "ヅ", romaji: "zu", alt: ["dzu", "du"] },
+          { kana: "デ", romaji: "de" },
+          { kana: "ド", romaji: "do" }
+        ]
+      },
+      {
+        name: "Hàng Ba (Đục Ha)",
+        romajiDesc: "ba - bi - bu - be - bo",
+        items: [
+          { kana: "バ", romaji: "ba" },
+          { kana: "ビ", romaji: "bi" },
+          { kana: "ブ", romaji: "bu" },
+          { kana: "ベ", romaji: "be" },
+          { kana: "ボ", romaji: "bo" }
+        ]
+      },
+      {
+        name: "Hàng Pa (Bán đục Ha)",
+        romajiDesc: "pa - pi - pu - pe - po",
+        items: [
+          { kana: "パ", romaji: "pa" },
+          { kana: "ピ", romaji: "pi" },
+          { kana: "プ", romaji: "pu" },
+          { kana: "ペ", romaji: "pe" },
+          { kana: "ポ", romaji: "po" }
+        ]
+      }
+    ];
+
+    // Tương thích ngược
+    const BASIC_ROWS = HIRAGANA_BASIC_ROWS;
+    const DAKUTEN_ROWS = HIRAGANA_DAKUTEN_ROWS;
+
+    // Tạo từ điển tra cứu nhanh toàn bộ ký tự Hiragana & Katakana
+    const KANA_LOOKUP = {
+      "ー": { kana: "ー", romaji: "-", alt: ["-", ""] }
+    };
+    [
+      ...HIRAGANA_BASIC_ROWS,
+      ...HIRAGANA_DAKUTEN_ROWS,
+      ...KATAKANA_BASIC_ROWS,
+      ...KATAKANA_DAKUTEN_ROWS
+    ].forEach(row => {
       row.items.forEach(item => {
         KANA_LOOKUP[item.kana] = item;
       });
@@ -1487,6 +1803,7 @@
     // 2. LOCALSTORAGE KEYS & STATE
     // ==========================================
     const STORAGE_KEYS = {
+      SCRIPT: "hiragana_script",
       SELECTED_KANA: "hiragana_selected_kana",
       CUSTOM_WORDS: "hiragana_custom_words",
       CUSTOM_CONFIG: "hiragana_custom_config",
@@ -1495,6 +1812,7 @@
       MODE: "hiragana_mode"
     };
 
+    let currentScript = "hiragana"; // "hiragana" | "katakana" | "mixed"
     let currentMode = "random5"; // "random5" | "row5" | "single" | "custom"
     let includeDakuten = false;
     let currentCluster = [];
@@ -1531,6 +1849,7 @@
     // ==========================================
     function saveToStorage() {
       try {
+        localStorage.setItem(STORAGE_KEYS.SCRIPT, currentScript);
         localStorage.setItem(STORAGE_KEYS.SELECTED_KANA, JSON.stringify([...selectedKanaSet]));
         localStorage.setItem(STORAGE_KEYS.CUSTOM_WORDS, JSON.stringify(customWords));
         localStorage.setItem(STORAGE_KEYS.CUSTOM_CONFIG, JSON.stringify(loopConfig));
@@ -1544,12 +1863,19 @@
 
     function loadFromStorage() {
       try {
+        const savedScript = localStorage.getItem(STORAGE_KEYS.SCRIPT);
+        if (savedScript && ["hiragana", "katakana", "mixed"].includes(savedScript)) {
+          currentScript = savedScript;
+        }
+
         const savedKana = localStorage.getItem(STORAGE_KEYS.SELECTED_KANA);
         if (savedKana) {
           selectedKanaSet = new Set(JSON.parse(savedKana));
         } else {
           // Mẫu ban đầu: Hàng A
-          selectedKanaSet = new Set(["あ", "い", "う", "え", "お"]);
+          selectedKanaSet = currentScript === "katakana"
+            ? new Set(["ア", "イ", "ウ", "エ", "オ"])
+            : new Set(["あ", "い", "う", "え", "お"]);
           saveToStorage();
         }
 
@@ -1587,8 +1913,84 @@
       }
     }
 
+    function setScript(script) {
+      currentScript = script;
+      saveToStorage();
+
+      const btnHira = document.getElementById("scriptBtnHira");
+      const btnKata = document.getElementById("scriptBtnKata");
+      const btnMixed = document.getElementById("scriptBtnMixed");
+      if (btnHira) btnHira.classList.toggle("active", script === "hiragana");
+      if (btnKata) btnKata.classList.toggle("active", script === "katakana");
+      if (btnMixed) btnMixed.classList.toggle("active", script === "mixed");
+
+      updateScriptUI();
+      renderReferenceTable();
+      renderPickerGrid();
+      nextQuestion();
+
+      const scriptNames = {
+        hiragana: "Hiragana (ひらがな)",
+        katakana: "Katakana (カタカナ)",
+        mixed: "Cả hai (Hiragana & Katakana)"
+      };
+      showToast(`🎯 Đã chuyển sang: ${scriptNames[script]}`);
+    }
+
+    function updateScriptUI() {
+      const badgeText = document.getElementById("scriptBadgeText");
+      const appTitle = document.getElementById("appTitle");
+      const appSubtitle = document.getElementById("appSubtitle");
+      const dakutenLabel = document.getElementById("dakutenLabelText");
+      const refTitle = document.getElementById("referenceTitleText");
+      const pickerTitle = document.getElementById("pickerTitleText");
+      const customWordInput = document.getElementById("customWordInput");
+
+      if (currentScript === "katakana") {
+        if (badgeText) badgeText.textContent = "Bảng chữ cái Katakana đầy đủ";
+        if (appTitle) appTitle.textContent = "Luyện Phản Xạ Katakana";
+        if (appSubtitle) appSubtitle.textContent = "Luyện theo cụm 5 chữ Katakana (không cần nghĩa từ điển)";
+        if (dakutenLabel) dakutenLabel.textContent = "Thêm âm đục (ガ, ザ, ダ, バ, パ)";
+        if (refTitle) refTitle.textContent = "Bảng 46 chữ cái Katakana (chia theo cụm 5)";
+        if (pickerTitle) pickerTitle.textContent = "Bảng chọn chữ cái Katakana";
+        if (customWordInput) customWordInput.placeholder = "Nhập từ (vd: コーヒー, パン, カメラ)...";
+      } else if (currentScript === "mixed") {
+        if (badgeText) badgeText.textContent = "Song Hành Hiragana & Katakana";
+        if (appTitle) appTitle.textContent = "Luyện Phản Xạ Kana (Hira + Kata)";
+        if (appSubtitle) appSubtitle.textContent = "Luyện kết hợp ngẫu nhiên cả Hiragana và Katakana";
+        if (dakutenLabel) dakutenLabel.textContent = "Thêm âm đục & bán đục (が/ガ, ざ/ザ...)";
+        if (refTitle) refTitle.textContent = "Bảng chữ cái Hiragana & Katakana";
+        if (pickerTitle) pickerTitle.textContent = "Bảng chọn chữ cái (Hiragana & Katakana)";
+        if (customWordInput) customWordInput.placeholder = "Nhập từ (vd: わたし, コーヒー, さくら)...";
+      } else {
+        if (badgeText) badgeText.textContent = "Bảng chữ cái Hiragana đầy đủ";
+        if (appTitle) appTitle.textContent = "Luyện Phản Xạ Hiragana";
+        if (appSubtitle) appSubtitle.textContent = "Luyện theo cụm 5 chữ liên tiếp (không cần nghĩa từ điển)";
+        if (dakutenLabel) dakutenLabel.textContent = "Thêm âm đục (が, ざ, だ, ば, ぱ)";
+        if (refTitle) refTitle.textContent = "Bảng 46 chữ cái Hiragana (chia theo cụm 5)";
+        if (pickerTitle) pickerTitle.textContent = "Bảng chọn chữ cái Hiragana";
+        if (customWordInput) customWordInput.placeholder = "Nhập từ (vd: わたし, さくら, ねこ)...";
+      }
+    }
+
     function getActiveRows() {
-      return includeDakuten ? [...BASIC_ROWS, ...DAKUTEN_ROWS] : BASIC_ROWS;
+      if (currentScript === "katakana") {
+        return includeDakuten 
+          ? [...KATAKANA_BASIC_ROWS, ...KATAKANA_DAKUTEN_ROWS] 
+          : KATAKANA_BASIC_ROWS;
+      } else if (currentScript === "mixed") {
+        const hiraRows = includeDakuten 
+          ? [...HIRAGANA_BASIC_ROWS, ...HIRAGANA_DAKUTEN_ROWS] 
+          : HIRAGANA_BASIC_ROWS;
+        const kataRows = includeDakuten 
+          ? [...KATAKANA_BASIC_ROWS, ...KATAKANA_DAKUTEN_ROWS] 
+          : KATAKANA_BASIC_ROWS;
+        return [...hiraRows, ...kataRows];
+      } else {
+        return includeDakuten 
+          ? [...HIRAGANA_BASIC_ROWS, ...HIRAGANA_DAKUTEN_ROWS] 
+          : HIRAGANA_BASIC_ROWS;
+      }
     }
 
     function getAllActiveKana() {
@@ -1628,45 +2030,65 @@
 
     function renderPickerGrid() {
       pickerGridContainer.innerHTML = "";
-      const rows = [...BASIC_ROWS, ...DAKUTEN_ROWS];
+      
+      let sections = [];
+      if (currentScript === "katakana") {
+        sections = [{ title: "Bảng chữ cái Katakana", rows: [...KATAKANA_BASIC_ROWS, ...KATAKANA_DAKUTEN_ROWS] }];
+      } else if (currentScript === "mixed") {
+        sections = [
+          { title: "🇯🇵 Bảng Hiragana", rows: [...HIRAGANA_BASIC_ROWS, ...HIRAGANA_DAKUTEN_ROWS] },
+          { title: "🇯🇵 Bảng Katakana", rows: [...KATAKANA_BASIC_ROWS, ...KATAKANA_DAKUTEN_ROWS] }
+        ];
+      } else {
+        sections = [{ title: "Bảng chữ cái Hiragana", rows: [...HIRAGANA_BASIC_ROWS, ...HIRAGANA_DAKUTEN_ROWS] }];
+      }
 
-      rows.forEach(row => {
-        const rowDiv = document.createElement("div");
-        rowDiv.className = "picker-row";
+      sections.forEach(sec => {
+        if (sections.length > 1) {
+          const header = document.createElement("div");
+          header.className = "picker-section-header";
+          header.textContent = sec.title;
+          pickerGridContainer.appendChild(header);
+        }
 
-        const nameLabel = document.createElement("div");
-        nameLabel.className = "picker-row-name";
-        nameLabel.textContent = row.name;
-        nameLabel.title = "Click để chọn/bỏ chọn cả hàng";
-        nameLabel.onclick = () => toggleEntireRow(row.items);
+        sec.rows.forEach(row => {
+          const rowDiv = document.createElement("div");
+          rowDiv.className = "picker-row";
 
-        const chipsDiv = document.createElement("div");
-        chipsDiv.className = "picker-row-chips";
+          const nameLabel = document.createElement("div");
+          nameLabel.className = "picker-row-name";
+          nameLabel.textContent = row.name;
+          nameLabel.title = "Click để chọn/bỏ chọn cả hàng";
+          nameLabel.onclick = () => toggleEntireRow(row.items);
 
-        row.items.forEach(item => {
-          const chip = document.createElement("div");
-          const isSelected = selectedKanaSet.has(item.kana);
-          chip.className = `picker-chip ${isSelected ? 'selected' : ''}`;
-          chip.id = `chip-${item.kana}`;
-          chip.title = `${item.kana} (${item.romaji}) - Click để chọn`;
-          chip.onclick = () => toggleKanaSelection(item.kana);
+          const chipsDiv = document.createElement("div");
+          chipsDiv.className = "picker-row-chips";
 
-          const kanaSpan = document.createElement("span");
-          kanaSpan.className = "picker-chip-kana";
-          kanaSpan.textContent = item.kana;
+          row.items.forEach(item => {
+            const chip = document.createElement("div");
+            const isSelected = selectedKanaSet.has(item.kana);
+            chip.className = `picker-chip ${isSelected ? 'selected' : ''}`;
+            chip.id = `chip-${item.kana}`;
+            chip.title = `${item.kana} (${item.romaji}) - Click để chọn`;
+            chip.onclick = () => toggleKanaSelection(item.kana);
 
-          const romajiSpan = document.createElement("span");
-          romajiSpan.className = "picker-chip-romaji";
-          romajiSpan.textContent = item.romaji;
+            const kanaSpan = document.createElement("span");
+            kanaSpan.className = "picker-chip-kana";
+            kanaSpan.textContent = item.kana;
 
-          chip.appendChild(kanaSpan);
-          chip.appendChild(romajiSpan);
-          chipsDiv.appendChild(chip);
+            const romajiSpan = document.createElement("span");
+            romajiSpan.className = "picker-chip-romaji";
+            romajiSpan.textContent = item.romaji;
+
+            chip.appendChild(kanaSpan);
+            chip.appendChild(romajiSpan);
+            chipsDiv.appendChild(chip);
+          });
+
+          rowDiv.appendChild(nameLabel);
+          rowDiv.appendChild(chipsDiv);
+          pickerGridContainer.appendChild(rowDiv);
         });
-
-        rowDiv.appendChild(nameLabel);
-        rowDiv.appendChild(chipsDiv);
-        pickerGridContainer.appendChild(rowDiv);
       });
 
       updateCustomCountUI();
@@ -1736,11 +2158,29 @@
 
     function selectQuickRowGroup(type) {
       if (type === "vowels") {
-        ["あ", "い", "う", "え", "お"].forEach(k => selectedKanaSet.add(k));
-        showToast(`⭐ Đã thêm 5 nguyên âm hàng A (A, I, U, E, O)`);
+        if (currentScript === "katakana") {
+          ["ア", "イ", "ウ", "エ", "オ"].forEach(k => selectedKanaSet.add(k));
+          showToast(`⭐ Đã thêm 5 nguyên âm Katakana hàng A (ア, イ, ウ, エ, オ)`);
+        } else if (currentScript === "mixed") {
+          ["あ", "い", "う", "え", "お", "ア", "イ", "ウ", "エ", "オ"].forEach(k => selectedKanaSet.add(k));
+          showToast(`⭐ Đã thêm 10 nguyên âm hàng A (Hiragana + Katakana)`);
+        } else {
+          ["あ", "い", "う", "え", "お"].forEach(k => selectedKanaSet.add(k));
+          showToast(`⭐ Đã thêm 5 nguyên âm Hiragana hàng A (あ, い, う, え, お)`);
+        }
       } else if (type === "top3") {
-        const top3Rows = [BASIC_ROWS[0], BASIC_ROWS[1], BASIC_ROWS[2]];
-        top3Rows.forEach(r => r.items.forEach(i => selectedKanaSet.add(i.kana)));
+        let rows = [];
+        if (currentScript === "katakana") {
+          rows = [KATAKANA_BASIC_ROWS[0], KATAKANA_BASIC_ROWS[1], KATAKANA_BASIC_ROWS[2]];
+        } else if (currentScript === "mixed") {
+          rows = [
+            HIRAGANA_BASIC_ROWS[0], HIRAGANA_BASIC_ROWS[1], HIRAGANA_BASIC_ROWS[2],
+            KATAKANA_BASIC_ROWS[0], KATAKANA_BASIC_ROWS[1], KATAKANA_BASIC_ROWS[2]
+          ];
+        } else {
+          rows = [HIRAGANA_BASIC_ROWS[0], HIRAGANA_BASIC_ROWS[1], HIRAGANA_BASIC_ROWS[2]];
+        }
+        rows.forEach(r => r.items.forEach(i => selectedKanaSet.add(i.kana)));
         showToast(`⭐ Đã thêm các hàng: A - Ka - Sa`);
       }
       saveToStorage();
@@ -1809,7 +2249,7 @@
           items.push(KANA_LOOKUP[ch]);
           autoRomaji.push(KANA_LOOKUP[ch].romaji);
         } else {
-          showToast(`Ký tự "${ch}" không nằm trong bảng chữ cái Hiragana.`);
+          showToast(`Ký tự "${ch}" không nằm trong bảng chữ cái Hiragana/Katakana.`);
           return;
         }
       }
@@ -1925,6 +2365,8 @@
       feedbackElement.className = "feedback";
       answerInput.disabled = false;
       answerInput.value = "";
+      answerInput.classList.remove("shake-input");
+      if (typeof updateActionButtons === "function") updateActionButtons();
       answerInput.focus();
 
       const allKana = getAllActiveKana();
@@ -2102,6 +2544,10 @@
       if (!rawInput) {
         feedbackElement.textContent = "Vui lòng nhập đáp án của bạn.";
         feedbackElement.className = "feedback wrong";
+        answerInput.classList.remove("shake-input");
+        void answerInput.offsetWidth;
+        answerInput.classList.add("shake-input");
+        answerInput.focus();
         return;
       }
 
@@ -2214,9 +2660,11 @@
 
       totalRounds++;
       answered = true;
+      lastActionTime = Date.now();
       updateStats();
       saveToStorage();
       updateCustomCountUI();
+      if (typeof updateActionButtons === "function") updateActionButtons();
     }
 
     // Hàm phân tích chuỗi romaji viết liền (vd: "kasatana")
@@ -2293,6 +2741,9 @@
       const allAnswers = currentCluster.map(c => `${c.kana}=${c.romaji}`).join(" • ");
       feedbackElement.textContent = allAnswers;
       feedbackElement.className = "feedback";
+      answered = true;
+      lastActionTime = Date.now();
+      if (typeof updateActionButtons === "function") updateActionButtons();
       answerInput.focus();
     }
 
@@ -2358,36 +2809,117 @@
     // ==========================================
     function renderReferenceTable() {
       rowsContainer.innerHTML = "";
-      const rows = getActiveRows();
+      
+      let sections = [];
+      if (currentScript === "katakana") {
+        const rows = includeDakuten ? [...KATAKANA_BASIC_ROWS, ...KATAKANA_DAKUTEN_ROWS] : KATAKANA_BASIC_ROWS;
+        sections = [{ title: "", rows }];
+      } else if (currentScript === "mixed") {
+        const hiraRows = includeDakuten ? [...HIRAGANA_BASIC_ROWS, ...HIRAGANA_DAKUTEN_ROWS] : HIRAGANA_BASIC_ROWS;
+        const kataRows = includeDakuten ? [...KATAKANA_BASIC_ROWS, ...KATAKANA_DAKUTEN_ROWS] : KATAKANA_BASIC_ROWS;
+        sections = [
+          { title: "🇯🇵 Bảng Hiragana", rows: hiraRows },
+          { title: "🇯🇵 Bảng Katakana", rows: kataRows }
+        ];
+      } else {
+        const rows = includeDakuten ? [...HIRAGANA_BASIC_ROWS, ...HIRAGANA_DAKUTEN_ROWS] : HIRAGANA_BASIC_ROWS;
+        sections = [{ title: "", rows }];
+      }
 
-      rows.forEach(row => {
-        const pill = document.createElement("div");
-        pill.className = "row-pill";
+      sections.forEach(sec => {
+        if (sec.title) {
+          const secHeader = document.createElement("div");
+          secHeader.className = "picker-section-header";
+          secHeader.style.margin = "8px 0 10px";
+          secHeader.textContent = sec.title;
+          rowsContainer.appendChild(secHeader);
+        }
 
-        const nameSpan = document.createElement("div");
-        nameSpan.className = "row-name";
-        nameSpan.textContent = row.name;
+        sec.rows.forEach(row => {
+          const pill = document.createElement("div");
+          pill.className = "row-pill";
 
-        const charsSpan = document.createElement("div");
-        charsSpan.className = "row-chars";
-        charsSpan.textContent = row.items.map(i => i.kana).join(" ");
+          const nameSpan = document.createElement("div");
+          nameSpan.className = "row-name";
+          nameSpan.textContent = row.name;
 
-        const romajiSpan = document.createElement("div");
-        romajiSpan.className = "row-romaji";
-        romajiSpan.textContent = row.romajiDesc || row.items.map(i => i.romaji).join("-");
+          const charsSpan = document.createElement("div");
+          charsSpan.className = "row-chars";
+          charsSpan.textContent = row.items.map(i => i.kana).join(" ");
 
-        pill.appendChild(nameSpan);
-        pill.appendChild(charsSpan);
-        pill.appendChild(romajiSpan);
-        rowsContainer.appendChild(pill);
+          const romajiSpan = document.createElement("div");
+          romajiSpan.className = "row-romaji";
+          romajiSpan.textContent = row.romajiDesc || row.items.map(i => i.romaji).join("-");
+
+          pill.appendChild(nameSpan);
+          pill.appendChild(charsSpan);
+          pill.appendChild(romajiSpan);
+          rowsContainer.appendChild(pill);
+        });
       });
     }
 
     // ==========================================
     // 13. PHÍM TẮT & KHỞI TẠO ỨNG DỤNG
     // ==========================================
-    answerInput.addEventListener("keydown", function(event) {
+    let lastActionTime = 0;
+
+    function updateActionButtons() {
+      const checkBtn = document.getElementById("checkBtn");
+      const shortcutHint = document.getElementById("shortcutHint");
+
+      if (answered) {
+        if (checkBtn) {
+          checkBtn.innerHTML = `<span>Câu tiếp theo →</span> <kbd class="btn-kbd">↵ Enter</kbd>`;
+          checkBtn.classList.add("next-ready");
+          checkBtn.title = "Nhấn Enter lần 2 hoặc click để chuyển sang câu kế tiếp";
+        }
+        if (shortcutHint) {
+          shortcutHint.innerHTML = `<span style="opacity: 0.5;"><kbd>Enter</kbd> 1: Kiểm tra</span> • <span class="active-step" style="color: var(--primary); font-weight: 700;"><kbd style="background: var(--primary); color: white; border-color: var(--primary);">Enter</kbd> 2: Câu kế →</span>`;
+        }
+        answerInput.classList.add("answered-state");
+      } else {
+        if (checkBtn) {
+          checkBtn.innerHTML = `<span>Kiểm tra</span> <kbd class="btn-kbd">↵ Enter</kbd>`;
+          checkBtn.classList.remove("next-ready");
+          checkBtn.title = "Nhấn Enter để kiểm tra kết quả";
+        }
+        if (shortcutHint) {
+          shortcutHint.innerHTML = `<span class="active-step" style="color: var(--primary); font-weight: 700;"><kbd style="background: var(--primary); color: white; border-color: var(--primary);">Enter</kbd> 1: Kiểm tra</span> • <span style="opacity: 0.5;"><kbd>Enter</kbd> 2: Câu kế</span>`;
+        }
+        answerInput.classList.remove("answered-state");
+      }
+    }
+
+    // Xóa hiệu ứng rung khi người dùng bắt đầu gõ
+    answerInput.addEventListener("input", function() {
+      answerInput.classList.remove("shake-input");
+    });
+
+    // Lắng nghe sự kiện Enter toàn cục:
+    // - Enter lần 1: Kiểm tra đáp án
+    // - Enter lần 2: Tự động chuyển qua câu kế tiếp
+    document.addEventListener("keydown", function(event) {
+      // Bỏ qua nếu đang gõ dở bộ gõ IME (tiếng Việt Telex/VNI hoặc bộ gõ tiếng Nhật)
+      if (event.isComposing || event.keyCode === 229) {
+        return;
+      }
+
       if (event.key === "Enter") {
+        // Nếu người dùng đang nhập ở ô thêm từ vựng tùy chỉnh, không can thiệp
+        if (event.target && event.target.id === "customWordInput") {
+          return;
+        }
+
+        // Ngăn chặn hành vi mặc định (tránh kích hoạt lặp click khi phím focus trên nút)
+        event.preventDefault();
+
+        const now = Date.now();
+        // Chống lặp phím quá nhanh (key repeat do giữ phím Enter hoặc phím nảy)
+        if (now - lastActionTime < 280) {
+          return;
+        }
+
         if (!answered) {
           checkAnswer();
         } else {
@@ -2409,6 +2941,15 @@
     }
     const checkSmart = document.getElementById("smartMistakesCheckbox");
     if (checkSmart) checkSmart.checked = !!loopConfig.smartMistakes;
+
+    // Đồng bộ script selector
+    const btnHira = document.getElementById("scriptBtnHira");
+    const btnKata = document.getElementById("scriptBtnKata");
+    const btnMixed = document.getElementById("scriptBtnMixed");
+    if (btnHira) btnHira.classList.toggle("active", currentScript === "hiragana");
+    if (btnKata) btnKata.classList.toggle("active", currentScript === "katakana");
+    if (btnMixed) btnMixed.classList.toggle("active", currentScript === "mixed");
+    updateScriptUI();
 
     // Đánh dấu active mode
     document.getElementById("modeRandom5").classList.toggle("active", currentMode === "random5");
