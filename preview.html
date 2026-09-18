@@ -634,6 +634,7 @@
       align-items: center;
       font-size: 14px;
       transition: all 0.15s;
+      cursor: pointer;
     }
 
     .row-pill:hover {
@@ -1371,7 +1372,6 @@
         type="text"
         placeholder="Nhập romaji (vd: a ka sa ta na)..."
         autocomplete="off"
-        autofocus
       />
       <button class="check-btn" id="checkBtn" onclick="checkAnswer()">
         <span>Kiểm tra</span> <kbd class="btn-kbd">↵ Enter</kbd>
@@ -2110,7 +2110,7 @@
       // Nếu đang ở chế độ custom và màn hình rỗng hoặc câu hỏi cũ không còn trong danh sách
       if (currentMode === "custom") {
         if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
-          nextQuestion();
+          nextQuestion({ focus: false });
         }
       }
     }
@@ -2134,7 +2134,11 @@
       saveToStorage();
       renderPickerGrid();
       updateTileStarStates();
-      if (currentMode === "custom") nextQuestion();
+      if (currentMode === "custom") {
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion({ focus: false });
+        }
+      }
     }
 
     function selectAllKana() {
@@ -2144,7 +2148,11 @@
       renderPickerGrid();
       updateTileStarStates();
       showToast(`⭐ Đã chọn tất cả ${allActive.length} chữ cái!`);
-      if (currentMode === "custom") nextQuestion();
+      if (currentMode === "custom") {
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion({ focus: false });
+        }
+      }
     }
 
     function clearAllKana() {
@@ -2153,7 +2161,7 @@
       renderPickerGrid();
       updateTileStarStates();
       showToast(`Đã bỏ chọn toàn bộ chữ cái.`);
-      if (currentMode === "custom") nextQuestion();
+      if (currentMode === "custom") nextQuestion({ focus: false });
     }
 
     function selectQuickRowGroup(type) {
@@ -2186,7 +2194,11 @@
       saveToStorage();
       renderPickerGrid();
       updateTileStarStates();
-      if (currentMode === "custom") nextQuestion();
+      if (currentMode === "custom") {
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion({ focus: false });
+        }
+      }
     }
 
     function selectRandomKana(count) {
@@ -2198,7 +2210,11 @@
       renderPickerGrid();
       updateTileStarStates();
       showToast(`⭐ Đã thêm ${count} chữ ngẫu nhiên: ${picked.map(p => p.kana).join(" ")}`);
-      if (currentMode === "custom") nextQuestion();
+      if (currentMode === "custom") {
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion({ focus: false });
+        }
+      }
     }
 
     function selectMistakeKana() {
@@ -2212,7 +2228,11 @@
       renderPickerGrid();
       updateTileStarStates();
       showToast(`⭐ Đã thêm ${mistakes.length} chữ bạn từng làm sai vào danh sách!`);
-      if (currentMode === "custom") nextQuestion();
+      if (currentMode === "custom") {
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion({ focus: false });
+        }
+      }
     }
 
     function updateCustomCountUI() {
@@ -2271,7 +2291,9 @@
       showToast(`⭐ Đã thêm từ vựng: "${rawWord}" (${autoRomaji.join("")})`);
 
       if (currentMode === "custom") {
-        nextQuestion();
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion({ focus: false });
+        }
       }
     }
 
@@ -2285,7 +2307,9 @@
         showToast(`Đã xóa từ "${removed[0].word}"`);
       }
       if (currentMode === "custom") {
-        nextQuestion();
+        if (currentCluster.length === 0 || document.querySelector(".empty-state-box")) {
+          nextQuestion({ focus: false });
+        }
       }
     }
 
@@ -2334,14 +2358,13 @@
 
       saveToStorage();
       if (currentMode === "custom") {
-        nextQuestion();
+        nextQuestion({ focus: false });
       }
     }
 
     function startCustomPractice() {
       toggleCustomManager(false);
-      setMode("custom");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      setMode("custom", { focus: false });
     }
 
     function updateTileStarStates() {
@@ -2359,7 +2382,8 @@
     // ==========================================
     // 8. GENERATE QUESTION (HỖ TRỢ CHẾ ĐỘ CUSTOM LOOP)
     // ==========================================
-    function nextQuestion() {
+    function nextQuestion(options = {}) {
+      const shouldFocus = options && options.focus === false ? false : true;
       answered = false;
       feedbackElement.textContent = "";
       feedbackElement.className = "feedback";
@@ -2367,7 +2391,9 @@
       answerInput.value = "";
       answerInput.classList.remove("shake-input");
       if (typeof updateActionButtons === "function") updateActionButtons();
-      answerInput.focus();
+      if (shouldFocus) {
+        answerInput.focus({ preventScroll: true });
+      }
 
       const allKana = getAllActiveKana();
       const activeRows = getActiveRows();
@@ -2744,7 +2770,7 @@
       answered = true;
       lastActionTime = Date.now();
       if (typeof updateActionButtons === "function") updateActionButtons();
-      answerInput.focus();
+      answerInput.focus({ preventScroll: true });
     }
 
     function speakKana(text) {
@@ -2784,29 +2810,53 @@
       updateStats();
       saveToStorage();
       showToast("Đã thiết lập lại thống kê!");
-      nextQuestion();
+      nextQuestion({ focus: false });
     }
 
-    function setMode(mode) {
+    function setMode(mode, options = {}) {
       currentMode = mode;
       saveToStorage();
       document.getElementById("modeRandom5").classList.toggle("active", mode === "random5");
       document.getElementById("modeRow5").classList.toggle("active", mode === "row5");
       document.getElementById("modeSingle").classList.toggle("active", mode === "single");
       document.getElementById("modeCustom").classList.toggle("active", mode === "custom");
-      nextQuestion();
+      nextQuestion(options);
     }
 
     function toggleDakuten() {
       includeDakuten = document.getElementById("dakutenCheckbox").checked;
       renderReferenceTable();
       renderPickerGrid();
-      nextQuestion();
+      nextQuestion({ focus: false });
     }
 
     // ==========================================
     // 12. BẢNG THAM KHẢO CHỮ CÁI THEO CỤM 5
     // ==========================================
+    function practiceSpecificRow(row) {
+      currentMode = "row5";
+      saveToStorage();
+      document.getElementById("modeRandom5").classList.remove("active");
+      document.getElementById("modeRow5").classList.add("active");
+      document.getElementById("modeSingle").classList.remove("active");
+      document.getElementById("modeCustom").classList.remove("active");
+
+      cardBox.classList.remove("single-mode");
+      currentCluster = [...row.items];
+      questionLabel.innerHTML = `<span>Luyện theo cụm: <strong>${row.name}</strong></span>`;
+      formatHint.innerHTML = `💡 Nhập romaji cách nhau (vd: <code>a ka sa ta na</code>) hoặc viết liền`;
+      answerInput.placeholder = "Nhập romaji cho cụm trên...";
+      renderClusterTiles();
+
+      answered = false;
+      feedbackElement.textContent = "";
+      feedbackElement.className = "feedback";
+      answerInput.disabled = false;
+      answerInput.value = "";
+      // Không tự động scroll để người dùng tự cuộn thủ công
+      showToast(`🎯 Đã chọn ${row.name} để luyện tập!`);
+    }
+
     function renderReferenceTable() {
       rowsContainer.innerHTML = "";
       
@@ -2838,6 +2888,8 @@
         sec.rows.forEach(row => {
           const pill = document.createElement("div");
           pill.className = "row-pill";
+          pill.title = `Click để chọn ${row.name} luyện tập (không tự cuộn)`;
+          pill.onclick = () => practiceSpecificRow(row);
 
           const nameSpan = document.createElement("div");
           nameSpan.className = "row-name";
@@ -2962,7 +3014,7 @@
     renderPickerGrid();
     renderCustomWordsList();
     renderReferenceTable();
-    nextQuestion();
+    nextQuestion({ focus: false });
 
   </script>
 
