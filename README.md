@@ -18,6 +18,12 @@
     - **Gắn sao (⭐ Bookmark) trực tiếp**: Nhấp vào biểu tượng ngôi sao trên từng ô chữ khi đang luyện tập để lưu ngay vào danh sách.
     - **Thêm từ vựng tùy chỉnh**: Cho phép nhập từ hoàn chỉnh (vd: `わたし`, `さくら`, `コーヒー`, `パン`, `カメラ`) để luyện đọc cả từ.
     - **Vòng lặp thông minh (Smart Loop)**: Tự động ưu tiên lặp lại nhiều hơn các chữ bạn vừa gõ sai cho đến khi thuộc lòng.
+  - **🔢 Luyện đọc số tiếng Nhật (Lên đến hàng trăm triệu)**:
+    - Sinh số ngẫu nhiên với nhiều tùy chọn phạm vi: hàng chục (`≤ 99`), hàng nghìn (`≤ 9.999`), hàng vạn (`≤ 99.999` - 万), hàng triệu (`≤ 99 triệu`), hàng trăm triệu (`≤ 999 triệu` - 億) hoặc ngẫu nhiên bất kỳ.
+    - Nhập tay chữ **Hiragana** (hoặc Romaji / Kanji) tương ứng với số hiển thị và hệ thống tự động kiểm tra đúng/sai.
+    - Hiển thị trực quan cấu trúc phân tách cụm 4 chữ số đặc trưng của tiếng Nhật (億 `oku`, 万 `man`, đơn vị).
+    - Hỗ trợ đầy đủ các biến âm và quy tắc đọc đặc biệt trong tiếng Nhật (300 さんびゃく, 600 ろっぴゃく, 800 はっぴゃく, 3.000 さんぜん, 8.000 はっせん, 10.000 いちまん, 10.000.000 いっせんまん, 100.000.000 いちおく, v.v.).
+    - Tích hợp phát âm chuẩn tiếng Nhật (🔊 Text-to-Speech) cho toàn bộ chuỗi số.
 - **Hệ thống chấm điểm & phản hồi thông minh**:
   - Gõ cách nhau bằng dấu cách (vd: `a ka sa ta na`) hoặc viết liền (vd: `akasatana`).
   - Đánh dấu đúng/sai chi tiết trên từng ô chữ kèm hiển thị romaji chuẩn.

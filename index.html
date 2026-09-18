@@ -179,10 +179,196 @@
       margin-bottom: 14px;
     }
 
-    @media (min-width: 520px) {
-      .mode-bar {
-        grid-template-columns: repeat(4, 1fr);
+    @media (max-width: 579px) {
+      .mode-btn.full-span-mobile {
+        grid-column: span 2;
       }
+    }
+
+    @media (min-width: 580px) {
+      .mode-bar {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    /* Number Mode Range Bar */
+    .number-range-bar {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .range-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .range-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .range-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .range-chip {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .range-chip:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #f8faff;
+    }
+
+    .range-chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+    }
+
+    /* Number Display Card */
+    .number-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 4px;
+      width: 100%;
+    }
+
+    .number-arabic-display {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #1e1b4b;
+      margin-bottom: 10px;
+      word-break: break-all;
+      transition: all 0.3s ease;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    @media (max-width: 480px) {
+      .number-arabic-display {
+        font-size: 28px;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .number-breakdown-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 12.5px;
+    }
+
+    .breakdown-hint-title {
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-right: 2px;
+    }
+
+    .breakdown-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .breakdown-badge.oku {
+      background: #e0e7ff;
+      color: #4338ca;
+      border: 1px solid #c7d2fe;
+    }
+
+    .breakdown-badge.man {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .breakdown-badge.unit {
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+
+    .number-detail-box {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      animation: fadeIn 0.25s ease;
+      text-align: center;
+    }
+
+    .number-detail-box.correct {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    .number-detail-box.wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    .number-detail-hira {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 4px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .number-detail-romaji {
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 4px;
+      word-break: break-word;
+    }
+
+    .number-detail-kanji {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary);
     }
 
     .mode-btn {
@@ -1258,6 +1444,25 @@
       <button class="mode-btn" id="modeCustom" onclick="setMode('custom')">
         ⭐ Chữ đã chọn <span class="badge-count" id="customCountBadge">5</span>
       </button>
+      <button class="mode-btn full-span-mobile" id="modeNumbers" onclick="setMode('numbers')">
+        🔢 Luyện đọc số
+      </button>
+    </div>
+
+    <!-- Number Practice Range Selector -->
+    <div class="number-range-bar" id="numberRangeBar" style="display: none;">
+      <div class="range-header">
+        <span class="range-title">🎯 Phạm vi số ngẫu nhiên:</span>
+        <span style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">Tối đa hàng trăm triệu (≤ 999.999.999)</span>
+      </div>
+      <div class="range-chips">
+        <button type="button" class="range-chip" data-range="tens" onclick="setNumberRange('tens')">≤ 99 (Chục)</button>
+        <button type="button" class="range-chip" data-range="thousands" onclick="setNumberRange('thousands')">≤ 9.999 (Nghìn)</button>
+        <button type="button" class="range-chip" data-range="tenThousands" onclick="setNumberRange('tenThousands')">≤ 99.999 (Vạn - 万)</button>
+        <button type="button" class="range-chip" data-range="millions" onclick="setNumberRange('millions')">≤ 99 triệu (万)</button>
+        <button type="button" class="range-chip active" data-range="hundredMillions" onclick="setNumberRange('hundredMillions')">≤ 999 triệu (億)</button>
+        <button type="button" class="range-chip" data-range="all" onclick="setNumberRange('all')">🎲 Bất kỳ (0 - 999tr)</button>
+      </div>
     </div>
 
     <!-- Toggle Bar for Custom Selection Manager -->
@@ -1809,11 +2014,15 @@
       CUSTOM_CONFIG: "hiragana_custom_config",
       MISTAKES: "hiragana_mistakes",
       STATS: "hiragana_stats",
-      MODE: "hiragana_mode"
+      MODE: "hiragana_mode",
+      NUMBER_RANGE: "hiragana_number_range"
     };
 
     let currentScript = "hiragana"; // "hiragana" | "katakana" | "mixed"
-    let currentMode = "random5"; // "random5" | "row5" | "single" | "custom"
+    let currentMode = "random5"; // "random5" | "row5" | "single" | "custom" | "numbers"
+    let selectedNumberRange = "hundredMillions"; // "tens" | "thousands" | "tenThousands" | "millions" | "hundredMillions" | "all"
+    let currentNumber = 0;
+    let currentNumberData = null;
     let includeDakuten = false;
     let currentCluster = [];
     let answered = false;
@@ -1855,6 +2064,7 @@
         localStorage.setItem(STORAGE_KEYS.CUSTOM_CONFIG, JSON.stringify(loopConfig));
         localStorage.setItem(STORAGE_KEYS.MISTAKES, JSON.stringify(mistakeFrequency));
         localStorage.setItem(STORAGE_KEYS.MODE, currentMode);
+        localStorage.setItem(STORAGE_KEYS.NUMBER_RANGE, selectedNumberRange);
         localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify({ correctCount, wrongCount, totalRounds }));
       } catch (err) {
         console.warn("Không thể lưu localStorage:", err);
@@ -1896,8 +2106,13 @@
         }
 
         const savedMode = localStorage.getItem(STORAGE_KEYS.MODE);
-        if (savedMode && ["random5", "row5", "single", "custom"].includes(savedMode)) {
+        if (savedMode && ["random5", "row5", "single", "custom", "numbers"].includes(savedMode)) {
           currentMode = savedMode;
+        }
+
+        const savedRange = localStorage.getItem(STORAGE_KEYS.NUMBER_RANGE);
+        if (savedRange && ["tens", "thousands", "tenThousands", "millions", "hundredMillions", "all"].includes(savedRange)) {
+          selectedNumberRange = savedRange;
         }
 
         const savedStats = localStorage.getItem(STORAGE_KEYS.STATS);
@@ -2380,6 +2595,391 @@
     }
 
     // ==========================================
+    // 7B. HỆ THỐNG SỐ TIẾNG NHẬT (LÊN ĐẾN HÀNG TRĂM TRIỆU)
+    // ==========================================
+    const NUMBER_DIGITS = [
+      { val: 0, hira: ["ぜろ", "れい"], kanji: "〇", romaji: ["zero", "rei"] },
+      { val: 1, hira: ["いち"], kanji: "一", romaji: ["ichi"] },
+      { val: 2, hira: ["に"], kanji: "二", romaji: ["ni"] },
+      { val: 3, hira: ["さん"], kanji: "三", romaji: ["san"] },
+      { val: 4, hira: ["よん", "し"], kanji: "四", romaji: ["yon", "shi"] },
+      { val: 5, hira: ["ご"], kanji: "五", romaji: ["go"] },
+      { val: 6, hira: ["ろく"], kanji: "六", romaji: ["roku"] },
+      { val: 7, hira: ["なな", "しち"], kanji: "七", romaji: ["nana", "shichi"] },
+      { val: 8, hira: ["はち"], kanji: "八", romaji: ["hachi"] },
+      { val: 9, hira: ["きゅう", "く"], kanji: "九", romaji: ["kyuu", "ku", "kyu"] }
+    ];
+
+    const NUMBER_HUNDREDS = {
+      1: { hira: ["ひゃく"], kanji: "百", romaji: ["hyaku"] },
+      2: { hira: ["にひゃく"], kanji: "二百", romaji: ["nihyaku"] },
+      3: { hira: ["さんびゃく"], kanji: "三百", romaji: ["sanbyaku"] },
+      4: { hira: ["よんひゃく"], kanji: "四百", romaji: ["yonhyaku"] },
+      5: { hira: ["ごひゃく"], kanji: "五百", romaji: ["gohyaku"] },
+      6: { hira: ["ろっぴゃく"], kanji: "六百", romaji: ["roppyaku"] },
+      7: { hira: ["ななひゃく", "しちひゃく"], kanji: "七百", romaji: ["nanahyaku", "shichihyaku"] },
+      8: { hira: ["はっぴゃく"], kanji: "八百", romaji: ["happyaku"] },
+      9: { hira: ["きゅうひゃく"], kanji: "九百", romaji: ["kyuuhyaku"] }
+    };
+
+    const NUMBER_THOUSANDS = {
+      1: { hira: ["せん"], hiraMan: ["いっせん", "せん"], kanji: "千", romaji: ["sen"], romajiMan: ["issen", "sen"] },
+      2: { hira: ["にせん"], kanji: "二千", romaji: ["nisen"] },
+      3: { hira: ["さんぜん"], kanji: "三千", romaji: ["sanzen"] },
+      4: { hira: ["よんせん"], kanji: "四千", romaji: ["yonsen"] },
+      5: { hira: ["ごせん"], kanji: "五千", romaji: ["gosen"] },
+      6: { hira: ["ろくせん"], kanji: "六千", romaji: ["rokusen"] },
+      7: { hira: ["ななせん", "しちせん"], kanji: "七千", romaji: ["nanasen", "shichisen"] },
+      8: { hira: ["はっせん"], kanji: "八千", romaji: ["hassen"] },
+      9: { hira: ["きゅうせん"], kanji: "九千", romaji: ["kyuusen"] }
+    };
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      })[m]);
+    }
+
+    function convertUnder10000Standard(n, isManGroup = false) {
+      if (n === 0) return { hira: "", romaji: "", kanji: "" };
+
+      const thousands = Math.floor(n / 1000);
+      const hundreds = Math.floor((n % 1000) / 100);
+      const tens = Math.floor((n % 100) / 10);
+      const ones = n % 10;
+
+      let hiraParts = [];
+      let romajiParts = [];
+      let kanjiParts = [];
+
+      if (thousands > 0) {
+        if (thousands === 1) {
+          if (isManGroup) {
+            hiraParts.push("いっせん");
+            romajiParts.push("issen");
+          } else {
+            hiraParts.push("せん");
+            romajiParts.push("sen");
+          }
+          kanjiParts.push("千");
+        } else {
+          hiraParts.push(NUMBER_THOUSANDS[thousands].hira[0]);
+          romajiParts.push(NUMBER_THOUSANDS[thousands].romaji[0]);
+          kanjiParts.push(NUMBER_DIGITS[thousands].kanji + "千");
+        }
+      }
+
+      if (hundreds > 0) {
+        hiraParts.push(NUMBER_HUNDREDS[hundreds].hira[0]);
+        romajiParts.push(NUMBER_HUNDREDS[hundreds].romaji[0]);
+        kanjiParts.push((hundreds === 1 ? "" : NUMBER_DIGITS[hundreds].kanji) + "百");
+      }
+
+      if (tens > 0) {
+        if (tens === 1) {
+          hiraParts.push("じゅう");
+          romajiParts.push("juu");
+          kanjiParts.push("十");
+        } else {
+          hiraParts.push(NUMBER_DIGITS[tens].hira[0] + "じゅう");
+          romajiParts.push(NUMBER_DIGITS[tens].romaji[0] + "juu");
+          kanjiParts.push(NUMBER_DIGITS[tens].kanji + "十");
+        }
+      }
+
+      if (ones > 0) {
+        hiraParts.push(NUMBER_DIGITS[ones].hira[0]);
+        romajiParts.push(NUMBER_DIGITS[ones].romaji[0]);
+        kanjiParts.push(NUMBER_DIGITS[ones].kanji);
+      }
+
+      return {
+        hira: hiraParts.join(" "),
+        romaji: romajiParts.join(" "),
+        kanji: kanjiParts.join("")
+      };
+    }
+
+    function numberToJapanese(num) {
+      if (num === 0) {
+        return {
+          hira: "ぜろ",
+          romaji: "zero",
+          kanji: "〇",
+          breakdown: "0"
+        };
+      }
+
+      const oku = Math.floor(num / 100000000);
+      const remOku = num % 100000000;
+      const man = Math.floor(remOku / 10000);
+      const units = remOku % 10000;
+
+      let hiraSegments = [];
+      let romajiSegments = [];
+      let kanjiSegments = [];
+      let breakdownSegments = [];
+
+      if (oku > 0) {
+        const okuConv = convertUnder10000Standard(oku, false);
+        hiraSegments.push(okuConv.hira + " おく");
+        romajiSegments.push(okuConv.romaji + " oku");
+        kanjiSegments.push(okuConv.kanji + "億");
+        breakdownSegments.push(`${oku}億`);
+      }
+
+      if (man > 0) {
+        let manConv;
+        if (man === 1) {
+          manConv = { hira: "いち", romaji: "ichi", kanji: "一" };
+        } else {
+          manConv = convertUnder10000Standard(man, true);
+        }
+        hiraSegments.push(manConv.hira + " まん");
+        romajiSegments.push(manConv.romaji + " man");
+        kanjiSegments.push(manConv.kanji + "万");
+        breakdownSegments.push(`${man}万`);
+      }
+
+      if (units > 0) {
+        const unitsConv = convertUnder10000Standard(units, false);
+        hiraSegments.push(unitsConv.hira);
+        romajiSegments.push(unitsConv.romaji);
+        kanjiSegments.push(unitsConv.kanji);
+        breakdownSegments.push(`${units}`);
+      }
+
+      const fullHira = hiraSegments.join(" ").replace(/\s+/g, " ").trim();
+      const fullRomaji = romajiSegments.join(" ").replace(/\s+/g, " ").trim();
+      const fullKanji = kanjiSegments.join("");
+      const breakdown = breakdownSegments.join(" ");
+
+      return {
+        hira: fullHira,
+        romaji: fullRomaji,
+        kanji: fullKanji,
+        breakdown: breakdown
+      };
+    }
+
+    function getGroupPossibilities(n, isMan = false) {
+      if (n === 0) return { hiras: [""], romajis: [""] };
+
+      const thousands = Math.floor(n / 1000);
+      const hundreds = Math.floor((n % 1000) / 100);
+      const tens = Math.floor((n % 100) / 10);
+      const ones = n % 10;
+
+      let thHira = [""], thRomaji = [""];
+      if (thousands > 0) {
+        if (thousands === 1) {
+          thHira = isMan ? NUMBER_THOUSANDS[1].hiraMan : NUMBER_THOUSANDS[1].hira;
+          thRomaji = isMan ? NUMBER_THOUSANDS[1].romajiMan : NUMBER_THOUSANDS[1].romaji;
+        } else {
+          thHira = NUMBER_THOUSANDS[thousands].hira;
+          thRomaji = NUMBER_THOUSANDS[thousands].romaji;
+        }
+      }
+
+      let hHira = [""], hRomaji = [""];
+      if (hundreds > 0) {
+        hHira = NUMBER_HUNDREDS[hundreds].hira;
+        hRomaji = NUMBER_HUNDREDS[hundreds].romaji;
+      }
+
+      let tHira = [""], tRomaji = [""];
+      if (tens > 0) {
+        if (tens === 1) {
+          tHira = ["じゅう"];
+          tRomaji = ["juu", "ju", "jyuu"];
+        } else if (tens === 4) {
+          tHira = ["よんじゅう", "しじゅう"];
+          tRomaji = ["yonjuu", "yonju", "shijuu", "shiju"];
+        } else if (tens === 7) {
+          tHira = ["ななじゅう", "しちじゅう"];
+          tRomaji = ["nanajuu", "nanaju", "shichijuu", "shichiju"];
+        } else if (tens === 9) {
+          tHira = ["きゅうじゅう", "くじゅう"];
+          tRomaji = ["kyuujuu", "kyuuju", "kujuu", "kuju"];
+        } else {
+          const d = NUMBER_DIGITS[tens];
+          tHira = [d.hira[0] + "じゅう"];
+          tRomaji = [d.romaji[0] + "juu", d.romaji[0] + "ju"];
+        }
+      }
+
+      let oHira = [""], oRomaji = [""];
+      if (ones > 0) {
+        oHira = NUMBER_DIGITS[ones].hira;
+        oRomaji = NUMBER_DIGITS[ones].romaji;
+      }
+
+      const hiras = [];
+      const romajis = [];
+
+      for (const th of thHira) {
+        for (const h of hHira) {
+          for (const t of tHira) {
+            for (const o of oHira) {
+              hiras.push((th + h + t + o).trim());
+            }
+          }
+        }
+      }
+
+      for (const th of thRomaji) {
+        for (const h of hHira) {
+          for (const t of tRomaji) {
+            for (const o of oRomaji) {
+              romajis.push((th + h + t + o).trim());
+            }
+          }
+        }
+      }
+
+      return { hiras, romajis };
+    }
+
+    function getAllNumberReadings(num) {
+      if (num === 0) {
+        return {
+          hiras: ["ぜろ", "れい"],
+          romajis: ["zero", "rei"],
+          kanji: "〇"
+        };
+      }
+
+      const oku = Math.floor(num / 100000000);
+      const remOku = num % 100000000;
+      const man = Math.floor(remOku / 10000);
+      const units = remOku % 10000;
+
+      let okuH = [""], okuR = [""];
+      if (oku > 0) {
+        const oGroup = getGroupPossibilities(oku, false);
+        okuH = oGroup.hiras.map(s => s + "おく");
+        okuR = oGroup.romajis.flatMap(s => [s + "oku", s + "'oku", s + " oku"]);
+      }
+
+      let manH = [""], manR = [""];
+      if (man > 0) {
+        let mGroup;
+        if (man === 1) {
+          mGroup = { hiras: ["いち"], romajis: ["ichi"] };
+        } else {
+          mGroup = getGroupPossibilities(man, true);
+        }
+        manH = mGroup.hiras.map(s => s + "まん");
+        manR = mGroup.romajis.flatMap(s => [s + "man", s + " man"]);
+      }
+
+      let unitH = [""], unitR = [""];
+      if (units > 0) {
+        const uGroup = getGroupPossibilities(units, false);
+        unitH = uGroup.hiras;
+        unitR = uGroup.romajis;
+      }
+
+      const allHiras = new Set();
+      for (const o of okuH) {
+        for (const m of manH) {
+          for (const u of unitH) {
+            const full = (o + m + u).trim();
+            if (full) allHiras.add(full);
+          }
+        }
+      }
+
+      const allRomajis = new Set();
+      for (const o of okuR) {
+        for (const m of manR) {
+          for (const u of unitR) {
+            const full = (o + " " + m + " " + u).replace(/[\s\-_']+/g, "").trim();
+            if (full) allRomajis.add(full);
+          }
+        }
+      }
+
+      return {
+        hiras: Array.from(allHiras),
+        romajis: Array.from(allRomajis)
+      };
+    }
+
+    function generateRandomNumber(rangeKey) {
+      switch (rangeKey) {
+        case "tens":
+          return Math.floor(Math.random() * 99) + 1; // 1 to 99
+        case "thousands":
+          return Math.floor(Math.random() * 9900) + 100; // 100 to 9,999
+        case "tenThousands":
+          return Math.floor(Math.random() * 90000) + 10000; // 10,000 to 99,999
+        case "millions":
+          return Math.floor(Math.random() * 99900000) + 100000; // 100,000 to 99,999,999
+        case "hundredMillions":
+          return Math.floor(Math.random() * 900000000) + 100000000; // 100,000,000 to 999,999,999
+        case "all":
+        default: {
+          const tiers = ["tens", "thousands", "tenThousands", "millions", "hundredMillions"];
+          const randomTier = tiers[Math.floor(Math.random() * tiers.length)];
+          return generateRandomNumber(randomTier);
+        }
+      }
+    }
+
+    function renderNumberBreakdownHTML(num) {
+      const oku = Math.floor(num / 100000000);
+      const remOku = num % 100000000;
+      const man = Math.floor(remOku / 10000);
+      const units = remOku % 10000;
+
+      let html = '<span class="breakdown-hint-title">Phân tích 4 số:</span> ';
+      if (oku > 0) {
+        html += `<span class="breakdown-badge oku">${oku.toLocaleString('vi-VN')} 億 (ức)</span> `;
+      }
+      if (man > 0) {
+        html += `<span class="breakdown-badge man">${man.toLocaleString('vi-VN')} 万 (vạn)</span> `;
+      }
+      if (units > 0 || (oku === 0 && man === 0)) {
+        html += `<span class="breakdown-badge unit">${units.toLocaleString('vi-VN')} (đơn vị)</span>`;
+      }
+      return html;
+    }
+
+    function setNumberRange(range) {
+      selectedNumberRange = range;
+      saveToStorage();
+      updateRangeChipsUI();
+      if (currentMode === "numbers") {
+        nextQuestion({ focus: false });
+      }
+      showToast(`🎯 Phạm vi: ${getRangeLabel(range)}`);
+    }
+
+    function getRangeLabel(range) {
+      switch (range) {
+        case "tens": return "≤ 99 (Chục)";
+        case "thousands": return "≤ 9.999 (Nghìn)";
+        case "tenThousands": return "≤ 99.999 (Vạn)";
+        case "millions": return "≤ 99 triệu (万)";
+        case "hundredMillions": return "≤ 999 triệu (億)";
+        case "all": return "🎲 Bất kỳ (0 - 999tr)";
+        default: return range;
+      }
+    }
+
+    function updateRangeChipsUI() {
+      document.querySelectorAll(".range-chip").forEach(chip => {
+        chip.classList.toggle("active", chip.getAttribute("data-range") === selectedNumberRange);
+      });
+    }
+
+    // ==========================================
     // 8. GENERATE QUESTION (HỖ TRỢ CHẾ ĐỘ CUSTOM LOOP)
     // ==========================================
     function nextQuestion(options = {}) {
@@ -2393,6 +2993,28 @@
       if (typeof updateActionButtons === "function") updateActionButtons();
       if (shouldFocus) {
         answerInput.focus({ preventScroll: true });
+      }
+
+      if (currentMode === "numbers") {
+        cardBox.classList.remove("single-mode");
+        currentNumber = generateRandomNumber(selectedNumberRange);
+        currentNumberData = numberToJapanese(currentNumber);
+        currentCluster = [];
+
+        questionLabel.innerHTML = `<span>Đọc số tiếng Nhật sau bằng <strong>Hiragana</strong>:</span>`;
+        formatHint.innerHTML = `💡 Nhập Hiragana (vd: <code>${currentNumberData.hira}</code>) hoặc viết liền. Nhấn Enter để kiểm tra!`;
+        answerInput.placeholder = "Nhập cách đọc Hiragana (hoặc Romaji)...";
+
+        clusterContainer.innerHTML = `
+          <div class="number-box">
+            <div class="number-arabic-display" id="numberArabicDisplay">${currentNumber.toLocaleString('vi-VN')}</div>
+            <div class="number-breakdown-row" id="numberBreakdownRow">
+              ${renderNumberBreakdownHTML(currentNumber)}
+            </div>
+            <div class="number-detail-box" id="numberDetailBox" style="display: none;"></div>
+          </div>
+        `;
+        return;
       }
 
       const allKana = getAllActiveKana();
@@ -2566,6 +3188,64 @@
         return;
       }
 
+      if (currentMode === "numbers") {
+        const rawInput = answerInput.value.trim().toLowerCase();
+        if (!rawInput) {
+          feedbackElement.textContent = "Vui lòng nhập cách đọc Hiragana của số trên.";
+          feedbackElement.className = "feedback wrong";
+          answerInput.classList.remove("shake-input");
+          void answerInput.offsetWidth;
+          answerInput.classList.add("shake-input");
+          answerInput.focus({ preventScroll: true });
+          return;
+        }
+
+        const cleanInput = rawInput.replace(/[\s\-_,・.]+/g, "");
+        const allReadings = getAllNumberReadings(currentNumber);
+        const validHiras = allReadings.hiras;
+        const validRomajis = allReadings.romajis;
+        const validKanji = currentNumberData.kanji;
+
+        const isHiraMatch = validHiras.includes(cleanInput);
+        const isRomajiMatch = validRomajis.includes(cleanInput);
+        const isKanjiMatch = (cleanInput === validKanji);
+        const isCorrect = isHiraMatch || isRomajiMatch || isKanjiMatch;
+
+        const detailBox = document.getElementById("numberDetailBox");
+        if (detailBox) {
+          detailBox.style.display = "block";
+          detailBox.className = `number-detail-box ${isCorrect ? 'correct' : 'wrong'}`;
+          detailBox.innerHTML = `
+            <div class="number-detail-hira">🇯🇵 ${currentNumberData.hira}</div>
+            <div class="number-detail-romaji">🔤 ${currentNumberData.romaji}</div>
+            <div class="number-detail-kanji">漢 ${currentNumberData.kanji}</div>
+            ${!isCorrect ? `<div style="font-size: 12.5px; color: #dc2626; margin-top: 6px;">Bạn vừa nhập: <strong>${escapeHtml(rawInput)}</strong></div>` : ''}
+          `;
+        }
+
+        if (isCorrect) {
+          feedbackElement.textContent = `🎉 Chính xác! ${currentNumber.toLocaleString('vi-VN')} = ${currentNumberData.hira}`;
+          feedbackElement.className = "feedback correct";
+          correctCount++;
+          speakKana(currentNumberData.hira);
+        } else {
+          feedbackElement.textContent = `✗ Chưa chính xác — Hãy xem cách đọc Hiragana chi tiết ở trên!`;
+          feedbackElement.className = "feedback wrong";
+          wrongCount++;
+          answerInput.classList.remove("shake-input");
+          void answerInput.offsetWidth;
+          answerInput.classList.add("shake-input");
+        }
+
+        totalRounds++;
+        answered = true;
+        lastActionTime = Date.now();
+        updateStats();
+        saveToStorage();
+        if (typeof updateActionButtons === "function") updateActionButtons();
+        return;
+      }
+
       const rawInput = answerInput.value.trim().toLowerCase();
       if (!rawInput) {
         feedbackElement.textContent = "Vui lòng nhập đáp án của bạn.";
@@ -2573,7 +3253,7 @@
         answerInput.classList.remove("shake-input");
         void answerInput.offsetWidth;
         answerInput.classList.add("shake-input");
-        answerInput.focus();
+        answerInput.focus({ preventScroll: true });
         return;
       }
 
@@ -2756,6 +3436,28 @@
     // 10. HIỆN ĐÁP ÁN & ÂM THANH
     // ==========================================
     function showAnswer() {
+      if (currentMode === "numbers") {
+        if (!currentNumberData) return;
+        const detailBox = document.getElementById("numberDetailBox");
+        if (detailBox) {
+          detailBox.style.display = "block";
+          detailBox.className = "number-detail-box";
+          detailBox.innerHTML = `
+            <div class="number-detail-hira">🇯🇵 ${currentNumberData.hira}</div>
+            <div class="number-detail-romaji">🔤 ${currentNumberData.romaji}</div>
+            <div class="number-detail-kanji">漢 ${currentNumberData.kanji}</div>
+          `;
+        }
+        feedbackElement.textContent = `Đáp án: ${currentNumberData.hira} (${currentNumberData.romaji})`;
+        feedbackElement.className = "feedback";
+        answered = true;
+        lastActionTime = Date.now();
+        if (typeof updateActionButtons === "function") updateActionButtons();
+        answerInput.focus({ preventScroll: true });
+        speakKana(currentNumberData.hira);
+        return;
+      }
+
       currentCluster.forEach((item, index) => {
         const tile = document.getElementById(`tile-${index}`);
         if (tile) {
@@ -2774,7 +3476,7 @@
     }
 
     function speakKana(text) {
-      if (!('speechSynthesis' in window)) return;
+      if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === "undefined") return;
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = "ja-JP";
@@ -2783,6 +3485,12 @@
     }
 
     function speakCurrentCluster() {
+      if (currentMode === "numbers") {
+        if (currentNumberData && currentNumberData.hira) {
+          speakKana(currentNumberData.hira);
+        }
+        return;
+      }
       if (currentCluster.length === 0) return;
       const clusterText = currentCluster.map(c => c.kana).join("");
       speakKana(clusterText);
@@ -2820,6 +3528,22 @@
       document.getElementById("modeRow5").classList.toggle("active", mode === "row5");
       document.getElementById("modeSingle").classList.toggle("active", mode === "single");
       document.getElementById("modeCustom").classList.toggle("active", mode === "custom");
+      document.getElementById("modeNumbers").classList.toggle("active", mode === "numbers");
+
+      const numberRangeBar = document.getElementById("numberRangeBar");
+      const customToggleBar = document.querySelector(".custom-toggle-bar");
+      const customManagerPanel = document.getElementById("customManagerPanel");
+
+      if (mode === "numbers") {
+        if (numberRangeBar) numberRangeBar.style.display = "block";
+        if (customToggleBar) customToggleBar.style.display = "none";
+        if (customManagerPanel) customManagerPanel.style.display = "none";
+        updateRangeChipsUI();
+      } else {
+        if (numberRangeBar) numberRangeBar.style.display = "none";
+        if (customToggleBar) customToggleBar.style.display = "block";
+      }
+
       nextQuestion(options);
     }
 
@@ -3008,6 +3732,15 @@
     document.getElementById("modeRow5").classList.toggle("active", currentMode === "row5");
     document.getElementById("modeSingle").classList.toggle("active", currentMode === "single");
     document.getElementById("modeCustom").classList.toggle("active", currentMode === "custom");
+    document.getElementById("modeNumbers").classList.toggle("active", currentMode === "numbers");
+
+    if (currentMode === "numbers") {
+      const numberRangeBar = document.getElementById("numberRangeBar");
+      if (numberRangeBar) numberRangeBar.style.display = "block";
+      const customToggleBar = document.querySelector(".custom-toggle-bar");
+      if (customToggleBar) customToggleBar.style.display = "none";
+    }
+    updateRangeChipsUI();
 
     updateStats();
     updateCustomCountUI();
