@@ -179,15 +179,15 @@
       margin-bottom: 14px;
     }
 
-    @media (max-width: 579px) {
-      .mode-btn.full-span-mobile {
-        grid-column: span 2;
+    @media (min-width: 480px) and (max-width: 699px) {
+      .mode-bar {
+        grid-template-columns: repeat(3, 1fr);
       }
     }
 
-    @media (min-width: 580px) {
+    @media (min-width: 700px) {
       .mode-bar {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(6, 1fr);
       }
     }
 
@@ -368,6 +368,302 @@
       font-family: 'Noto Sans JP', sans-serif;
       font-size: 15px;
       font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* Vocab Practice Mode Styles */
+    .vocab-topic-bar {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .topic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .topic-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .topic-count-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #4338ca;
+      background: #e0e7ff;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .topic-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-height: 120px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .topic-chip {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .topic-chip:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #f8faff;
+    }
+
+    .topic-chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+    }
+
+    /* Vocab Question Container */
+    .vocab-question-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 4px;
+    }
+
+    .vocab-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .vocab-tag-pill {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #e0e7ff;
+      color: var(--primary);
+      border: 1px solid #c7d2fe;
+    }
+
+    .vocab-type-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .vocab-type-pill.katakana {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .vocab-vn-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: #1e1b4b;
+      margin-bottom: 6px;
+      text-align: center;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+    }
+
+    @media (max-width: 480px) {
+      .vocab-vn-title {
+        font-size: 26px;
+      }
+    }
+
+    .vocab-sub-prompt {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    /* 4 Choice Cards Grid */
+    .vocab-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      max-width: 520px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 460px) {
+      .vocab-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
+    .vocab-choice-card {
+      position: relative;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .vocab-choice-card:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.12);
+      background: #fafbff;
+    }
+
+    .vocab-choice-card:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .vocab-card-index {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: #f1f5f9;
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vocab-card-kana {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      line-height: 1.25;
+    }
+
+    .vocab-card-romaji {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 0.3px;
+    }
+
+    /* Card Answer States */
+    .vocab-choice-card.correct {
+      background: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #065f46;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25) !important;
+      transform: scale(1.02);
+    }
+
+    .vocab-choice-card.correct .vocab-card-kana {
+      color: #047857;
+    }
+
+    .vocab-choice-card.correct .vocab-card-index {
+      background: #10b981;
+      color: white;
+    }
+
+    .vocab-choice-card.wrong {
+      background: #fef2f2 !important;
+      border-color: #ef4444 !important;
+      color: #991b1b;
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.2) !important;
+      animation: shake 0.35s ease;
+    }
+
+    .vocab-choice-card.wrong .vocab-card-kana {
+      color: #b91c1c;
+    }
+
+    .vocab-choice-card.wrong .vocab-card-index {
+      background: #ef4444;
+      color: white;
+    }
+
+    .vocab-choice-card.reveal-correct {
+      background: #f0fdf4 !important;
+      border-color: #10b981 !important;
+      border-style: dashed !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+    }
+
+    .vocab-choice-card.reveal-correct .vocab-card-kana {
+      color: #047857;
+    }
+
+    .vocab-detail-box {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      animation: fadeIn 0.25s ease;
+      text-align: center;
+    }
+
+    .vocab-detail-kana {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .vocab-detail-romaji {
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .vocab-detail-vn {
+      font-size: 15px;
+      font-weight: 700;
       color: var(--primary);
     }
 
@@ -1447,6 +1743,9 @@
       <button class="mode-btn full-span-mobile" id="modeNumbers" onclick="setMode('numbers')">
         🔢 Luyện đọc số
       </button>
+      <button class="mode-btn full-span-mobile" id="modeVocab" onclick="setMode('vocab')">
+        📚 Luyện từ vựng
+      </button>
     </div>
 
     <!-- Number Practice Range Selector -->
@@ -1462,6 +1761,17 @@
         <button type="button" class="range-chip" data-range="millions" onclick="setNumberRange('millions')">≤ 99 triệu (万)</button>
         <button type="button" class="range-chip active" data-range="hundredMillions" onclick="setNumberRange('hundredMillions')">≤ 999 triệu (億)</button>
         <button type="button" class="range-chip" data-range="all" onclick="setNumberRange('all')">🎲 Bất kỳ (0 - 999tr)</button>
+      </div>
+    </div>
+
+    <!-- Vocabulary Practice Topic Selector -->
+    <div class="vocab-topic-bar" id="vocabTopicBar" style="display: none;">
+      <div class="topic-header">
+        <span class="topic-title">📚 Chủ đề từ vựng:</span>
+        <span class="topic-count-badge" id="vocabPoolCountBadge">238 từ</span>
+      </div>
+      <div class="topic-chips" id="vocabTopicChips">
+        <!-- Rendered dynamically -->
       </div>
     </div>
 
@@ -2005,6 +2315,3692 @@
     });
 
     // ==========================================
+    // 1B. DỮ LIỆU TỪ VỰNG TIẾNG NHẬT (500 TỪ - ĐA DẠNG CHỦ ĐỀ)
+    // ==========================================
+    const VOCAB_CATEGORIES = {
+  all: "Tất cả chủ đề",
+  jobs: "💼 Nghề nghiệp & Công việc",
+  greetings: "💬 Chào hỏi & Giao tiếp",
+  people: "👨‍👩‍👧 Gia đình & Con người",
+  animals: "🐱 Động vật",
+  food: "🍱 Đồ ăn & Đồ uống",
+  objects: "🎒 Đồ vật & Học tập",
+  house: "🏠 Nhà cửa & Đồ gia dụng",
+  places: "🏫 Địa điểm & Du lịch",
+  time: "⏰ Thời gian & Các mùa",
+  nature: "🌸 Thiên nhiên & Thời tiết",
+  colors: "🎨 Màu sắc & Tính từ",
+  verbs: "🏃 Động từ thông dụng",
+  feelings: "😊 Cảm xúc & Tâm trạng",
+  transport: "🚗 Phương tiện giao thông",
+  body: "👤 Cơ thể & Quần áo",
+  activities: "⚽ Hoạt động & Giải trí"
+};
+
+    const VOCAB_LIST = [
+  {
+    "vn": "Giáo viên / Thầy cô",
+    "kana": "せんせい",
+    "romaji": "sensei",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Bác sĩ",
+    "kana": "いしゃ",
+    "romaji": "isha",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Y tá / Điều dưỡng",
+    "kana": "かんごし",
+    "romaji": "kangoshi",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhân viên công ty",
+    "kana": "かいしゃいん",
+    "romaji": "kaishain",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhân viên ngân hàng",
+    "kana": "ぎんこういん",
+    "romaji": "ginkouin",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Cảnh sát",
+    "kana": "けいさつ",
+    "romaji": "keisatsu",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Luật sư",
+    "kana": "べんごし",
+    "romaji": "bengoshi",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Học sinh / Sinh viên",
+    "kana": "がくせい",
+    "romaji": "gakusei",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Ca sĩ",
+    "kana": "かしゅ",
+    "romaji": "kashu",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Họa sĩ",
+    "kana": "えかき",
+    "romaji": "ekaki",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhà văn / Tác giả",
+    "kana": "さっか",
+    "romaji": "sakka",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Đầu bếp",
+    "kana": "りょうりにん",
+    "romaji": "ryourinin",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Tài xế / Lái xe",
+    "kana": "うんてんしゅ",
+    "romaji": "untenshu",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Diễn viên",
+    "kana": "はいゆう",
+    "romaji": "haiyuu",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nông dân",
+    "kana": "のうか",
+    "romaji": "nouka",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Thợ mộc",
+    "kana": "だいく",
+    "romaji": "daiku",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Lính cứu hỏa",
+    "kana": "しょうぼうし",
+    "romaji": "shouboushi",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhà nghiên cứu",
+    "kana": "けんきゅうしゃ",
+    "romaji": "kenkyuusha",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Thực tập sinh",
+    "kana": "じっしゅうせい",
+    "romaji": "jisshuusei",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Thợ cắt tóc",
+    "kana": "びようし",
+    "romaji": "biyoushi",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Phi công (Pilot)",
+    "kana": "パイロット",
+    "romaji": "pairotto",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Kỹ sư (Engineer)",
+    "kana": "エンジニア",
+    "romaji": "enjinia",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Lập trình viên (Programmer)",
+    "kana": "プログラマー",
+    "romaji": "puroguramaa",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhà thiết kế (Designer)",
+    "kana": "デザイナー",
+    "romaji": "dezainaa",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Quản lý / Giám đốc (Manager)",
+    "kana": "マネージャー",
+    "romaji": "maneejaa",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Phát thanh viên (Announcer)",
+    "kana": "アナウンサー",
+    "romaji": "anaunsaa",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Bồi bàn nam (Waiter)",
+    "kana": "ウェイター",
+    "romaji": "ueitaa",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Bồi bàn nữ (Waitress)",
+    "kana": "ウェイトレス",
+    "romaji": "ueitoresu",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhiếp ảnh gia (Cameraman)",
+    "kana": "カメラマン",
+    "romaji": "kameraman",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Người mẫu (Model)",
+    "kana": "モデル",
+    "romaji": "moderu",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Thần tượng (Idol)",
+    "kana": "アイドル",
+    "romaji": "aidoru",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Huấn luyện viên (Coach)",
+    "kana": "コーチ",
+    "romaji": "koochi",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhạc trưởng / Nhạc sĩ",
+    "kana": "ミュージシャン",
+    "romaji": "myuujishan",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhân viên lễ tân",
+    "kana": "フロント",
+    "romaji": "furonto",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Bác sĩ thú y",
+    "kana": "じゅうい",
+    "romaji": "juui",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Vận động viên (Athlete)",
+    "kana": "アスリート",
+    "romaji": "asuriito",
+    "type": "katakana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nha sĩ / Bác sĩ răng",
+    "kana": "はいしゃ",
+    "romaji": "haisha",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Nhà khoa học",
+    "kana": "かがくしゃ",
+    "romaji": "kagakusha",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Dược sĩ",
+    "kana": "やくざいし",
+    "romaji": "yakuzaishi",
+    "type": "hiragana",
+    "cat": "jobs"
+  },
+  {
+    "vn": "Xin chào (ban ngày)",
+    "kana": "こんにちは",
+    "romaji": "konnichiwa",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chào buổi sáng",
+    "kana": "おはよう",
+    "romaji": "ohayou",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chào buổi tối",
+    "kana": "こんばんは",
+    "romaji": "konbanwa",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chúc ngủ ngon",
+    "kana": "おやすみ",
+    "romaji": "oyasumi",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Tạm biệt",
+    "kana": "さようなら",
+    "romaji": "sayounara",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Cảm ơn",
+    "kana": "ありがとう",
+    "romaji": "arigatou",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Xin lỗi / Làm phiền",
+    "kana": "すみません",
+    "romaji": "sumimasen",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Xin lỗi (thành thật)",
+    "kana": "ごめんなさい",
+    "romaji": "gomennasai",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Vâng / Đúng",
+    "kana": "はい",
+    "romaji": "hai",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Không / Không phải",
+    "kana": "いいえ",
+    "romaji": "iie",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Làm ơn / Xin nhờ",
+    "kana": "おねがい",
+    "romaji": "onegai",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Hẹn gặp lại",
+    "kana": "またね",
+    "romaji": "matane",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Rất vui được gặp bạn",
+    "kana": "はじめまして",
+    "romaji": "hajimemashite",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Tôi hiểu rồi",
+    "kana": "わかりました",
+    "romaji": "wakarimashita",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Không sao / Ổn cả",
+    "kana": "だいじょうぶ",
+    "romaji": "daijoubu",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chúc mừng",
+    "kana": "おめでとう",
+    "romaji": "omedetou",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chúc ngon miệng (trước bữa ăn)",
+    "kana": "いただきます",
+    "romaji": "itadakimasu",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Cảm ơn vì bữa ăn (sau bữa ăn)",
+    "kana": "ごちそうさま",
+    "romaji": "gochisousama",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Bạn đã vất vả rồi",
+    "kana": "おつかれさま",
+    "romaji": "otsukaresama",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Tôi đi đây (nói khi rời nhà)",
+    "kana": "いってきます",
+    "romaji": "ittekimasu",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Đi cẩn thận nhé (chúc người đi)",
+    "kana": "いってらっしゃい",
+    "romaji": "itterasshai",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Tôi đã về rồi (khi về nhà)",
+    "kana": "ただいま",
+    "romaji": "tadaima",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Mừng bạn đã về",
+    "kana": "おかえり",
+    "romaji": "okaeri",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Lâu rồi không gặp",
+    "kana": "ひさしぶり",
+    "romaji": "hisashiburi",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Cạn ly / Nâng ly",
+    "kana": "かんぱい",
+    "romaji": "kanpai",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Xin mời (dùng đồ / vào nhà)",
+    "kana": "どうぞ",
+    "romaji": "douzo",
+    "type": "hiragana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chào (Hello)",
+    "kana": "ハロー",
+    "romaji": "haroo",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Tạm biệt (Bye bye)",
+    "kana": "バイバイ",
+    "romaji": "baibai",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Gia đình",
+    "kana": "かぞく",
+    "romaji": "kazoku",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Bố (người khác / gọi bố)",
+    "kana": "おとうさん",
+    "romaji": "otousan",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Mẹ (người khác / gọi mẹ)",
+    "kana": "おかあさん",
+    "romaji": "okaasan",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Bố của mình (xưng khi nói)",
+    "kana": "ちち",
+    "romaji": "chichi",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Mẹ của mình (xưng khi nói)",
+    "kana": "はは",
+    "romaji": "haha",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Anh trai (người khác)",
+    "kana": "おにいさん",
+    "romaji": "oniisan",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Chị gái (người khác)",
+    "kana": "おねえさん",
+    "romaji": "oneesan",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Anh trai của mình",
+    "kana": "あに",
+    "romaji": "ani",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Chị gái của mình",
+    "kana": "あね",
+    "romaji": "ane",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Em trai",
+    "kana": "おとうと",
+    "romaji": "otouto",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Em gái",
+    "kana": "いもうと",
+    "romaji": "imouto",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Ông (nội / ngoại)",
+    "kana": "おじいさん",
+    "romaji": "ojiisan",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Bà (nội / ngoại)",
+    "kana": "おばあさん",
+    "romaji": "obaasan",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Bạn bè",
+    "kana": "ともだち",
+    "romaji": "tomodachi",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Con người / Người",
+    "kana": "ひと",
+    "romaji": "hito",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Trẻ em",
+    "kana": "こども",
+    "romaji": "kodomo",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Người lớn",
+    "kana": "おとな",
+    "romaji": "otona",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Em bé sơ sinh",
+    "kana": "あかちゃん",
+    "romaji": "akachan",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Bé trai",
+    "kana": "おとこのこ",
+    "romaji": "otokonoko",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Bé gái",
+    "kana": "おんなのこ",
+    "romaji": "onnanoko",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Tôi (đại từ)",
+    "kana": "わたし",
+    "romaji": "watashi",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Bạn (đại từ)",
+    "kana": "あなた",
+    "romaji": "anata",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Anh ấy",
+    "kana": "かれ",
+    "romaji": "kare",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Cô ấy",
+    "kana": "かのじょ",
+    "romaji": "kanojo",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Chồng mình",
+    "kana": "おっと",
+    "romaji": "otto",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Vợ mình",
+    "kana": "つま",
+    "romaji": "tsuma",
+    "type": "hiragana",
+    "cat": "people"
+  },
+  {
+    "vn": "Em bé (Baby)",
+    "kana": "ベビー",
+    "romaji": "bebii",
+    "type": "katakana",
+    "cat": "people"
+  },
+  {
+    "vn": "Con chó",
+    "kana": "いぬ",
+    "romaji": "inu",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con mèo",
+    "kana": "ねこ",
+    "romaji": "neko",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con chim",
+    "kana": "とり",
+    "romaji": "tori",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con cá",
+    "kana": "さかな",
+    "romaji": "sakana",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con bò",
+    "kana": "うし",
+    "romaji": "ushi",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con ngựa",
+    "kana": "うま",
+    "romaji": "uma",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con lợn / heo",
+    "kana": "ぶた",
+    "romaji": "buta",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con khỉ",
+    "kana": "さる",
+    "romaji": "saru",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con voi",
+    "kana": "ぞう",
+    "romaji": "zou",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con thỏ",
+    "kana": "うさぎ",
+    "romaji": "usagi",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con gấu",
+    "kana": "くま",
+    "romaji": "kuma",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con chuột",
+    "kana": "ねずみ",
+    "romaji": "nezumi",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con hổ / cọp",
+    "kana": "とら",
+    "romaji": "tora",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con ếch",
+    "kana": "かえる",
+    "romaji": "kaeru",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con cừu",
+    "kana": "ひつじ",
+    "romaji": "hitsuji",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con hươu / nai",
+    "kana": "しか",
+    "romaji": "shika",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con rùa",
+    "kana": "かめ",
+    "romaji": "kame",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Côn trùng / Sâu bọ",
+    "kana": "むし",
+    "romaji": "mushi",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con rắn",
+    "kana": "へび",
+    "romaji": "hebi",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con vịt",
+    "kana": "あひる",
+    "romaji": "ahiru",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con quạ",
+    "kana": "からす",
+    "romaji": "karasuu",
+    "type": "hiragana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Con sư tử (Lion)",
+    "kana": "ライオン",
+    "romaji": "raion",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Gấu trúc (Panda)",
+    "kana": "パンダ",
+    "romaji": "panda",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Chim cánh cụt (Penguin)",
+    "kana": "ペンギン",
+    "romaji": "penguin",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Hươu cao cổ (Giraffe)",
+    "kana": "キリン",
+    "romaji": "kirin",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Chuột túi (Kangaroo)",
+    "kana": "カンガルー",
+    "romaji": "kangaruu",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Gấu túi (Koala)",
+    "kana": "コアラ",
+    "romaji": "koara",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Chuột Hamster",
+    "kana": "ハムスター",
+    "romaji": "hamusutaa",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Cá heo (Dolphin)",
+    "kana": "イルカ",
+    "romaji": "iruka",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Cá voi (Whale)",
+    "kana": "クジラ",
+    "romaji": "kujira",
+    "type": "katakana",
+    "cat": "animals"
+  },
+  {
+    "vn": "Cơm / Bữa ăn",
+    "kana": "ごはん",
+    "romaji": "gohan",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Nước lọc",
+    "kana": "みず",
+    "romaji": "mizu",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Trà Nhật",
+    "kana": "おちゃ",
+    "romaji": "ocha",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Thịt",
+    "kana": "にく",
+    "romaji": "niku",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Trứng",
+    "kana": "たまご",
+    "romaji": "tamago",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Rau củ",
+    "kana": "やさい",
+    "romaji": "yasai",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Trái cây / Hoa quả",
+    "kana": "くだもの",
+    "romaji": "kudamono",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Quả táo",
+    "kana": "りんご",
+    "romaji": "ringo",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Quả quýt",
+    "kana": "みかん",
+    "romaji": "mikan",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Quả dâu tây",
+    "kana": "いちご",
+    "romaji": "ichigo",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Quả dưa hấu",
+    "kana": "すいか",
+    "romaji": "suika",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Quả nho",
+    "kana": "ぶどう",
+    "romaji": "budou",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Muối ăn",
+    "kana": "しお",
+    "romaji": "shio",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Đường ăn",
+    "kana": "さとう",
+    "romaji": "satou",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Nước tương Shoyu",
+    "kana": "しょうゆ",
+    "romaji": "shouyu",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Hạt tiêu",
+    "kana": "こしょう",
+    "romaji": "koshou",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Dầu ăn",
+    "kana": "あぶら",
+    "romaji": "abura",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Món Sushi",
+    "kana": "すし",
+    "romaji": "sushi",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Món Tempura",
+    "kana": "てんぷら",
+    "romaji": "tenpura",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Mì Udon",
+    "kana": "うどん",
+    "romaji": "udon",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Mì Soba",
+    "kana": "そば",
+    "romaji": "soba",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Rượu Sake Nhật",
+    "kana": "さけ",
+    "romaji": "sake",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Canh tương Miso",
+    "kana": "みそしる",
+    "romaji": "misoshiru",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Cơm hộp Bento",
+    "kana": "おべんとう",
+    "romaji": "obentou",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Trà xanh Matcha",
+    "kana": "まっちゃ",
+    "romaji": "matcha",
+    "type": "hiragana",
+    "cat": "food"
+  },
+  {
+    "vn": "Bánh mì (Pan)",
+    "kana": "パン",
+    "romaji": "pan",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Cà phê (Coffee)",
+    "kana": "コーヒー",
+    "romaji": "koohii",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Sữa tươi (Milk)",
+    "kana": "ミルク",
+    "romaji": "miruku",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Bia (Beer)",
+    "kana": "ビール",
+    "romaji": "biiru",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Nước ép (Juice)",
+    "kana": "ジュース",
+    "romaji": "juusu",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Bánh ngọt (Cake)",
+    "kana": "ケーキ",
+    "romaji": "keeki",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Sô-cô-la (Chocolate)",
+    "kana": "チョコレート",
+    "romaji": "chokoreeto",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Kem (Ice cream)",
+    "kana": "アイスクリーム",
+    "romaji": "aisukuriimu",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Món Salad",
+    "kana": "サラダ",
+    "romaji": "sarada",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Cơm cà ri (Curry)",
+    "kana": "カレー",
+    "romaji": "karee",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Mì Ramen",
+    "kana": "ラーメン",
+    "romaji": "raamen",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Bánh Pizza",
+    "kana": "ピザ",
+    "romaji": "piza",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Bánh kẹp Sandwich",
+    "kana": "サンドイッチ",
+    "romaji": "sandoitchi",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Bánh mì kẹp Hamburger",
+    "kana": "ハンバーガー",
+    "romaji": "hanbaagaa",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Quả cà chua (Tomato)",
+    "kana": "トマト",
+    "romaji": "tomato",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Quả chuối (Banana)",
+    "kana": "バナナ",
+    "romaji": "banana",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Bơ (Butter)",
+    "kana": "バター",
+    "romaji": "bataa",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Phô mai (Cheese)",
+    "kana": "チーズ",
+    "romaji": "chiizu",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Sữa chua (Yogurt)",
+    "kana": "ヨーグルト",
+    "romaji": "yooguruto",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Xúc xích (Sausage)",
+    "kana": "ソーセージ",
+    "romaji": "sooseeji",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Rượu vang (Wine)",
+    "kana": "ワイン",
+    "romaji": "wain",
+    "type": "katakana",
+    "cat": "food"
+  },
+  {
+    "vn": "Cửa sổ",
+    "kana": "まど",
+    "romaji": "mado",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Bàn học / Bàn làm việc",
+    "kana": "つくえ",
+    "romaji": "tsukue",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Cái ghế",
+    "kana": "いす",
+    "romaji": "isu",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Tủ lạnh",
+    "kana": "れいぞうこ",
+    "romaji": "reizouko",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Nhà bếp",
+    "kana": "だいどころ",
+    "romaji": "daidokoro",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Bồn tắm / Phòng tắm",
+    "kana": "おふろ",
+    "romaji": "ofuro",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Nệm nằm Futon",
+    "kana": "ふとん",
+    "romaji": "futon",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Gối ngủ",
+    "kana": "まくら",
+    "romaji": "makura",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Chăn ấm",
+    "kana": "もうふ",
+    "romaji": "moufu",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Cầu thang",
+    "kana": "かいだん",
+    "romaji": "kaidan",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Sàn nhà",
+    "kana": "ゆか",
+    "romaji": "yuka",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Đèn điện",
+    "kana": "でんき",
+    "romaji": "denki",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Thùng rác",
+    "kana": "ごみばこ",
+    "romaji": "gomibako",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Chìa khóa",
+    "kana": "かぎ",
+    "romaji": "kagi",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Cửa ra vào (Door)",
+    "kana": "ドア",
+    "romaji": "doa",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Giường ngủ (Bed)",
+    "kana": "ベッド",
+    "romaji": "beddo",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Ghế Sofa",
+    "kana": "ソファー",
+    "romaji": "sofaa",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Rèm cửa (Curtain)",
+    "kana": "カーテン",
+    "romaji": "kaaten",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Khăn bông (Towel)",
+    "kana": "タオル",
+    "romaji": "taoru",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Ban công (Veranda)",
+    "kana": "ベランダ",
+    "romaji": "beranda",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Nhà vệ sinh (Toilet)",
+    "kana": "トイレ",
+    "romaji": "toire",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Nhà tắm vòi sen (Shower)",
+    "kana": "シャワー",
+    "romaji": "shawaa",
+    "type": "katakana",
+    "cat": "house"
+  },
+  {
+    "vn": "Máy giặt",
+    "kana": "せんたくき",
+    "romaji": "sentakuki",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Chiếc gương soi",
+    "kana": "かがみ",
+    "romaji": "kagami",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Thảm trải sàn",
+    "kana": "じゅうたん",
+    "romaji": "juutan",
+    "type": "hiragana",
+    "cat": "house"
+  },
+  {
+    "vn": "Cuốn sách",
+    "kana": "ほん",
+    "romaji": "hon",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Bút chì",
+    "kana": "えんぴつ",
+    "romaji": "enpitsu",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cặp sách / Túi xách",
+    "kana": "かばん",
+    "romaji": "kaban",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cái ví tiền",
+    "kana": "さいふ",
+    "romaji": "saifu",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Đồng hồ",
+    "kana": "とけい",
+    "romaji": "tokei",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cây dù / Cái ô",
+    "kana": "かさ",
+    "romaji": "kasa",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Đôi giày",
+    "kana": "くつ",
+    "romaji": "kutsu",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cái mũ / Nón",
+    "kana": "ぼうし",
+    "romaji": "boushi",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cây kéo",
+    "kana": "はさみ",
+    "romaji": "hasami",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Điện thoại",
+    "kana": "でんわ",
+    "romaji": "denwa",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Tờ giấy",
+    "kana": "かみ",
+    "romaji": "kami",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Kính mắt",
+    "kana": "めがね",
+    "romaji": "megane",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Từ điển",
+    "kana": "じしょ",
+    "romaji": "jisho",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Bức thư",
+    "kana": "てがみ",
+    "romaji": "tegami",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Tờ báo",
+    "kana": "しんぶん",
+    "romaji": "shinbun",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Tạp chí",
+    "kana": "ざっし",
+    "romaji": "zasshi",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Hộp bút",
+    "kana": "ふでばこ",
+    "romaji": "fudebako",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Thước kẻ",
+    "kana": "ものさし",
+    "romaji": "monosashi",
+    "type": "hiragana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cuốn vở / Sổ tay (Note)",
+    "kana": "ノート",
+    "romaji": "nooto",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Bút viết (Pen)",
+    "kana": "ペン",
+    "romaji": "pen",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Bút bi (Ballpoint pen)",
+    "kana": "ボールペン",
+    "romaji": "boorupen",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Tivi (TV)",
+    "kana": "テレビ",
+    "romaji": "terebi",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Máy ảnh (Camera)",
+    "kana": "カメラ",
+    "romaji": "kamera",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Máy vi tính (PC)",
+    "kana": "パソコン",
+    "romaji": "pasokon",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Điện thoại thông minh (Smartphone)",
+    "kana": "スマホ",
+    "romaji": "sumaho",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Đài phát thanh (Radio)",
+    "kana": "ラジオ",
+    "romaji": "rajio",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cái cốc / Ly (Cup)",
+    "kana": "コップ",
+    "romaji": "koppu",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Đàn ghi-ta (Guitar)",
+    "kana": "ギター",
+    "romaji": "gitaa",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Con dao ăn (Knife)",
+    "kana": "ナイフ",
+    "romaji": "naifu",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cái nĩa (Fork)",
+    "kana": "フォーク",
+    "romaji": "fooku",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cái thìa / Muỗng (Spoon)",
+    "kana": "スプーン",
+    "romaji": "supuun",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Tờ lịch (Calendar)",
+    "kana": "カレンダー",
+    "romaji": "karendaa",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Hòm thư (Post)",
+    "kana": "ポスト",
+    "romaji": "posuto",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Cái cúc / Nút bấm (Button)",
+    "kana": "ボタン",
+    "romaji": "botan",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Băng dính (Tape)",
+    "kana": "テープ",
+    "romaji": "teepu",
+    "type": "katakana",
+    "cat": "objects"
+  },
+  {
+    "vn": "Trường học",
+    "kana": "がっこう",
+    "romaji": "gakkou",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Nhà ga",
+    "kana": "えき",
+    "romaji": "eki",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Bệnh viện",
+    "kana": "びょういん",
+    "romaji": "byouin",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Ngân hàng",
+    "kana": "ぎんこう",
+    "romaji": "ginkou",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Công viên",
+    "kana": "こうえん",
+    "romaji": "kouen",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Cửa hàng / Tiệm",
+    "kana": "みせ",
+    "romaji": "mise",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Ngôi nhà",
+    "kana": "いえ",
+    "romaji": "ie",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Căn phòng",
+    "kana": "へや",
+    "romaji": "heya",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Thư viện",
+    "kana": "としょかん",
+    "romaji": "toshokan",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Bưu điện",
+    "kana": "ゆうびんきょく",
+    "romaji": "yuubinkyoku",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Sân bay",
+    "kana": "くうこう",
+    "romaji": "kuukou",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Hiệu sách",
+    "kana": "ほんや",
+    "romaji": "honya",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Hiệu thuốc",
+    "kana": "やっきょく",
+    "romaji": "yakkyoku",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Đại sứ quán",
+    "kana": "たいしかん",
+    "romaji": "taishikan",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Bảo tàng mỹ thuật",
+    "kana": "びじゅつかん",
+    "romaji": "bijutsukan",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Sở thú",
+    "kana": "どうぶつえん",
+    "romaji": "doubutsuen",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Thủy cung",
+    "kana": "すいぞくかん",
+    "romaji": "suizokukan",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Đền thờ Thần đạo",
+    "kana": "じんじゃ",
+    "romaji": "jinja",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Chùa Phật giáo",
+    "kana": "おてら",
+    "romaji": "otera",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Rạp chiếu phim",
+    "kana": "えいがかん",
+    "romaji": "eigakan",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Khách sạn (Hotel)",
+    "kana": "ホテル",
+    "romaji": "hoteru",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Nhà hàng (Restaurant)",
+    "kana": "レストラン",
+    "romaji": "resutoran",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Trung tâm thương mại (Department store)",
+    "kana": "デパート",
+    "romaji": "depaato",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Siêu thị (Supermarket)",
+    "kana": "スーパー",
+    "romaji": "suupaa",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Cửa hàng tiện lợi (Convenience store)",
+    "kana": "コンビニ",
+    "romaji": "konbini",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Quán cà phê (Cafe)",
+    "kana": "カフェ",
+    "romaji": "kafe",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Tòa nhà / Cao ốc (Building)",
+    "kana": "ビル",
+    "romaji": "biru",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Khu chung cư (Apartment)",
+    "kana": "アパート",
+    "romaji": "apaato",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Chung cư cao cấp (Mansion)",
+    "kana": "マンション",
+    "romaji": "manshon",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Bể bơi (Pool)",
+    "kana": "プール",
+    "romaji": "puuru",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Cây xăng (Gas station)",
+    "kana": "ガソリンスタンド",
+    "romaji": "gasorinsutando",
+    "type": "katakana",
+    "cat": "places"
+  },
+  {
+    "vn": "Quầy tiếp tân / Lễ tân",
+    "kana": "うけつけ",
+    "romaji": "uketsuke",
+    "type": "hiragana",
+    "cat": "places"
+  },
+  {
+    "vn": "Hôm nay",
+    "kana": "きょう",
+    "romaji": "kyou",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Ngày mai",
+    "kana": "あした",
+    "romaji": "ashita",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Hôm qua",
+    "kana": "きのう",
+    "romaji": "kinou",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Ngày kia (sau ngày mai)",
+    "kana": "あさって",
+    "romaji": "asatte",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Hôm kia (trước hôm qua)",
+    "kana": "おととい",
+    "romaji": "ototoi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Bây giờ",
+    "kana": "いま",
+    "romaji": "ima",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Buổi sáng",
+    "kana": "あさ",
+    "romaji": "asa",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Buổi trưa",
+    "kana": "ひる",
+    "romaji": "hiru",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Buổi tối / Đêm",
+    "kana": "よる",
+    "romaji": "yoru",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Tối nay",
+    "kana": "こんばん",
+    "romaji": "konban",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Mỗi ngày",
+    "kana": "まいにち",
+    "romaji": "mainichi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Tuần này",
+    "kana": "こんしゅう",
+    "romaji": "konshuu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Tuần sau",
+    "kana": "らいしゅう",
+    "romaji": "raishuu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Tuần trước",
+    "kana": "せんしゅう",
+    "romaji": "senshuu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Tháng này",
+    "kana": "こんげつ",
+    "romaji": "kongetsu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Tháng sau",
+    "kana": "らいげつ",
+    "romaji": "raigetsu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Tháng trước",
+    "kana": "せんげつ",
+    "romaji": "sengetsu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Năm nay",
+    "kana": "ことし",
+    "romaji": "kotoshi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Năm sau",
+    "kana": "らいねん",
+    "romaji": "rainen",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Năm ngoái",
+    "kana": "きょねん",
+    "romaji": "kyonen",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Mùa xuân",
+    "kana": "はる",
+    "romaji": "haru",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Mùa hè",
+    "kana": "なつ",
+    "romaji": "natsu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Mùa thu",
+    "kana": "あき",
+    "romaji": "aki",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Mùa đông",
+    "kana": "ふゆ",
+    "romaji": "fuyu",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Thứ hai",
+    "kana": "げつようび",
+    "romaji": "getsuyoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Thứ ba",
+    "kana": "かようび",
+    "romaji": "kayoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Thứ tư",
+    "kana": "すいようび",
+    "romaji": "suiyoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Thứ năm",
+    "kana": "もくようび",
+    "romaji": "mokuyoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Thứ sáu",
+    "kana": "きんようび",
+    "romaji": "kinyoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Thứ bảy",
+    "kana": "どようび",
+    "romaji": "doyoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Chủ nhật",
+    "kana": "にちようび",
+    "romaji": "nichiyoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Ngày sinh nhật",
+    "kana": "たんじょうび",
+    "romaji": "tanjoubi",
+    "type": "hiragana",
+    "cat": "time"
+  },
+  {
+    "vn": "Lịch trình (Schedule)",
+    "kana": "スケジュール",
+    "romaji": "sukejuuru",
+    "type": "katakana",
+    "cat": "time"
+  },
+  {
+    "vn": "Cơn mưa",
+    "kana": "あめ",
+    "romaji": "ame",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Tuyết rơi",
+    "kana": "ゆき",
+    "romaji": "yuki",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Cơn gió",
+    "kana": "かぜ",
+    "romaji": "kaze",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Trời nắng / Đẹp trời",
+    "kana": "はれ",
+    "romaji": "hare",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Trời nhiều mây",
+    "kana": "くもり",
+    "romaji": "kumori",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Bông hoa",
+    "kana": "はな",
+    "romaji": "hana",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Cây cối",
+    "kana": "き",
+    "romaji": "ki",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Ngọn núi",
+    "kana": "やま",
+    "romaji": "yama",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Dòng sông",
+    "kana": "かわ",
+    "romaji": "kawa",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Biển cả",
+    "kana": "うみ",
+    "romaji": "umi",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Bầu trời",
+    "kana": "そら",
+    "romaji": "sora",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Mặt trời",
+    "kana": "たいよう",
+    "romaji": "taiyou",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Mặt trăng",
+    "kana": "つき",
+    "romaji": "tsuki",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Ngôi sao",
+    "kana": "ほし",
+    "romaji": "hoshi",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Khu rừng",
+    "kana": "もり",
+    "romaji": "mori",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Sấm sét",
+    "kana": "かみなり",
+    "romaji": "kaminari",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Động đất",
+    "kana": "じしん",
+    "romaji": "jishin",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Cầu vồng",
+    "kana": "にじ",
+    "romaji": "niji",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Ngọn lửa",
+    "kana": "ひ",
+    "romaji": "hi",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Hòn đá",
+    "kana": "いし",
+    "romaji": "ishi",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Hòn đảo",
+    "kana": "しま",
+    "romaji": "shima",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Đợt sóng biển",
+    "kana": "なみ",
+    "romaji": "nami",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Bụi cỏ",
+    "kana": "くさ",
+    "romaji": "kusa",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Cơn bão",
+    "kana": "たいふう",
+    "romaji": "taifuu",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Bãi biển (Beach)",
+    "kana": "ビーチ",
+    "romaji": "biichi",
+    "type": "katakana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Làn khói",
+    "kana": "けむり",
+    "romaji": "kemuri",
+    "type": "hiragana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Cực quang (Aurora)",
+    "kana": "オーロラ",
+    "romaji": "oorora",
+    "type": "katakana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Màu đỏ",
+    "kana": "あか",
+    "romaji": "aka",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu xanh da trời",
+    "kana": "あお",
+    "romaji": "ao",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu vàng",
+    "kana": "きいろ",
+    "romaji": "kiiro",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu đen",
+    "kana": "くろ",
+    "romaji": "kuro",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu trắng",
+    "kana": "しろ",
+    "romaji": "shiro",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu xanh lá cây",
+    "kana": "みどり",
+    "romaji": "midori",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu nâu",
+    "kana": "ちゃいろ",
+    "romaji": "chairo",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu tím",
+    "kana": "むらさき",
+    "romaji": "murasaki",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "To lớn",
+    "kana": "おおきい",
+    "romaji": "ookii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Bé nhỏ",
+    "kana": "ちいさい",
+    "romaji": "chiisai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Cao / Đắt",
+    "kana": "たかい",
+    "romaji": "takai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Rẻ",
+    "kana": "やすい",
+    "romaji": "yasui",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Mới mẻ",
+    "kana": "あたらしい",
+    "romaji": "atarashii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Cũ kỹ",
+    "kana": "ふるい",
+    "romaji": "furui",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Tốt / Đẹp",
+    "kana": "いい",
+    "romaji": "ii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Xấu / Tồi",
+    "kana": "わるい",
+    "romaji": "warui",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Ngon miệng",
+    "kana": "おいしい",
+    "romaji": "oishii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Vui vẻ",
+    "kana": "たのしい",
+    "romaji": "tanoshii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Thú vị / Hay ho",
+    "kana": "おもしろい",
+    "romaji": "omoshiroi",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Dễ thương",
+    "kana": "かわいい",
+    "romaji": "kawaii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Khó",
+    "kana": "むずかしい",
+    "romaji": "muzukashii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Dễ dàng / Hiền lành",
+    "kana": "やさしい",
+    "romaji": "yasashii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Nóng (thời tiết)",
+    "kana": "あつい",
+    "romaji": "atsui",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Lạnh (thời tiết)",
+    "kana": "さむい",
+    "romaji": "samui",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Nhanh / Sớm",
+    "kana": "はやい",
+    "romaji": "hayai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Chậm / Muộn",
+    "kana": "おそい",
+    "romaji": "osoi",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Gần",
+    "kana": "ちかい",
+    "romaji": "chikai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Xa",
+    "kana": "とおい",
+    "romaji": "tooi",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Sáng sủa",
+    "kana": "あかるい",
+    "romaji": "akarui",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Tối tăm",
+    "kana": "くらい",
+    "romaji": "kurai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Rộng rãi",
+    "kana": "ひろい",
+    "romaji": "hiroi",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Chật hẹp",
+    "kana": "せまい",
+    "romaji": "semai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Dài",
+    "kana": "ながい",
+    "romaji": "nagai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Ngắn",
+    "kana": "みじかい",
+    "romaji": "mijikai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Bận rộn",
+    "kana": "いそがしい",
+    "romaji": "isogashii",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Rảnh rỗi",
+    "kana": "ひま",
+    "romaji": "hima",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Khỏe khoắn",
+    "kana": "げんき",
+    "romaji": "genki",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Tiện lợi",
+    "kana": "べんり",
+    "romaji": "benri",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Yêu thích",
+    "kana": "すき",
+    "romaji": "suki",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Ghét bỏ",
+    "kana": "きらい",
+    "romaji": "kirai",
+    "type": "hiragana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu da cam (Orange)",
+    "kana": "オレンジ",
+    "romaji": "orenji",
+    "type": "katakana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Màu hồng (Pink)",
+    "kana": "ピンク",
+    "romaji": "pinku",
+    "type": "katakana",
+    "cat": "colors"
+  },
+  {
+    "vn": "Ăn",
+    "kana": "たべる",
+    "romaji": "taberu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Uống",
+    "kana": "のむ",
+    "romaji": "nomu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Đọc",
+    "kana": "よむ",
+    "romaji": "yomu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Viết",
+    "kana": "かく",
+    "romaji": "kaku",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Nghe / Hỏi",
+    "kana": "きく",
+    "romaji": "kiku",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Nhìn / Xem",
+    "kana": "みる",
+    "romaji": "miru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Đi",
+    "kana": "いく",
+    "romaji": "iku",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Đến",
+    "kana": "くる",
+    "romaji": "kuru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Ngủ",
+    "kana": "ねる",
+    "romaji": "neru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Thức dậy",
+    "kana": "おきる",
+    "romaji": "okiru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Mua",
+    "kana": "かう",
+    "romaji": "kau",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Bán",
+    "kana": "うる",
+    "romaji": "uru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Nói chuyện",
+    "kana": "はなす",
+    "romaji": "hanasu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Gặp gỡ",
+    "kana": "あう",
+    "romaji": "au",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Chờ đợi",
+    "kana": "まつ",
+    "romaji": "matsu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Đứng lên",
+    "kana": "たつ",
+    "romaji": "tatsu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Ngồi xuống",
+    "kana": "すわる",
+    "romaji": "suwaru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Học tập (Động từ)",
+    "kana": "べんきょうする",
+    "romaji": "benkyousuru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Làm việc",
+    "kana": "はたらく",
+    "romaji": "hataraku",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Mở (cửa / sách)",
+    "kana": "あける",
+    "romaji": "akeru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Đóng (cửa / sách)",
+    "kana": "しめる",
+    "romaji": "shimeru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Cười",
+    "kana": "わらう",
+    "romaji": "warau",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Khóc",
+    "kana": "なく",
+    "romaji": "naku",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Bơi lội (Động từ)",
+    "kana": "およぐ",
+    "romaji": "oyogu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Chạy",
+    "kana": "はしる",
+    "romaji": "hashiru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Đi bộ",
+    "kana": "あるく",
+    "romaji": "aruku",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Bay",
+    "kana": "とぶ",
+    "romaji": "tobu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Cầm / Mang",
+    "kana": "もつ",
+    "romaji": "motsu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Cho / Tặng",
+    "kana": "あげる",
+    "romaji": "ageru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Nhận được",
+    "kana": "もらう",
+    "romaji": "morau",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Nghỉ ngơi",
+    "kana": "やすむ",
+    "romaji": "yasumu",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Rửa / Giặt",
+    "kana": "あらう",
+    "romaji": "arau",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Đặt / Để",
+    "kana": "おく",
+    "romaji": "oku",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Bắt đầu",
+    "kana": "はじめる",
+    "romaji": "hajimeru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Kết thúc",
+    "kana": "おわる",
+    "romaji": "owaru",
+    "type": "hiragana",
+    "cat": "verbs"
+  },
+  {
+    "vn": "Vui sướng / Hạnh phúc",
+    "kana": "うれしい",
+    "romaji": "ureshii",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Đau buồn",
+    "kana": "かなしい",
+    "romaji": "kanashii",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Tức giận",
+    "kana": "おこる",
+    "romaji": "okoru",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Đau đớn",
+    "kana": "いたい",
+    "romaji": "itai",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Lo lắng / Bất an",
+    "kana": "しんぱい",
+    "romaji": "shinpai",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "An tâm / Yên lòng",
+    "kana": "あんしん",
+    "romaji": "anshin",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Ngạc nhiên / Giật mình",
+    "kana": "びっくり",
+    "romaji": "bikkuri",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Hồi hộp / Rạo rực",
+    "kana": "わくわく",
+    "romaji": "wakuwaku",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Tim đập thình thịch",
+    "kana": "どきどき",
+    "romaji": "dokidoki",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Thất vọng",
+    "kana": "がっかり",
+    "romaji": "gakkari",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Ngại ngùng / Xấu hổ",
+    "kana": "はずかしい",
+    "romaji": "hazukashii",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Đáng sợ / Sợ hãi",
+    "kana": "こわい",
+    "romaji": "kowai",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Cô đơn / Buồn tủi",
+    "kana": "さびしい",
+    "romaji": "sabishii",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Tuyệt vời / Tuyệt diệu",
+    "kana": "すばらしい",
+    "romaji": "subarashii",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Buồn ngủ",
+    "kana": "ねむい",
+    "romaji": "nemui",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Xúc động / Cảm động",
+    "kana": "かんどう",
+    "romaji": "kandou",
+    "type": "hiragana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Căng thẳng (Stress)",
+    "kana": "ストレス",
+    "romaji": "sutoresu",
+    "type": "katakana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Hạnh phúc (Happy)",
+    "kana": "ハッピー",
+    "romaji": "happii",
+    "type": "katakana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Thư giãn (Relax)",
+    "kana": "リラックス",
+    "romaji": "rirakkusu",
+    "type": "katakana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Xe ô tô",
+    "kana": "くるま",
+    "romaji": "kuruma",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Tàu điện",
+    "kana": "でんしゃ",
+    "romaji": "densha",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Máy bay",
+    "kana": "ひこうき",
+    "romaji": "hikouki",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Tàu thủy / Thuyền",
+    "kana": "ふね",
+    "romaji": "fune",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe đạp",
+    "kana": "じてんしゃ",
+    "romaji": "jitensha",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Tàu siêu tốc Shinkansen",
+    "kana": "しんかんせん",
+    "romaji": "shinkansen",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Tàu điện ngầm",
+    "kana": "ちかてつ",
+    "romaji": "chikatetsu",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe cấp cứu",
+    "kana": "きゅうきゅうしゃ",
+    "romaji": "kyuukyuusha",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe cứu hỏa",
+    "kana": "しょうぼうしゃ",
+    "romaji": "shoubousha",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Vé tàu xe",
+    "kana": "きっぷ",
+    "romaji": "kippu",
+    "type": "hiragana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe buýt (Bus)",
+    "kana": "バス",
+    "romaji": "basu",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe taxi (Taxi)",
+    "kana": "タクシー",
+    "romaji": "takushii",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe tải (Truck)",
+    "kana": "トラック",
+    "romaji": "torakku",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe máy (Bike)",
+    "kana": "バイク",
+    "romaji": "baiku",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Máy bay trực thăng",
+    "kana": "ヘリコプター",
+    "romaji": "herikoputaa",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Xe tuần tra cảnh sát (Patrol car)",
+    "kana": "パトカー",
+    "romaji": "patokaa",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Tàu du lịch (Cruise)",
+    "kana": "クルーズ",
+    "romaji": "kuruuzu",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Thuyền buồm (Yacht)",
+    "kana": "ヨット",
+    "romaji": "yotto",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Tên lửa (Rocket)",
+    "kana": "ロケット",
+    "romaji": "roketto",
+    "type": "katakana",
+    "cat": "transport"
+  },
+  {
+    "vn": "Đôi mắt",
+    "kana": "め",
+    "romaji": "me",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Cái tai",
+    "kana": "みみ",
+    "romaji": "mimi",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Cái miệng",
+    "kana": "くち",
+    "romaji": "kuchi",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Bàn tay",
+    "kana": "て",
+    "romaji": "te",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Bàn chân / Cẳng chân",
+    "kana": "あし",
+    "romaji": "ashi",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Cái đầu",
+    "kana": "あたま",
+    "romaji": "atama",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Khuôn mặt",
+    "kana": "かお",
+    "romaji": "kao",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Cái bụng",
+    "kana": "おなか",
+    "romaji": "onaka",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Tấm lưng",
+    "kana": "せなか",
+    "romaji": "senaka",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Cái cổ",
+    "kana": "くび",
+    "romaji": "kubi",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Răng",
+    "kana": "は",
+    "romaji": "ha",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Sợi tóc",
+    "kana": "かみのけ",
+    "romaji": "kaminoke",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Bờ vai",
+    "kana": "かた",
+    "romaji": "kata",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Ngón tay",
+    "kana": "ゆび",
+    "romaji": "yubi",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Trái tim / Tấm lòng",
+    "kana": "こころ",
+    "romaji": "kokoro",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Tất / Vớ chân",
+    "kana": "くつした",
+    "romaji": "kutsushita",
+    "type": "hiragana",
+    "cat": "body"
+  },
+  {
+    "vn": "Áo sơ mi (Shirt)",
+    "kana": "シャツ",
+    "romaji": "shatsu",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Áo phông (T-shirt)",
+    "kana": "ティーシャツ",
+    "romaji": "tiishatsu",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Quần dài (Trousers)",
+    "kana": "ズボン",
+    "romaji": "zubon",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Chân váy (Skirt)",
+    "kana": "スカート",
+    "romaji": "sukaato",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Cà vạt (Necktie)",
+    "kana": "ネクタイ",
+    "romaji": "nekutai",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Áo khoác dài (Coat)",
+    "kana": "コート",
+    "romaji": "kooto",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Áo vest / Bộ âu phục (Suit)",
+    "kana": "スーツ",
+    "romaji": "suutsu",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Áo len (Sweater)",
+    "kana": "セーター",
+    "romaji": "seetaa",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Váy liền (Dress)",
+    "kana": "ドレス",
+    "romaji": "doresu",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Áo khoác (Jacket)",
+    "kana": "ジャケット",
+    "romaji": "jaketto",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Quần bò (Jeans)",
+    "kana": "ジーンズ",
+    "romaji": "jiinzu",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Giày thể thao (Sneakers)",
+    "kana": "スニーカー",
+    "romaji": "suniikaa",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Ủng / Giày bốt (Boots)",
+    "kana": "ブーツ",
+    "romaji": "buutsu",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Khăn quàng cổ (Muffler)",
+    "kana": "マフラー",
+    "romaji": "mafuraa",
+    "type": "katakana",
+    "cat": "body"
+  },
+  {
+    "vn": "Học tập (Danh từ)",
+    "kana": "べんきょう",
+    "romaji": "benkyou",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Công việc (Danh từ)",
+    "kana": "しごと",
+    "romaji": "shigoto",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Du lịch",
+    "kana": "りょこう",
+    "romaji": "ryokou",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Mua sắm",
+    "kana": "かいもの",
+    "romaji": "kaimono",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Đi dạo",
+    "kana": "さんぽ",
+    "romaji": "sanpo",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Bộ phim điện ảnh",
+    "kana": "えいが",
+    "romaji": "eiga",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Âm nhạc",
+    "kana": "おんがく",
+    "romaji": "ongaku",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Môn bơi lội",
+    "kana": "すいえい",
+    "romaji": "suiei",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Nấu nướng",
+    "kana": "りょうり",
+    "romaji": "ryouri",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Đọc sách",
+    "kana": "どくしょ",
+    "romaji": "dokusho",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Môn bóng chày",
+    "kana": "やきゅう",
+    "romaji": "yakyuu",
+    "type": "hiragana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Bóng đá (Soccer)",
+    "kana": "サッカー",
+    "romaji": "sakkaa",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Quần vợt (Tennis)",
+    "kana": "テニス",
+    "romaji": "tenisu",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Môn Golf",
+    "kana": "ゴルフ",
+    "romaji": "gorufu",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Hát Karaoke",
+    "kana": "カラオケ",
+    "romaji": "karaoke",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Đàn Piano",
+    "kana": "ピアノ",
+    "romaji": "piano",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Buổi hòa nhạc (Concert)",
+    "kana": "コンサート",
+    "romaji": "konsaato",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Cắm trại (Camping)",
+    "kana": "キャンプ",
+    "romaji": "kyanpu",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Nhảy múa (Dance)",
+    "kana": "ダンス",
+    "romaji": "dansu",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Bản tin thời sự (News)",
+    "kana": "ニュース",
+    "romaji": "nyuusu",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Bữa tiệc (Party)",
+    "kana": "パーティー",
+    "romaji": "paatii",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Bài thi / Kiểm tra (Test)",
+    "kana": "テスト",
+    "romaji": "tesuto",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Trò chơi (Game)",
+    "kana": "ゲーム",
+    "romaji": "geemu",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Máy điều hòa (Air conditioner)",
+    "kana": "エアコン",
+    "romaji": "eakon",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Thang máy (Elevator)",
+    "kana": "エレベーター",
+    "romaji": "erebeetaa",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Môn bóng rổ (Basketball)",
+    "kana": "バスケットボール",
+    "romaji": "basukettobooru",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Môn trượt tuyết (Ski)",
+    "kana": "スキー",
+    "romaji": "sukii",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Lướt sóng (Surfing)",
+    "kana": "サーフィン",
+    "romaji": "saafin",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Phim hoạt hình (Anime)",
+    "kana": "アニメ",
+    "romaji": "anime",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Truyện tranh (Manga)",
+    "kana": "マンガ",
+    "romaji": "manga",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Đàn vĩ cầm (Violin)",
+    "kana": "バイオリン",
+    "romaji": "baiorin",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Đồng hồ báo thức (Alarm)",
+    "kana": "アラーム",
+    "romaji": "araamu",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Ván trượt (Skateboard)",
+    "kana": "スケートボード",
+    "romaji": "sukeetoboodo",
+    "type": "katakana",
+    "cat": "activities"
+  },
+  {
+    "vn": "Cảm ơn (Thank you)",
+    "kana": "サンキュー",
+    "romaji": "sankyuu",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Xin chào / Này (Hi)",
+    "kana": "ハイ",
+    "romaji": "hai",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Được rồi (OK)",
+    "kana": "オーケー",
+    "romaji": "ookee",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Làm ơn (Please)",
+    "kana": "プリーズ",
+    "romaji": "puriizu",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chúc may mắn (Good luck)",
+    "kana": "グッドラック",
+    "romaji": "guddorakku",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Chúc mừng (Congrats)",
+    "kana": "コングラッツ",
+    "romaji": "kongrattsu",
+    "type": "katakana",
+    "cat": "greetings"
+  },
+  {
+    "vn": "Cậu bé (Boy)",
+    "kana": "ボーイ",
+    "romaji": "booi",
+    "type": "katakana",
+    "cat": "people"
+  },
+  {
+    "vn": "Cô gái (Girl)",
+    "kana": "ガール",
+    "romaji": "gaaru",
+    "type": "katakana",
+    "cat": "people"
+  },
+  {
+    "vn": "Cặp đôi (Couple)",
+    "kana": "カップル",
+    "romaji": "kappuru",
+    "type": "katakana",
+    "cat": "people"
+  },
+  {
+    "vn": "Đội / Nhóm (Team)",
+    "kana": "チーム",
+    "romaji": "chiimu",
+    "type": "katakana",
+    "cat": "people"
+  },
+  {
+    "vn": "Đối tác (Partner)",
+    "kana": "パートナー",
+    "romaji": "paatonaa",
+    "type": "katakana",
+    "cat": "people"
+  },
+  {
+    "vn": "Mùa trong năm (Season)",
+    "kana": "シーズン",
+    "romaji": "shiizun",
+    "type": "katakana",
+    "cat": "time"
+  },
+  {
+    "vn": "Cuối tuần (Weekend)",
+    "kana": "ウィークエンド",
+    "romaji": "wiikuendo",
+    "type": "katakana",
+    "cat": "time"
+  },
+  {
+    "vn": "Thời gian (Time)",
+    "kana": "タイム",
+    "romaji": "taimu",
+    "type": "katakana",
+    "cat": "time"
+  },
+  {
+    "vn": "Giờ nghỉ giải lao (Break)",
+    "kana": "ブレイク",
+    "romaji": "bureiku",
+    "type": "katakana",
+    "cat": "time"
+  },
+  {
+    "vn": "Buổi hẹn hò (Date)",
+    "kana": "デート",
+    "romaji": "deeto",
+    "type": "katakana",
+    "cat": "time"
+  },
+  {
+    "vn": "Rừng nhiệt đới (Jungle)",
+    "kana": "ジャングル",
+    "romaji": "janguru",
+    "type": "katakana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Ốc đảo (Oasis)",
+    "kana": "オアシス",
+    "romaji": "oashisu",
+    "type": "katakana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Cơn bão tố (Storm)",
+    "kana": "ストーム",
+    "romaji": "sutoomu",
+    "type": "katakana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Ngôi sao (Star)",
+    "kana": "スター",
+    "romaji": "sutaa",
+    "type": "katakana",
+    "cat": "nature"
+  },
+  {
+    "vn": "Thất vọng (Shock)",
+    "kana": "ショック",
+    "romaji": "shokku",
+    "type": "katakana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Hưng phấn (Exciting)",
+    "kana": "エキサイト",
+    "romaji": "ekisaito",
+    "type": "katakana",
+    "cat": "feelings"
+  },
+  {
+    "vn": "Cảm xúc (Emotion)",
+    "kana": "エモーション",
+    "romaji": "emooshon",
+    "type": "katakana",
+    "cat": "feelings"
+  }
+];
+    // ==========================================
     // 2. LOCALSTORAGE KEYS & STATE
     // ==========================================
     const STORAGE_KEYS = {
@@ -2015,12 +6011,15 @@
       MISTAKES: "hiragana_mistakes",
       STATS: "hiragana_stats",
       MODE: "hiragana_mode",
-      NUMBER_RANGE: "hiragana_number_range"
+      NUMBER_RANGE: "hiragana_number_range",
+      VOCAB_CATEGORY: "hiragana_vocab_category"
     };
 
     let currentScript = "hiragana"; // "hiragana" | "katakana" | "mixed"
-    let currentMode = "random5"; // "random5" | "row5" | "single" | "custom" | "numbers"
+    let currentMode = "random5"; // "random5" | "row5" | "single" | "custom" | "numbers" | "vocab"
     let selectedNumberRange = "hundredMillions"; // "tens" | "thousands" | "tenThousands" | "millions" | "hundredMillions" | "all"
+    let selectedVocabCategory = "all";
+    let currentVocabQuestion = null;
     let currentNumber = 0;
     let currentNumberData = null;
     let includeDakuten = false;
@@ -2065,6 +6064,7 @@
         localStorage.setItem(STORAGE_KEYS.MISTAKES, JSON.stringify(mistakeFrequency));
         localStorage.setItem(STORAGE_KEYS.MODE, currentMode);
         localStorage.setItem(STORAGE_KEYS.NUMBER_RANGE, selectedNumberRange);
+        localStorage.setItem(STORAGE_KEYS.VOCAB_CATEGORY, selectedVocabCategory);
         localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify({ correctCount, wrongCount, totalRounds }));
       } catch (err) {
         console.warn("Không thể lưu localStorage:", err);
@@ -2106,13 +6106,18 @@
         }
 
         const savedMode = localStorage.getItem(STORAGE_KEYS.MODE);
-        if (savedMode && ["random5", "row5", "single", "custom", "numbers"].includes(savedMode)) {
+        if (savedMode && ["random5", "row5", "single", "custom", "numbers", "vocab"].includes(savedMode)) {
           currentMode = savedMode;
         }
 
         const savedRange = localStorage.getItem(STORAGE_KEYS.NUMBER_RANGE);
         if (savedRange && ["tens", "thousands", "tenThousands", "millions", "hundredMillions", "all"].includes(savedRange)) {
           selectedNumberRange = savedRange;
+        }
+
+        const savedVocabCat = localStorage.getItem(STORAGE_KEYS.VOCAB_CATEGORY);
+        if (savedVocabCat && (savedVocabCat === "all" || VOCAB_CATEGORIES[savedVocabCat])) {
+          selectedVocabCategory = savedVocabCat;
         }
 
         const savedStats = localStorage.getItem(STORAGE_KEYS.STATS);
@@ -2142,6 +6147,9 @@
       updateScriptUI();
       renderReferenceTable();
       renderPickerGrid();
+      if (typeof renderVocabTopicChips === "function") {
+        renderVocabTopicChips();
+      }
       nextQuestion();
 
       const scriptNames = {
@@ -2980,6 +6988,177 @@
     }
 
     // ==========================================
+    // 7C. HỆ THỐNG LUYỆN TỪ VỰNG TIẾNG NHẬT (238 TỪ)
+    // ==========================================
+    function getFilteredVocabPool(scriptFilter = currentScript, catFilter = selectedVocabCategory) {
+      return VOCAB_LIST.filter(item => {
+        if (scriptFilter === "hiragana" && item.type !== "hiragana") return false;
+        if (scriptFilter === "katakana" && item.type !== "katakana") return false;
+        if (catFilter !== "all" && item.cat !== catFilter) return false;
+        return true;
+      });
+    }
+
+    function generateVocabQuestion(scriptFilter = currentScript, catFilter = selectedVocabCategory) {
+      // 1. Xác định pool cho từ ĐỀ BÀI (TARGET): Luôn luôn tôn trọng đúng chủ đề người dùng đã chọn!
+      let targetPool = getFilteredVocabPool(scriptFilter, catFilter);
+
+      // Nếu chủ đề được chọn không có từ nào theo bộ chữ hiện tại (ví dụ chọn Katakana nhưng chủ đề đó chỉ có Hiragana),
+      // ưu tiên giữ ĐÚNG CHỦ ĐỀ đã chọn và lấy từ theo bộ chữ còn lại (mixed)
+      if (targetPool.length === 0 && catFilter !== "all") {
+        targetPool = getFilteredVocabPool("mixed", catFilter);
+      }
+
+      // Dự phòng an toàn nếu vẫn rỗng
+      if (targetPool.length === 0) {
+        targetPool = getFilteredVocabPool(scriptFilter, "all");
+      }
+      if (targetPool.length === 0) {
+        targetPool = VOCAB_LIST;
+      }
+
+      // Chọn TỪ ĐỀ BÀI từ targetPool (đảm bảo đúng chủ đề đã chọn)
+      const target = targetPool[Math.floor(Math.random() * targetPool.length)];
+
+      // 2. Tìm 3 đáp án gây nhiễu (DISTRACTORS):
+      const distractors = [];
+
+      // Ưu tiên 1: Lấy các từ khác CÙNG CHỦ ĐỀ và CÙNG LOẠI CHỮ (Hiragana/Katakana)
+      const sameCatSameType = VOCAB_LIST.filter(w => 
+        w.kana !== target.kana && w.type === target.type && w.cat === target.cat
+      ).sort(() => Math.random() - 0.5);
+
+      for (const cand of sameCatSameType) {
+        if (distractors.length >= 3) break;
+        if (!distractors.some(d => d.kana === cand.kana)) {
+          distractors.push(cand);
+        }
+      }
+
+      // Ưu tiên 2: Lấy các từ CÙNG LOẠI CHỮ từ các chủ đề khác nếu chưa đủ 3
+      if (distractors.length < 3) {
+        const sameTypeOthers = VOCAB_LIST.filter(w => 
+          w.kana !== target.kana && w.type === target.type && !distractors.some(d => d.kana === w.kana)
+        ).sort(() => Math.random() - 0.5);
+
+        for (const cand of sameTypeOthers) {
+          if (distractors.length >= 3) break;
+          distractors.push(cand);
+        }
+      }
+
+      // Ưu tiên 3: Dự phòng bất kỳ từ nào còn lại trong VOCAB_LIST nếu vẫn chưa đủ 3
+      if (distractors.length < 3) {
+        const fallbackCandidates = VOCAB_LIST.filter(w => 
+          w.kana !== target.kana && !distractors.some(d => d.kana === w.kana)
+        ).sort(() => Math.random() - 0.5);
+
+        for (const fb of fallbackCandidates) {
+          if (distractors.length >= 3) break;
+          distractors.push(fb);
+        }
+      }
+
+      const options = [target, ...distractors].sort(() => Math.random() - 0.5);
+      const correctIndex = options.findIndex(o => o.kana === target.kana);
+
+      return {
+        target,
+        options,
+        correctIndex
+      };
+    }
+
+    function renderVocabTopicChips() {
+      const container = document.getElementById("vocabTopicChips");
+      const badge = document.getElementById("vocabPoolCountBadge");
+      if (!container) return;
+
+      const currentPool = getFilteredVocabPool(currentScript, "all");
+      if (badge) {
+        const scriptName = currentScript === 'katakana' ? 'Katakana' : currentScript === 'hiragana' ? 'Hiragana' : 'Cả hai';
+        badge.textContent = `${currentPool.length} từ (${scriptName})`;
+      }
+
+      container.innerHTML = "";
+      Object.keys(VOCAB_CATEGORIES).forEach(catKey => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `topic-chip ${selectedVocabCategory === catKey ? 'active' : ''}`;
+        
+        let countText = "";
+        if (catKey === "all") {
+          countText = ` (${currentPool.length})`;
+        } else {
+          const catCount = currentPool.filter(w => w.cat === catKey).length;
+          countText = ` (${catCount})`;
+        }
+
+        btn.textContent = `${VOCAB_CATEGORIES[catKey]}${countText}`;
+        btn.onclick = () => setVocabCategory(catKey);
+        container.appendChild(btn);
+      });
+    }
+
+    function setVocabCategory(catKey) {
+      selectedVocabCategory = catKey;
+      saveToStorage();
+      renderVocabTopicChips();
+      if (currentMode === "vocab") {
+        nextQuestion({ focus: false });
+      }
+      showToast(`🎯 Chủ đề: ${VOCAB_CATEGORIES[catKey] || catKey}`);
+    }
+
+    function selectVocabChoice(choiceIdx) {
+      if (answered || !currentVocabQuestion) return;
+
+      const isCorrect = (choiceIdx === currentVocabQuestion.correctIndex);
+      const chosenCard = document.getElementById(`vocabOpt-${choiceIdx}`);
+      const correctCard = document.getElementById(`vocabOpt-${currentVocabQuestion.correctIndex}`);
+
+      // Disable all cards to prevent multiple clicks
+      document.querySelectorAll(".vocab-choice-card").forEach(c => {
+        c.disabled = true;
+      });
+
+      if (isCorrect) {
+        if (chosenCard) chosenCard.classList.add("correct");
+        feedbackElement.textContent = `🎉 Chính xác! ${currentVocabQuestion.target.vn} = ${currentVocabQuestion.target.kana} (${currentVocabQuestion.target.romaji})`;
+        feedbackElement.className = "feedback correct";
+        correctCount++;
+      } else {
+        if (chosenCard) chosenCard.classList.add("wrong");
+        if (correctCard) correctCard.classList.add("reveal-correct");
+        feedbackElement.textContent = `✗ Chưa chính xác. Đáp án đúng là: ${currentVocabQuestion.target.kana} (${currentVocabQuestion.target.romaji})`;
+        feedbackElement.className = "feedback wrong";
+        wrongCount++;
+        answerInput.classList.remove("shake-input");
+        void answerInput.offsetWidth;
+        answerInput.classList.add("shake-input");
+      }
+
+      const detailBox = document.getElementById("vocabDetailBox");
+      if (detailBox) {
+        detailBox.style.display = "block";
+        detailBox.innerHTML = `
+          <div class="vocab-detail-kana">🇯🇵 ${currentVocabQuestion.target.kana}</div>
+          <div class="vocab-detail-romaji">🔤 ${currentVocabQuestion.target.romaji}</div>
+          <div class="vocab-detail-vn">🇻🇳 ${currentVocabQuestion.target.vn}</div>
+        `;
+      }
+
+      speakKana(currentVocabQuestion.target.kana);
+      totalRounds++;
+      answered = true;
+      lastActionTime = Date.now();
+      updateStats();
+      saveToStorage();
+      if (typeof updateActionButtons === "function") updateActionButtons();
+      answerInput.focus({ preventScroll: true });
+    }
+
+    // ==========================================
     // 8. GENERATE QUESTION (HỖ TRỢ CHẾ ĐỘ CUSTOM LOOP)
     // ==========================================
     function nextQuestion(options = {}) {
@@ -3012,6 +7191,46 @@
               ${renderNumberBreakdownHTML(currentNumber)}
             </div>
             <div class="number-detail-box" id="numberDetailBox" style="display: none;"></div>
+          </div>
+        `;
+        return;
+      }
+
+      if (currentMode === "vocab") {
+        cardBox.classList.remove("single-mode");
+        currentVocabQuestion = generateVocabQuestion(currentScript, selectedVocabCategory);
+        currentCluster = [];
+
+        const catName = VOCAB_CATEGORIES[currentVocabQuestion.target.cat] || "Chủ đề";
+        const scriptName = currentVocabQuestion.target.type === "katakana" ? "Katakana" : "Hiragana";
+        questionLabel.innerHTML = `
+          <div class="vocab-badge-row">
+            <span class="vocab-tag-pill">${catName}</span>
+            <span class="vocab-type-pill ${currentVocabQuestion.target.type}">${scriptName}</span>
+          </div>
+        `;
+        formatHint.innerHTML = `💡 Nhấp chọn đáp án hoặc nhấn phím <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>. Nhấn <code>Enter</code> để qua câu kế tiếp!`;
+        answerInput.placeholder = "Chọn đáp án 1-4 hoặc gõ romaji/kana...";
+
+        let optionsHtml = '';
+        currentVocabQuestion.options.forEach((opt, idx) => {
+          optionsHtml += `
+            <button type="button" class="vocab-choice-card" id="vocabOpt-${idx}" onclick="selectVocabChoice(${idx})">
+              <span class="vocab-card-index">${idx + 1}</span>
+              <span class="vocab-card-kana">${opt.kana}</span>
+              <span class="vocab-card-romaji">${opt.romaji}</span>
+            </button>
+          `;
+        });
+
+        clusterContainer.innerHTML = `
+          <div class="vocab-question-container">
+            <div class="vocab-vn-title">${currentVocabQuestion.target.vn}</div>
+            <div class="vocab-sub-prompt">Chọn từ tiếng Nhật tương ứng (${scriptName}):</div>
+            <div class="vocab-cards-grid" id="vocabCardsGrid">
+              ${optionsHtml}
+            </div>
+            <div class="vocab-detail-box" id="vocabDetailBox" style="display: none;"></div>
           </div>
         `;
         return;
@@ -3246,6 +7465,41 @@
         return;
       }
 
+      if (currentMode === "vocab") {
+        if (!currentVocabQuestion) return;
+        const rawInput = answerInput.value.trim().toLowerCase();
+
+        // 1. Nhập số thứ tự thẻ 1, 2, 3, 4
+        if (/^[1-4]$/.test(rawInput)) {
+          const choiceIdx = parseInt(rawInput, 10) - 1;
+          selectVocabChoice(choiceIdx);
+          return;
+        }
+
+        // 2. Nhập từ tương ứng (kana hoặc romaji) khớp với 1 trong 4 lựa chọn
+        if (rawInput) {
+          const clean = rawInput.replace(/[\s\-_,・.]+/g, "");
+          const matchedIdx = currentVocabQuestion.options.findIndex(opt => {
+            const optKana = opt.kana.replace(/[\s\-_,・.]+/g, "");
+            const optRomaji = opt.romaji.toLowerCase().replace(/[\s\-_,・.]+/g, "");
+            return optKana === clean || optRomaji === clean;
+          });
+          if (matchedIdx !== -1) {
+            selectVocabChoice(matchedIdx);
+            return;
+          }
+        }
+
+        // 3. Chưa chọn đáp án
+        feedbackElement.textContent = "Vui lòng chọn 1 trong 4 đáp án (hoặc nhấn phím 1 - 4 trên bàn phím).";
+        feedbackElement.className = "feedback wrong";
+        answerInput.classList.remove("shake-input");
+        void answerInput.offsetWidth;
+        answerInput.classList.add("shake-input");
+        answerInput.focus({ preventScroll: true });
+        return;
+      }
+
       const rawInput = answerInput.value.trim().toLowerCase();
       if (!rawInput) {
         feedbackElement.textContent = "Vui lòng nhập đáp án của bạn.";
@@ -3458,6 +7712,34 @@
         return;
       }
 
+      if (currentMode === "vocab") {
+        if (!currentVocabQuestion) return;
+        const correctCard = document.getElementById(`vocabOpt-${currentVocabQuestion.correctIndex}`);
+        if (correctCard) correctCard.classList.add("reveal-correct");
+        document.querySelectorAll(".vocab-choice-card").forEach(c => {
+          c.disabled = true;
+        });
+
+        const detailBox = document.getElementById("vocabDetailBox");
+        if (detailBox) {
+          detailBox.style.display = "block";
+          detailBox.innerHTML = `
+            <div class="vocab-detail-kana">🇯🇵 ${currentVocabQuestion.target.kana}</div>
+            <div class="vocab-detail-romaji">🔤 ${currentVocabQuestion.target.romaji}</div>
+            <div class="vocab-detail-vn">🇻🇳 ${currentVocabQuestion.target.vn}</div>
+          `;
+        }
+
+        feedbackElement.textContent = `Đáp án đúng: ${currentVocabQuestion.target.kana} (${currentVocabQuestion.target.romaji}) = ${currentVocabQuestion.target.vn}`;
+        feedbackElement.className = "feedback";
+        answered = true;
+        lastActionTime = Date.now();
+        if (typeof updateActionButtons === "function") updateActionButtons();
+        answerInput.focus({ preventScroll: true });
+        speakKana(currentVocabQuestion.target.kana);
+        return;
+      }
+
       currentCluster.forEach((item, index) => {
         const tile = document.getElementById(`tile-${index}`);
         if (tile) {
@@ -3488,6 +7770,12 @@
       if (currentMode === "numbers") {
         if (currentNumberData && currentNumberData.hira) {
           speakKana(currentNumberData.hira);
+        }
+        return;
+      }
+      if (currentMode === "vocab") {
+        if (currentVocabQuestion && currentVocabQuestion.target && currentVocabQuestion.target.kana) {
+          speakKana(currentVocabQuestion.target.kana);
         }
         return;
       }
@@ -3529,18 +7817,29 @@
       document.getElementById("modeSingle").classList.toggle("active", mode === "single");
       document.getElementById("modeCustom").classList.toggle("active", mode === "custom");
       document.getElementById("modeNumbers").classList.toggle("active", mode === "numbers");
+      const modeVocabBtn = document.getElementById("modeVocab");
+      if (modeVocabBtn) modeVocabBtn.classList.toggle("active", mode === "vocab");
 
       const numberRangeBar = document.getElementById("numberRangeBar");
+      const vocabTopicBar = document.getElementById("vocabTopicBar");
       const customToggleBar = document.querySelector(".custom-toggle-bar");
       const customManagerPanel = document.getElementById("customManagerPanel");
 
       if (mode === "numbers") {
         if (numberRangeBar) numberRangeBar.style.display = "block";
+        if (vocabTopicBar) vocabTopicBar.style.display = "none";
         if (customToggleBar) customToggleBar.style.display = "none";
         if (customManagerPanel) customManagerPanel.style.display = "none";
         updateRangeChipsUI();
+      } else if (mode === "vocab") {
+        if (numberRangeBar) numberRangeBar.style.display = "none";
+        if (vocabTopicBar) vocabTopicBar.style.display = "block";
+        if (customToggleBar) customToggleBar.style.display = "none";
+        if (customManagerPanel) customManagerPanel.style.display = "none";
+        renderVocabTopicChips();
       } else {
         if (numberRangeBar) numberRangeBar.style.display = "none";
+        if (vocabTopicBar) vocabTopicBar.style.display = "none";
         if (customToggleBar) customToggleBar.style.display = "block";
       }
 
@@ -3564,6 +7863,16 @@
       document.getElementById("modeRow5").classList.add("active");
       document.getElementById("modeSingle").classList.remove("active");
       document.getElementById("modeCustom").classList.remove("active");
+      document.getElementById("modeNumbers").classList.remove("active");
+      const modeVocabBtn = document.getElementById("modeVocab");
+      if (modeVocabBtn) modeVocabBtn.classList.remove("active");
+
+      const numberRangeBar = document.getElementById("numberRangeBar");
+      if (numberRangeBar) numberRangeBar.style.display = "none";
+      const vocabTopicBar = document.getElementById("vocabTopicBar");
+      if (vocabTopicBar) vocabTopicBar.style.display = "none";
+      const customToggleBar = document.querySelector(".custom-toggle-bar");
+      if (customToggleBar) customToggleBar.style.display = "block";
 
       cardBox.classList.remove("single-mode");
       currentCluster = [...row.items];
@@ -3701,6 +8010,18 @@
         } else {
           nextQuestion();
         }
+        return;
+      }
+
+      // Hỗ trợ chọn nhanh bằng phím số 1, 2, 3, 4 trong chế độ Luyện từ vựng
+      if (currentMode === "vocab" && !answered && ["1", "2", "3", "4"].includes(event.key)) {
+        if (event.target && event.target.id === "customWordInput") {
+          return;
+        }
+        event.preventDefault();
+        const choiceIdx = parseInt(event.key, 10) - 1;
+        selectVocabChoice(choiceIdx);
+        return;
       }
     });
 
@@ -3733,14 +8054,28 @@
     document.getElementById("modeSingle").classList.toggle("active", currentMode === "single");
     document.getElementById("modeCustom").classList.toggle("active", currentMode === "custom");
     document.getElementById("modeNumbers").classList.toggle("active", currentMode === "numbers");
+    const modeVocabBtn = document.getElementById("modeVocab");
+    if (modeVocabBtn) modeVocabBtn.classList.toggle("active", currentMode === "vocab");
+
+    const numberRangeBar = document.getElementById("numberRangeBar");
+    const vocabTopicBar = document.getElementById("vocabTopicBar");
+    const customToggleBar = document.querySelector(".custom-toggle-bar");
 
     if (currentMode === "numbers") {
-      const numberRangeBar = document.getElementById("numberRangeBar");
       if (numberRangeBar) numberRangeBar.style.display = "block";
-      const customToggleBar = document.querySelector(".custom-toggle-bar");
+      if (vocabTopicBar) vocabTopicBar.style.display = "none";
       if (customToggleBar) customToggleBar.style.display = "none";
+    } else if (currentMode === "vocab") {
+      if (numberRangeBar) numberRangeBar.style.display = "none";
+      if (vocabTopicBar) vocabTopicBar.style.display = "block";
+      if (customToggleBar) customToggleBar.style.display = "none";
+    } else {
+      if (numberRangeBar) numberRangeBar.style.display = "none";
+      if (vocabTopicBar) vocabTopicBar.style.display = "none";
+      if (customToggleBar) customToggleBar.style.display = "block";
     }
     updateRangeChipsUI();
+    renderVocabTopicChips();
 
     updateStats();
     updateCustomCountUI();

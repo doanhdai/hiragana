@@ -24,7 +24,30 @@
     - Hiển thị trực quan cấu trúc phân tách cụm 4 chữ số đặc trưng của tiếng Nhật (億 `oku`, 万 `man`, đơn vị).
     - Hỗ trợ đầy đủ các biến âm và quy tắc đọc đặc biệt trong tiếng Nhật (300 さんびゃく, 600 ろっぴゃく, 800 はっぴゃく, 3.000 さんぜん, 8.000 はっせん, 10.000 いちまん, 10.000.000 いっせんまん, 100.000.000 いちおく, v.v.).
     - Tích hợp phát âm chuẩn tiếng Nhật (🔊 Text-to-Speech) cho toàn bộ chuỗi số.
-- **Hệ thống chấm điểm & phản hồi thông minh**:
+  - **📚 Luyện từ vựng tiếng Nhật (Trắc nghiệm Tiếng Việt → Hiragana & Katakana)**:
+    - Kho từ vựng đồ sộ gồm **hơn 520 từ thông dụng** (363 Hiragana & 160 Katakana) trải rộng qua **16 chủ đề quen thuộc**:
+      - 💼 **Nghề nghiệp & Công việc** (`せんせい`, `いしゃ`, `かいしゃいん`, `エンジニア`, `パイロット`, `デザイナー`, `プログラマー`...)
+      - 💬 **Chào hỏi & Giao tiếp** (`おはよう`, `ありがとう`, `こんにちは`, `おつかれさま`, `いただきます`...)
+      - 👨‍👩‍👧 **Gia đình & Con người** (`かぞく`, `おとうさん`, `おかあさん`, `ともだち`, `おとこのこ`...)
+      - 🐱 **Động vật** (`ねこ`, `いぬ`, `とり`, `パンダ`, `ライオン`, `ペンギン`, `イルカ`...)
+      - 🍱 **Đồ ăn & Đồ uống** (`ごはん`, `みず`, `おちゃ`, `ラーメン`, `コーヒー`, `ピザ`, `カレー`...)
+      - 🎒 **Đồ vật & Học tập** (`ほん`, `えんぴつ`, `ノート`, `テレビ`, `パソコン`, `スマホ`...)
+      - 🏠 **Nhà cửa & Đồ gia dụng** (`つくえ`, `いす`, `れいぞうこ`, `ベッド`, `ドア`, `カーテン`...)
+      - 🏫 **Địa điểm & Du lịch** (`がっこう`, `へや`, `ホテル`, `レストラン`, `びじゅつかん`, `じんじゃ`...)
+      - ⏰ **Thời gian & Các mùa** (`きょう`, `あした`, `はる`, `なつ`, `げつようび`, `こんしゅう`...)
+      - 🌸 **Thiên nhiên & Thời tiết** (`あめ`, `ゆき`, `はな`, `やま`, `たいよう`, `たいふう`...)
+      - 🎨 **Màu sắc & Tính từ** (`あか`, `あお`, `しろ`, `かわいい`, `たのしい`, `おいしい`, `べんり`...)
+      - 🏃 **Động từ thông dụng** (`たべる`, `のむ`, `よむ`, `かく`, `いく`, `くる`, `ねる`, `おきる`...)
+      - 😊 **Cảm xúc & Tâm trạng** (`うれしい`, `かなしい`, `びっくり`, `わくわく`, `しんぱい`, `ストレス`...)
+      - 🚗 **Phương tiện giao thông** (`くるま`, `でんしゃ`, `しんかんせん`, `バス`, `タクシー`, `ひこうき`...)
+      - 👤 **Cơ thể & Quần áo** (`め`, `みみ`, `かお`, `あたま`, `シャツ`, `ズボン`, `スニーカー`...)
+      - ⚽ **Hoạt động & Giải trí** (`べんきょう`, `りょこう`, `サッカー`, `テニス`, `アニメ`, `マンガ`, `カラオケ`...)
+    - **Hoàn toàn bằng chữ Kana thuần** (Hiragana và Katakana), không có chữ Hán (Kanji) giúp người học rèn luyện phản xạ đọc chữ mượt mà trong ngữ cảnh từ vựng thực tế.
+    - Đề bài hiển thị nghĩa Tiếng Việt kèm tag chủ đề và loại chữ (Hiragana/Katakana), người học chọn 1 trong 4 thẻ từ tiếng Nhật tương ứng.
+    - **Bộ lọc chủ đề trực quan**: Lọc theo từng chủ đề hoặc chọn "Tất cả chủ đề", đồng thời tự động lọc theo bộ chữ đang chọn (Hiragana / Katakana / Cả hai).
+    - **Thao tác cực nhanh bằng bàn phím**: Bấm phím số `1`, `2`, `3`, `4` để chọn ngay thẻ đáp án không cần dùng chuột, nhấn `Enter` để chuyển qua câu kế tiếp.
+    - Tự động phát âm chuẩn bản ngữ (🔊 SpeechSynthesis) khi chọn đáp án hoặc xem giải thích chi tiết.
+  - **Hệ thống chấm điểm & phản hồi thông minh**:
   - Gõ cách nhau bằng dấu cách (vd: `a ka sa ta na`) hoặc viết liền (vd: `akasatana`).
   - Đánh dấu đúng/sai chi tiết trên từng ô chữ kèm hiển thị romaji chuẩn.
 - **Phát âm âm thanh (Audio Text-to-Speech)**: Bấm vào từng chữ hoặc nút loa 🔊 để nghe phát âm tiếng Nhật chuẩn bản ngữ cho cả Hiragana và Katakana.
